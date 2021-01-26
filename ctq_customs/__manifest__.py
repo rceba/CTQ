@@ -12,6 +12,9 @@
     'summary': """
         Module add custom flows for CTQ
         """,
-    'depends': ['base'],
-    'data': [],
+    'depends': ['web'],
+    'data': [
+        'data/res_gruops_data.xml',
+        'views/templates.xml',
+    ],
 }
