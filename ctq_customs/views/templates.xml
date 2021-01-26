@@ -1,0 +1,8 @@
+<odoo>
+    <template id="assets_backend" inherit_id="web.assets_backend"
+              name="CTQ Customs Common Assets">
+        <xpath expr="." position="inside">
+            <script type="text/javascript" src="/ctq_customs/static/src/js/switch_company_menu.js"></script>
+        </xpath>
+    </template>
+</odoo>
