@@ -1,3 +1,4 @@
 inflect
 pyasn1
+pyOpenSSL
 ndg
