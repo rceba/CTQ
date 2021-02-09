@@ -1,4 +1,2 @@
-inflect
-pyasn1
-pyOpenSSL
-ndg
+inflect==5.0.2
+ndg-httpsclient==0.4.4
