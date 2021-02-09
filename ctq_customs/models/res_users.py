@@ -9,20 +9,20 @@ class ResUsers(models.Model):
     _inherit = 'res.users'
 
     @api.model
-    def reload_mx_group(self, companies):
+    def reload_mx_group(self, companyID):
         user = self.env.user
         has_mx = False
 
-        for company in self.env['res.company'].browse(companies):
+        for company in self.env['res.company'].browse(companyID):
             if company.country_id == self.env.ref('base.mx'):
                 has_mx = True
         if has_mx and not self.user_has_groups(
                 'ctq_customs.group_account_l10n_mx'):
-            self.env.user.groups_id += self.env.ref(
+            user.groups_id += self.env.ref(
                 'ctq_customs.group_account_l10n_mx')
         elif not has_mx and self.user_has_groups(
                 'ctq_customs.group_account_l10n_mx'):
-            self.env.user.write({
+            user.write({
                 'groups_id': [(3, self.env.ref(
                     'ctq_customs.group_account_l10n_mx').id)]
             })
