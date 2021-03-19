@@ -12,8 +12,14 @@
     'summary': """
         Module add custom flows for CTQ
         """,
-    'depends': ['web', 'l10n_mx_edi'],
+    'depends': [
+        'web',
+        'l10n_mx_edi',
+        'l10n_mx_reports',
+    ],
     'data': [
+        'report/report_invoice.xml',
+        'report/sale_report_templates.xml',
         'data/res_groups_data.xml',
         'views/templates.xml',
         'views/views.xml',
