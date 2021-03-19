@@ -12,6 +12,6 @@
     'summary': """
         Module to avoid the override of the date_order field
         """,
-    'depends': ['sale'],
+    'depends': ['sale_margin'],
     'data': [],
 }

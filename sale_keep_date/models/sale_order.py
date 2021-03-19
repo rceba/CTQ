@@ -37,3 +37,21 @@ class SaleOrder(models.Model):
         if self.env.user.has_group('sale.group_auto_done_setting'):
             self.action_done()
         return True
+
+
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    def _compute_margin(self, order_id, product_id, product_uom_id):
+        price = 0
+        for line in self:
+            supplierinfo_id = product_id._select_seller(
+                quantity=line.product_uom_qty,
+                date=order_id.date_order,
+                uom_id=product_uom_id
+            )
+            if supplierinfo_id:
+                price = supplierinfo_id.price
+        print('################')
+        print(supplierinfo_id)
+        return price
