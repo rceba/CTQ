@@ -52,6 +52,4 @@ class SaleOrderLine(models.Model):
             )
             if supplierinfo_id:
                 price = supplierinfo_id.price
-        print('################')
-        print(supplierinfo_id)
         return price
