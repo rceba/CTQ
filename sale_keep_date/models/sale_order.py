@@ -51,5 +51,12 @@ class SaleOrderLine(models.Model):
                 uom_id=product_uom_id
             )
             if supplierinfo_id:
-                price = supplierinfo_id.price
+                frm_cur = supplierinfo_id.currency_id
+                to_cur = order_id.pricelist_id.currency_id
+                price = frm_cur._convert(
+                    supplierinfo_id.price,
+                    to_cur,
+                    order_id.company_id or self.env.company,
+                    order_id.date_order or fields.Date.today()
+                )
         return price
