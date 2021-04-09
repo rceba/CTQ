@@ -12,7 +12,6 @@ class AccountMove(models.Model):
 
         for move in self.filtered(lambda move: move.is_invoice()):
             for line in move.line_ids:
-                print("#########################")
                 if line.l10n_mx_edi_customs_number:
                     name = line.l10n_mx_edi_customs_number.split(',')
                     landed_cost = self.env['stock.landed.cost'].sudo().search([
