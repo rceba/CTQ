@@ -37,3 +37,26 @@ class SaleOrder(models.Model):
         if self.env.user.has_group('sale.group_auto_done_setting'):
             self.action_done()
         return True
+
+
+class SaleOrderLine(models.Model):
+    _inherit = "sale.order.line"
+
+    def _compute_margin(self, order_id, product_id, product_uom_id):
+        price = 0
+        for line in self:
+            supplierinfo_id = product_id._select_seller(
+                quantity=line.product_uom_qty,
+                date=order_id.date_order,
+                uom_id=product_uom_id
+            )
+            if supplierinfo_id:
+                frm_cur = supplierinfo_id.currency_id
+                to_cur = order_id.pricelist_id.currency_id
+                price = frm_cur._convert(
+                    supplierinfo_id.price,
+                    to_cur,
+                    order_id.company_id or self.env.company,
+                    order_id.date_order or fields.Date.today()
+                )
+        return price
