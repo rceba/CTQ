@@ -16,9 +16,13 @@
         'web',
         'l10n_mx_edi',
         'l10n_mx_edi_landing',
+        'l10n_mx_reports',
     ],
     'data': [
+        'report/report_invoice.xml',
+        'report/sale_report_templates.xml',
         'data/res_groups_data.xml',
+        'views/report_templates.xml',
         'views/templates.xml',
         'views/views.xml',
     ],
