@@ -30,9 +30,9 @@
         </record>
         
         <!-- certificate_view -->
-        <record id="l10n_mx_edi.certificate_list_action" model="ir.ui.view">
-            <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
-        </record>
+        <!--<record id="l10n_mx_edi.certificate_list_action" model="ir.ui.view">-->
+        <!--    <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>-->
+        <!--</record>-->
         <record id="l10n_mx_edi.certificate_form_view" model="ir.ui.view">
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
         </record>
@@ -55,9 +55,9 @@
         <record id="l10n_mx_edi.view_l10n_mx_payment_method_tree" model="ir.ui.view">
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
         </record>
-        <record id="l10n_mx_edi.action_l10n_mx_payment_method" model="ir.ui.view">
-            <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
-        </record>
+        <!--<record id="l10n_mx_edi.action_l10n_mx_payment_method" model="ir.ui.view">-->
+        <!--    <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>-->
+        <!--</record>-->
         
         <!-- product_view -->
         <record id="l10n_mx_edi.view_prod_form_inh_l10n_mx" model="ir.ui.view">

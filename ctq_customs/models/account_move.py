@@ -18,4 +18,4 @@ class AccountMove(models.Model):
                         ('l10n_mx_edi_customs_number', 'in', name),
                     ])
                     if landed_cost:
-                        line.name += " [Fecha documento aduanero: {}]".format(landed_cost.date)
+                        line.name = line.product_id.description_sale + " [Fecha documento aduanero: {}]".format(landed_cost.date)
