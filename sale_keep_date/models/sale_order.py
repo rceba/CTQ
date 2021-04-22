@@ -44,10 +44,11 @@ class SaleOrderLine(models.Model):
 
     def _compute_margin(self, order_id, product_id, product_uom_id):
         price = 0
+        date = dateutil.parser.parse(str(order_id.date_order)).date()
         for line in self:
             supplierinfo_id = product_id._select_seller(
                 quantity=line.product_uom_qty,
-                date=order_id.date_order,
+                date=date,
                 uom_id=product_uom_id
             )
             if supplierinfo_id:
@@ -57,6 +58,6 @@ class SaleOrderLine(models.Model):
                     supplierinfo_id.price,
                     to_cur,
                     order_id.company_id or self.env.company,
-                    order_id.date_order or fields.Date.today()
+                    date or fields.Date.today()
                 )
         return price
