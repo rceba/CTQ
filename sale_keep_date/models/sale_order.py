@@ -44,7 +44,7 @@ class SaleOrderLine(models.Model):
 
     def _compute_margin(self, order_id, product_id, product_uom_id):
         price = 0
-        date = dateutil.parser.parse(str(order_id.date_order)).date()
+        date = order_id.date_order.date()
         for line in self:
             supplierinfo_id = product_id._select_seller(
                 quantity=line.product_uom_qty,
