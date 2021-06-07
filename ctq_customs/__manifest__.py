@@ -24,6 +24,7 @@
         'data/res_groups_data.xml',
         'views/report_templates.xml',
         'views/templates.xml',
+        # 'views/utm_campaign.xml',
         'views/views.xml',
     ],
 }
