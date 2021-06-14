@@ -29,13 +29,13 @@ class AccountMove(models.Model):
                         if lot['product_name'] == line.product_id.display_name:
                             string = " [Número de Lote: {}]".format(lot['lot_name'])
                             if landed_cost:
-                                line.name += " -" + string
+                                line.name = (line.name or '') + " -" + string
                             else:
                                 line.name = product_name + string
                 if move.ref:
                     string = " [Referencia: {}]".format(move.ref)
                     if landed_cost or lots:
-                        line.name += " -" + string
+                        line.name = (line.name or '') + " -" + string
                     else:
                         line.name = product_name + string
 
