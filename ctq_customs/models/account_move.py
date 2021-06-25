@@ -7,7 +7,7 @@ from odoo import api, models, fields
 class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
-    description = fields.Char()
+    description = fields.Char(string="Notes")
 
 
 class AccountMove(models.Model):

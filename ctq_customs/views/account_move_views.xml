@@ -16,7 +16,7 @@
                     <field name="description"/>
                 </xpath>
                 <xpath expr="//field[@name='invoice_line_ids']//field[@name='name']" position="attributes">
-                    <attribute name="invisible">1</attribute>
+                    <attribute name="readonly">1</attribute>
                 </xpath>
             </field>
         </record>
