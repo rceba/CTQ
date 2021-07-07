@@ -48,7 +48,7 @@ class SaleOrderLine(models.Model):
         for line in self:
             supplierinfo_id = product_id._select_seller(
                 quantity=line.product_uom_qty,
-                date=date,
+                date=order_id.date_order and date,
                 uom_id=product_uom_id
             )
             if supplierinfo_id:
