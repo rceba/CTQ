@@ -19,6 +19,8 @@ class AccountMove(models.Model):
             lots = move._get_invoiced_lot_values()
             move.state = 'draft'
             for line in move.line_ids:
+                if line.display_type in ('line_section', 'line_note'):
+                    continue
                 landed_cost = False
                 product_name = ""
                 if line.description:
@@ -39,10 +41,11 @@ class AccountMove(models.Model):
                     for lot in lots:
                         if lot['product_name'] == line.product_id.display_name:
                             string += str(lot['lot_name']) + ", "#" [Número de Lote: {}]".format(lot['lot_name'])
-                    string = string[:-2] + "]"
-                    if landed_cost:
-                        line.name += " -"
-                    line.name += string
+                    if string != " [Número(s) de Lote: ":
+                        string = string[:-2] + "]"
+                        if landed_cost:
+                            line.name += " -"
+                        line.name += string
                 if move.ref:
                     string = " [Referencia: {}]".format(move.ref)
                     if landed_cost or lots:
