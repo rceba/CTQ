@@ -8,10 +8,16 @@
             <t t-set="line_count" t-value="1"/>
         </xpath>
         <xpath expr="//t[@t-foreach='lines']" position="inside">
-            <t t-set="line_count" t-value="line_count + 1"/>
+            <t t-if="!line.display_type">
+                <t t-set="line_count" t-value="line_count + 1"/>
+            </t>
         </xpath>
         <xpath expr="//td[@name='account_invoice_line_name']" position="before">
-            <td name="td_line_count"><span t-esc="line_count"/></td>
+            <td name="td_line_count">
+                <t t-if="!line.display_type">
+                    <span t-esc="line_count"/>
+                </t>
+            </td>
         </xpath>
     </template>
 </odoo>
