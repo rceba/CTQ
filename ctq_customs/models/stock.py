@@ -17,6 +17,7 @@ class InventoryLine(models.Model):
                 ('inventory_id', '=', line.inventory_id.id),
                 ('inventory_id.state', '=', 'draft'),
             ]
+            print("########################")
             existings = self.search_count(domain)
             if existings:
                 raise UserError(_("There is already one inventory adjustment line for this product,"
