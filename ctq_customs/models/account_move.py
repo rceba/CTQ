@@ -12,6 +12,67 @@ class AccountMoveLine(models.Model):
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
+    
+    amount_untaxed_mxn = fields.Monetary(string='Untaxed Amount (MXN)', store=True, readonly=True,
+        compute='_compute_amount_cur')
+    amount_tax_mxn = fields.Monetary(string='Tax (MXN)', store=True, readonly=True,
+        compute='_compute_amount_cur')
+    amount_total_mxn = fields.Monetary(string='Total (MXN)', store=True, readonly=True,
+        compute='_compute_amount_cur')
+    
+    amount_untaxed_usd = fields.Monetary(string='Untaxed Amount (USD)', store=True, readonly=True,
+        compute='_compute_amount_cur')
+    amount_tax_usd = fields.Monetary(string='Tax (USD)', store=True, readonly=True,
+        compute='_compute_amount_cur')
+    amount_total_usd = fields.Monetary(string='Total (USD)', store=True, readonly=True,
+        compute='_compute_amount_cur')
+
+    @api.depends('amount_untaxed', 'amount_tax', 'amount_total')
+    @api.onchange('amount_untaxed', 'amount_tax', 'amount_total')
+    def _compute_amount_cur(self):
+        for invoice in self:
+            frm_cur = invoice.currency_id
+            to_cur = self.env.ref('base.MXN')
+
+            invoice.amount_untaxed_mxn = frm_cur._convert(
+                invoice.amount_untaxed,
+                to_cur,
+                invoice.company_id or self.env.company,
+                invoice.date or fields.Date.today()
+            )
+            invoice.amount_tax_mxn = frm_cur._convert(
+                invoice.amount_tax,
+                to_cur,
+                invoice.company_id or self.env.company,
+                invoice.date or fields.Date.today()
+            )
+            invoice.amount_total_mxn = frm_cur._convert(
+                invoice.amount_total,
+                to_cur,
+                invoice.company_id or self.env.company,
+                invoice.date or fields.Date.today()
+            )
+
+            to_cur = self.env.ref('base.USD')
+
+            invoice.amount_untaxed_usd = frm_cur._convert(
+                invoice.amount_untaxed,
+                to_cur,
+                invoice.company_id or self.env.company,
+                invoice.date or fields.Date.today()
+            )
+            invoice.amount_tax_usd = frm_cur._convert(
+                invoice.amount_tax,
+                to_cur,
+                invoice.company_id or self.env.company,
+                invoice.date or fields.Date.today()
+            )
+            invoice.amount_total_usd = frm_cur._convert(
+                invoice.amount_total,
+                to_cur,
+                invoice.company_id or self.env.company,
+                invoice.date or fields.Date.today()
+            )
 
     def post(self):
         for move in self.filtered(lambda move: move.is_invoice()):
