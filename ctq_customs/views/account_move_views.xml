@@ -20,5 +20,23 @@
                 </xpath>
             </field>
         </record>
+        
+        
+
+        <record id="view_move_line_pivot_ctq" model="ir.ui.view">
+            <field name="name">account.move.pivot.ctq</field>
+            <field name="model">account.move</field>
+            <field name="arch" type="xml">
+                <pivot string="Currency">
+                    <field name="amount_untaxed_mxn" type="measure"/>
+                    <field name="amount_tax_mxn" type="measure"/>
+                    <field name="amount_total_mxn" type="measure"/>
+
+                    <field name="amount_untaxed_usd" type="measure"/>
+                    <field name="amount_tax_usd" type="measure"/>
+                    <field name="amount_total_usd" type="measure"/>
+                </pivot>
+            </field>
+        </record>
     </data>
 </odoo>
