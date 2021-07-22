@@ -42,19 +42,19 @@ class AccountMove(models.Model):
                 invoice.amount_untaxed,
                 to_cur,
                 invoice.company_id or self.env.company,
-                date or fields.Date.today()
+                invoice.date or fields.Date.today()
             )
             invoice.amount_tax_usd = frm_cur._convert(
                 invoice.amount_tax,
                 to_cur,
                 invoice.company_id or self.env.company,
-                date or fields.Date.today()
+                invoice.date or fields.Date.today()
             )
             invoice.amount_total_usd = frm_cur._convert(
                 invoice.amount_total,
                 to_cur,
                 invoice.company_id or self.env.company,
-                date or fields.Date.today()
+                invoice.date or fields.Date.today()
             )
 
     def post(self):
