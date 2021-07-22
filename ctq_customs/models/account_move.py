@@ -95,4 +95,4 @@ class AccountMove(models.Model):
                     if landed_cost or lots:
                         line.name += " -"
                     line.name += string
-        super(AccountMove, self).post()
+        return super(AccountMove, self).post()
