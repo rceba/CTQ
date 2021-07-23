@@ -2,6 +2,7 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import api, models, fields
+from datetime import timedelta
 
 
 class AccountMoveLine(models.Model):
@@ -14,11 +15,11 @@ class AccountMove(models.Model):
     _inherit = 'account.move'
     
     amount_untaxed_mxn = fields.Monetary(string='Untaxed Amount (MXN)', store=True, readonly=True,
-        compute='_compute_amount_cur')
+        related='amount_untaxed_signed')
     amount_tax_mxn = fields.Monetary(string='Tax (MXN)', store=True, readonly=True,
-        compute='_compute_amount_cur')
+        related='amount_tax_signed')
     amount_total_mxn = fields.Monetary(string='Total (MXN)', store=True, readonly=True,
-        compute='_compute_amount_cur')
+        related='amount_total_signed')
     
     amount_untaxed_usd = fields.Monetary(string='Untaxed Amount (USD)', store=True, readonly=True,
         compute='_compute_amount_cur')
@@ -31,30 +32,12 @@ class AccountMove(models.Model):
     @api.onchange('amount_untaxed', 'amount_tax', 'amount_total')
     def _compute_amount_cur(self):
         for invoice in self:
+            invoice.amount_untaxed_mxn = invoice.amount_untaxed_signed
+            invoice.amount_tax_mxn = invoice.amount_tax_signed
+            invoice.amount_total_mxn = invoice.amount_total_signed
+
             frm_cur = invoice.currency_id
-            to_cur = self.env.ref('base.MXN')
-
-            invoice.amount_untaxed_mxn = frm_cur._convert(
-                invoice.amount_untaxed,
-                to_cur,
-                invoice.company_id or self.env.company,
-                invoice.date or fields.Date.today()
-            )
-            invoice.amount_tax_mxn = frm_cur._convert(
-                invoice.amount_tax,
-                to_cur,
-                invoice.company_id or self.env.company,
-                invoice.date or fields.Date.today()
-            )
-            invoice.amount_total_mxn = frm_cur._convert(
-                invoice.amount_total,
-                to_cur,
-                invoice.company_id or self.env.company,
-                invoice.date or fields.Date.today()
-            )
-
             to_cur = self.env.ref('base.USD')
-
             invoice.amount_untaxed_usd = frm_cur._convert(
                 invoice.amount_untaxed,
                 to_cur,
