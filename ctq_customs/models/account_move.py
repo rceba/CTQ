@@ -20,7 +20,6 @@ class AccountMove(models.Model):
         related='amount_tax_signed')
     amount_total_mxn = fields.Monetary(string='Total (MXN)', store=True, readonly=True,
         related='amount_total_signed')
-    
     amount_untaxed_usd = fields.Monetary(string='Untaxed Amount (USD)', store=True, readonly=True,
         compute='_compute_amount_cur')
     amount_tax_usd = fields.Monetary(string='Tax (USD)', store=True, readonly=True,
