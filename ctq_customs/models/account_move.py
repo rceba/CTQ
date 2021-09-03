@@ -81,10 +81,14 @@ class AccountMove(models.Model):
                     if landed_cost:
                         line.name += " [Fecha documento aduanero: {}]".format(landed_cost.date)
                 if lots:
-                    string = " [Número(s) de Lote: "#.format(lot['lot_name'])
-                    for lot in lots:
+                    count = line.quantity
+                    string = " [Número(s) de Lote: "
+                    while lots and count > 0:
+                        count -= 1
+                        lot = lots[0]
                         if lot['product_name'] == line.product_id.display_name:
-                            string += str(lot['lot_name']) + ", "#" [Número de Lote: {}]".format(lot['lot_name'])
+                            string += str(lot['lot_name']) + ", "
+                            lots.remove(lot)
                     if string != " [Número(s) de Lote: ":
                         string = string[:-2] + "]"
                         if landed_cost:
