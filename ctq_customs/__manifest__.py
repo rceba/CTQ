@@ -19,6 +19,7 @@
         'l10n_mx_reports',
     ],
     'data': [
+        'report/purchase_report_templates.xml',
         'report/report_invoice.xml',
         'report/sale_report_templates.xml',
         'data/res_groups_data.xml',
