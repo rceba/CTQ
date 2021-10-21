@@ -7,4 +7,5 @@ from . import payment_method
 from . import res_country
 from . import res_partner
 from . import res_users
+from . import sale
 from . import stock

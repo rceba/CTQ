@@ -25,6 +25,7 @@
         'data/res_groups_data.xml',
         'views/account_move_views.xml',
         'views/report_templates.xml',
+        'views/sale_views.xml',
         'views/templates.xml',
         # 'views/utm_campaign.xml',
         'views/views.xml',
