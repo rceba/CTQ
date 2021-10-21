@@ -3,6 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo import _, api, models, fields
+from datetime import datetime, timedelta
 
 
 class SaleOrder(models.Model):
@@ -23,6 +24,12 @@ class SaleOrder(models.Model):
         so_new_version.version_number += 1
         so_new_version.version_cluster = self.version_cluster
         so_new_version.name = so_new_version.version_cluster.name[:-1] + str(so_new_version.version_number)
+        
+        # Recompute Dates
+        d1 = self.date_order.date()
+        d2 = self.validity_date
+        so_new_version.validity_date = datetime.now() + timedelta(days=(d2-d1).days)
+        
         self.action_cancel()
         
         # Redirect user to Version History Tree View
