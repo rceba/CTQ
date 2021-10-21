@@ -24,3 +24,14 @@ class SaleOrder(models.Model):
         so_new_version.version_cluster = self.version_cluster
         so_new_version.name = so_new_version.version_cluster.name[:-1] + str(so_new_version.version_number)
         self.action_cancel()
+        # Find a way to redirect user to the new model
+        field_ids = self.env['sale.order'].search([('version_cluster', '=', self.version_cluster.id)]).ids
+        return {
+            'name': _('Versions History'),
+            'view_type': 'form',
+            'view_mode': 'tree,form',
+            'res_model': 'sale.order',
+            'type': 'ir.actions.act_window',
+            'target': 'current',
+            'domain': [('id', 'in', field_ids)],
+        }
