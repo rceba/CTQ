@@ -12,6 +12,9 @@
                     <field name="version_number"/>
                     <field name="version_cluster"/>
                 </xpath>
+                <xpath expr="//field[@name='note']" position="replace">
+                    <field name="note" widget="html"/>
+                </xpath>
             </field>
         </record>
 </odoo>

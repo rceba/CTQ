@@ -11,6 +11,7 @@ class SaleOrder(models.Model):
 
     version_number = fields.Integer(default="1")
     version_cluster = fields.Many2one('sale.order')
+    note = fields.Html()
 
     @api.model
     def create(self, vals):
