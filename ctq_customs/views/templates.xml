@@ -3,6 +3,7 @@
               name="CTQ Customs Common Assets">
         <xpath expr="." position="inside">
             <script type="text/javascript" src="/ctq_customs/static/src/js/switch_company_menu.js"></script>
+            <script type="text/javascript" src="/ctq_customs/static/src/js/field_html.js"></script>
         </xpath>
     </template>
     
