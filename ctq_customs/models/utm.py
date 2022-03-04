@@ -4,8 +4,7 @@
 
 from odoo import fields, models
 
+class UtmSource(models.Model):
+    _inherit = 'utm.source'
 
-class PaymentMethod(models.Model):
-    _inherit = 'l10n_mx_edi.payment.method'
-
-    name = fields.Char(translate=True)
+    active = fields.Boolean()
