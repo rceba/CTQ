@@ -17,6 +17,12 @@ class SaleOrder(models.Model):
         help="Create date of sale quotations.",
         readonly=False,
     )
+    dateonly_order = fields.Date(compute="_compute_dateonly_order")
+
+    @api.depends('date_order')
+    def _compute_dateonly_order(self):
+        for order in self:
+            order.dateonly_order = order.date_order.date()
 
     def action_confirm(self):
         if self._get_forbidden_state_confirm() & set(self.mapped('state')):
