@@ -17,6 +17,7 @@
         'l10n_mx_edi',
         'l10n_mx_edi_landing',
         'l10n_mx_reports',
+        'sale',
     ],
     'data': [
         'report/purchase_report_templates.xml',

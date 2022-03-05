@@ -4,8 +4,11 @@
 
 from . import account_move
 from . import payment_method
+from . import product
+from . import purchase
 from . import res_country
 from . import res_partner
 from . import res_users
 from . import sale
 from . import stock
+from . import utm
