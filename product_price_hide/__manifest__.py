@@ -11,5 +11,5 @@
     'license': 'LGPL-3',
     'depends': [ 'sale_management' ],
     'description': "Hide the sales price from the product form and display the pricelist entries under the sales tab",
-    'data': [ 'views/product_views.xml' ],
+    'data': [ 'security/security.xml','views/product_views.xml' ],
 }

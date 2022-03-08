@@ -17,7 +17,11 @@
         'l10n_mx_edi',
         'l10n_mx_edi_landing',
         'l10n_mx_reports',
+<<<<<<< HEAD
         'sale_keep_date',
+=======
+        'sale',
+>>>>>>> 68ea9279d0919476b02b3deab6d4939904500377
     ],
     'data': [
         'report/purchase_report_templates.xml',

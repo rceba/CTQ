@@ -21,13 +21,14 @@ class AccountMove(models.Model):
         related='amount_tax_signed')
     amount_total_mxn = fields.Monetary(string='Total (MXN)', store=True, readonly=True,
         related='amount_total_signed')
-    
     amount_untaxed_usd = fields.Monetary(string='Untaxed Amount (USD)', store=True, readonly=True,
         compute='_compute_amount_cur')
     amount_tax_usd = fields.Monetary(string='Tax (USD)', store=True, readonly=True,
         compute='_compute_amount_cur')
     amount_total_usd = fields.Monetary(string='Total (USD)', store=True, readonly=True,
         compute='_compute_amount_cur')
+    tasa_cambio = fields.Float(string='Tasa de cambio', readonly=True,
+                               digits=(16, 4), compute='_compute_tasa_cambio')
 
     @api.depends('amount_untaxed', 'amount_tax', 'amount_total')
     @api.onchange('amount_untaxed', 'amount_tax', 'amount_total')
@@ -105,3 +106,11 @@ class AccountMove(models.Model):
                         line.name += " -"
                     line.name += string
         return super(AccountMove, self).post()
+
+    @api.depends('amount_total_signed', 'amount_total')
+    def _compute_tasa_cambio(self):
+        for rec in self:
+            if rec.amount_total_signed and rec.amount_total:
+                rec.tasa_cambio = rec.amount_total_signed / rec.amount_total
+            else:
+                rec.tasa_cambio = 0.0
