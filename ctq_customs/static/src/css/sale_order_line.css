@@ -1,0 +1,5 @@
+.field_order_line [data-name="name"]{
+    width: 768px !important;
+    max-width: 768px !important;
+    min-width: 768px !important;
+}

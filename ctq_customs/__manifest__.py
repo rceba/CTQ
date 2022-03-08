@@ -17,6 +17,7 @@
         'l10n_mx_edi',
         'l10n_mx_edi_landing',
         'l10n_mx_reports',
+        'sale_keep_date',
     ],
     'data': [
         'report/purchase_report_templates.xml',
@@ -28,7 +29,6 @@
         'views/res_config_settings_views.xml',
         'views/sale_views.xml',
         'views/templates.xml',
-        # 'views/utm_campaign.xml',
         'views/views.xml',
     ],
 }

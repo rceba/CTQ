@@ -2,7 +2,7 @@
 # Copyright 2021 Morwi Encoders Consulting SA de CV
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, models, fields
+from odoo import api, models, fields, _
 from datetime import timedelta
 
 
@@ -68,11 +68,15 @@ class AccountMove(models.Model):
                     continue
                 landed_cost = False
                 product_name = ""
+                if self.partner_id.lang:
+                    product = line.product_id.with_context(lang=move.partner_id.lang)
+                else:
+                    product = line.product_id
                 if line.description:
                     product_name +=  str(line.description) + " "
-                product_name += str(line.product_id.display_name)
-                if line.product_id.description_sale:
-                    product_name += " " + str(line.product_id.description_sale)
+                product_name += str(product.display_name)
+                if product.description_sale:
+                    product_name += " " + str(product.description_sale)
                 line.name = product_name
                 if line.l10n_mx_edi_customs_number:
                     name = line.l10n_mx_edi_customs_number.split(',')
@@ -80,23 +84,23 @@ class AccountMove(models.Model):
                         ('l10n_mx_edi_customs_number', 'in', name),
                     ])
                     if landed_cost:
-                        line.name += " [Fecha documento aduanero: {}]".format(landed_cost.date)
+                        line.name += _(" [Customs document date: {}]").format(landed_cost.date)
                 if lots:
                     count = line.quantity
-                    string = " [Número(s) de Lote: "
+                    string = _(" [Lots Number(s): ")
                     while lots and count > 0:
                         count -= 1
                         lot = lots[0]
-                        if lot['product_name'] == line.product_id.display_name:
+                        if lot['product_name'] == product.display_name:
                             string += str(lot['lot_name']) + ", "
                             lots.remove(lot)
-                    if string != " [Número(s) de Lote: ":
+                    if string != _(" [Lots Number(s): "):
                         string = string[:-2] + "]"
                         if landed_cost:
                             line.name += " -"
                         line.name += string
                 if move.ref:
-                    string = " [Referencia: {}]".format(move.ref)
+                    string = _(" [Reference: {}]").format(move.ref)
                     if landed_cost or lots:
                         line.name += " -"
                     line.name += string
