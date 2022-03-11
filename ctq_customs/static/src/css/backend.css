@@ -3,3 +3,7 @@
     max-width: 768px !important;
     min-width: 768px !important;
 }
+
+.o_field_narration {
+    display: flex !important;
+}
