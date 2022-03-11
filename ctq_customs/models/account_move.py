@@ -10,11 +10,13 @@ class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     description = fields.Char(string="Notes")
+    name = fields.HTML()
 
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
-    
+
+    narration = fields.HTML()
     amount_untaxed_mxn = fields.Monetary(string='Untaxed Amount (MXN)', store=True, readonly=True,
         related='amount_untaxed_signed')
     amount_tax_mxn = fields.Monetary(string='Tax (MXN)', store=True, readonly=True,
