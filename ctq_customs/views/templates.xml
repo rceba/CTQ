@@ -14,6 +14,9 @@
     </template>
     
     <template id="ctq_portal_my_details" inherit_id="portal.portal_my_details">
+        <xpath expr="//form" position="attributes">
+            <attribute name="enctype">multipart/form-data</attribute>
+        </xpath>
         <xpath expr="//label[@for='name']" position="replace">
             <label class="col-form-label" for="name">Razón Social</label>
         </xpath>
@@ -29,6 +32,12 @@
                     <option t-attf-value="06" t-att-selected="partner.l10n_mx_type_of_operation == '06'">06 - Arrendamiento de inmuebles</option>
                     <option t-attf-value="85" t-att-selected="partner.l10n_mx_type_of_operation == '85'">85 - Otros</option>
                 </select>
+            </div>
+            <div t-attf-class="form-group col-xl-6">
+                <div t-attf-class="form-group #{error.get('pots') and 'o_has_error' or ''} col-xl-6">
+                    <label class="col-form-label label-optional" for="pots">Constancia de Situación Fiscal</label>
+                    <input id="upload" type="file" name="pots" t-attf-class="form-control #{error.get('pots') and 'is-invalid' or ''}" t-att-value="pots or partner.pots"/>
+                </div>
             </div>
         </xpath>
     </template>
