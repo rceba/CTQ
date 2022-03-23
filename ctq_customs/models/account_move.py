@@ -10,11 +10,13 @@ class AccountMoveLine(models.Model):
     _inherit = 'account.move.line'
 
     description = fields.Char(string="Notes")
+    name = fields.Html()
 
 
 class AccountMove(models.Model):
     _inherit = 'account.move'
-    
+
+    narration = fields.Html()
     amount_untaxed_mxn = fields.Monetary(string='Untaxed Amount (MXN)', store=True, readonly=True,
         related='amount_untaxed_signed')
     amount_tax_mxn = fields.Monetary(string='Tax (MXN)', store=True, readonly=True,
@@ -64,6 +66,16 @@ class AccountMove(models.Model):
             move.state = 'posted'
             lots = move._get_invoiced_lot_values()
             move.state = 'draft'
+
+            document_date = " [Customs document date: {}]"
+            lots_numbers = " [Lots Number(s): "
+            reference = " [Reference: {}]"
+
+            if move.partner_id.lang == 'es_MX':
+                document_date = " [Fecha de Documento Aduanero: {}]"
+                lots_numbers = " [Número(s) de Lote: "
+                reference = " [Referencia: {}]"
+
             for line in move.line_ids:
                 if line.display_type in ('line_section', 'line_note'):
                     continue
@@ -85,23 +97,23 @@ class AccountMove(models.Model):
                         ('l10n_mx_edi_customs_number', 'in', name),
                     ])
                     if landed_cost:
-                        line.name += _(" [Customs document date: {}]").format(landed_cost.date)
+                        line.name += document_date.format(landed_cost.date)
                 if lots:
                     count = line.quantity
-                    string = _(" [Lots Number(s): ")
+                    string = lots_numbers
                     while lots and count > 0:
                         count -= 1
                         lot = lots[0]
                         if lot['product_name'] == product.display_name:
                             string += str(lot['lot_name']) + ", "
                             lots.remove(lot)
-                    if string != _(" [Lots Number(s): "):
+                    if string != lots_numbers:
                         string = string[:-2] + "]"
                         if landed_cost:
                             line.name += " -"
                         line.name += string
                 if move.ref:
-                    string = _(" [Reference: {}]").format(move.ref)
+                    string = reference.format(move.ref)
                     if landed_cost or lots:
                         line.name += " -"
                     line.name += string

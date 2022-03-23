@@ -2,11 +2,13 @@
 # Copyright 2020 Morwi Encoders Consulting SA de CV
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
-from odoo import api, models
+from odoo import api, models, fields
 
 
 class ResPartner(models.Model):
     _inherit = 'res.partner'
+
+    pots = fields.Binary(string="Proof of Tax Situation")
 
     @api.onchange('parent_id', 'company_id')
     def _onchange_company_id(self):

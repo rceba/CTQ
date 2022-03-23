@@ -18,6 +18,9 @@
                 <xpath expr="//field[@name='invoice_line_ids']//field[@name='name']" position="attributes">
                     <attribute name="attrs">{'readonly': [('display_type', '=', False)]}</attribute>
                 </xpath>
+                <xpath expr="//field[@name='narration']" position="attributes">
+                  <attribute name="class">o_field_narration</attribute>
+                </xpath>
             </field>
         </record>
         
