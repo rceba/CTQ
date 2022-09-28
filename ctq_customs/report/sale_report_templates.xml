@@ -21,7 +21,10 @@
             <span t-field="doc.note" />
         </div>
     </xpath>
-    
-    
+
+    <!-- Reset Section Subtotal -->
+    <xpath expr="//td[@name='td_section_subtotal']" position="inside">
+        <t t-set="current_subtotal" t-value="0"/>
+    </xpath>
 </template>
 </odoo>
