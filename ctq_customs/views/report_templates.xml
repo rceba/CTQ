@@ -2,7 +2,7 @@
 <odoo>
     <template id="external_layout_boxed_ctq" inherit_id="web.external_layout_boxed">
         <xpath expr="//span[@t-field='company.company_details']" position="replace">
-            <span t-if="company.company_details" t-field="company.company_details"></span>
+            <span t-if="company.company_details" t-field="company.company_details"/>    
         </xpath>
     </template>
 </odoo>
