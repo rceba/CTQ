@@ -5,7 +5,7 @@
 {
     'name': 'CTQ Customizations',
     'category': 'Hidden',
-    'version': '13.0.1.0.0',
+    'version': '15.0.1.0.0',
     'description': """
        Module add custom flows for CTQ
         """,
@@ -32,4 +32,13 @@
         'views/templates.xml',
         'views/views.xml',
     ],
+    'assets': {
+    'web.assets_backend': [
+        'ctq_customs/static/src/js/**/*',
+        'ctq_customs/static/src/css/**/*',
+    ],
+    'web.report_assets_common': [
+        'ctq_customs/static/src/css/report.css',
+    ],
+},
 }

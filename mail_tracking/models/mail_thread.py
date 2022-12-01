@@ -6,7 +6,7 @@ from email.utils import getaddresses
 from lxml import etree
 
 from odoo import _, api, fields, models
-from odoo.tools import email_split_and_format
+from odoo.tools import email_split, email_split_and_format
 
 
 class MailThread(models.AbstractModel):
@@ -22,7 +22,7 @@ class MailThread(models.AbstractModel):
 
     def _get_failed_message_domain(self):
         """Domain used to display failed messages on the 'failed_messages'
-           widget"""
+        widget"""
         failed_states = self.env["mail.message"].get_failed_states()
         return [
             ("mail_tracking_needs_action", "=", True),
@@ -67,7 +67,7 @@ class MailThread(models.AbstractModel):
         partners_info = self._message_partner_info_from_emails(email_extra_list)
         for pinfo in partners_info:
             partner_id = pinfo["partner_id"]
-            email = pinfo["full_name"]
+            email = email_split(pinfo["full_name"])[0].lower()
             if not partner_id:
                 if email not in aliases:
                     self._message_add_suggested_recipient(
