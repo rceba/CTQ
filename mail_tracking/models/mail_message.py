@@ -27,7 +27,8 @@ class MailMessage(models.Model):
         default=False,
     )
     is_failed_message = fields.Boolean(
-        compute="_compute_is_failed_message", search="_search_is_failed_message",
+        compute="_compute_is_failed_message",
+        search="_search_is_failed_message",
     )
 
     @api.model
@@ -223,14 +224,13 @@ class MailMessage(models.Model):
 
         return list(filter(_filter_alias, mail_list))
 
-    @api.model
-    def _message_read_dict_postprocess(self, messages, message_tree):
+    def message_format(self, format_reply=True):
         """Preare values to be used by the chatter widget"""
-        res = super()._message_read_dict_postprocess(messages, message_tree)
-        mail_message_ids = {m.get("id") for m in messages if m.get("id")}
+        res = super().message_format(format_reply)
+        mail_message_ids = {m.get("id") for m in res if m.get("id")}
         mail_messages = self.browse(mail_message_ids)
         tracking_statuses = mail_messages.tracking_status()
-        for message_dict in messages:
+        for message_dict in res:
             mail_message_id = message_dict.get("id", False)
             if mail_message_id:
                 message_dict.update(tracking_statuses[mail_message_id])
@@ -242,6 +242,8 @@ class MailMessage(models.Model):
         failed_trackings = self.mail_tracking_ids.filtered(
             lambda x: x.state in self.get_failed_states()
         )
+        if not failed_trackings or not self.mail_tracking_needs_action:
+            return
         failed_partners = failed_trackings.mapped("partner_id")
         failed_recipients = failed_partners.name_get()
         if self.author_id:
@@ -258,7 +260,7 @@ class MailMessage(models.Model):
 
     def get_failed_messages(self):
         """Returns the list of failed messages to be used by the
-           failed_messages widget"""
+        failed_messages widget"""
         return [
             msg._prepare_dict_failed_message()
             for msg in self.sorted("date", reverse=True)
@@ -271,25 +273,20 @@ class MailMessage(models.Model):
         """
         self.check_access_rule("read")
         self.write({"mail_tracking_needs_action": False})
-        notification = {
-            "type": "toggle_tracking_status",
-            "message_ids": self.ids,
-            "needs_actions": False,
-        }
-        self.env["bus.bus"].sendone(
-            (self._cr.dbname, "res.partner", self.env.user.partner_id.id), notification
+        self.env["bus.bus"]._sendone(
+            self.env.user.partner_id, "toggle_tracking_status", self.ids
         )
 
     @api.model
     def get_failed_count(self):
-        """ Gets the number of failed messages used on discuss mailbox item"""
+        """Gets the number of failed messages used on discuss mailbox item"""
         return self.search_count([("is_failed_message", "=", True)])
 
     @api.model
     def set_all_as_reviewed(self):
-        """ Sets all messages in the given domain as reviewed.
+        """Sets all messages in the given domain as reviewed.
 
-        Used by Discuss """
+        Used by Discuss"""
 
         unreviewed_messages = self.search([("is_failed_message", "=", True)])
         unreviewed_messages.write({"mail_tracking_needs_action": False})
@@ -305,3 +302,13 @@ class MailMessage(models.Model):
         )
 
         return ids
+
+    @api.model
+    def get_failed_messsage_info(self, ids, model):
+        msg_ids = self.search([("res_id", "=", ids), ("model", "=", model)])
+        res = [
+            msg._prepare_dict_failed_message()
+            for msg in msg_ids.sorted("date", reverse=True)
+            if msg._prepare_dict_failed_message()
+        ]
+        return res

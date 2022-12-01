@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
     <template id="external_layout_boxed_ctq" inherit_id="web.external_layout_boxed">
-        <xpath expr="//span[@t-field='company.partner_id']" position="replace">
-            <span class="company_address small" t-field="company.partner_id"
+        <xpath expr="//span[@t-field='company.company_details']" position="replace">
+            <span class="company_address small" t-field="company.company_details"
                 t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": true}'/>
         </xpath>
     </template>

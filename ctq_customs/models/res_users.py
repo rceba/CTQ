@@ -8,11 +8,9 @@ from odoo import api, fields, models
 class ResUsers(models.Model):
     _inherit = 'res.users'
 
-    @api.model
     def reload_mx_group(self, companyID):
         user = self.env.user
         has_mx = False
-
         for company in self.env['res.company'].browse(companyID):
             if company.country_id == self.env.ref('base.mx'):
                 has_mx = True
