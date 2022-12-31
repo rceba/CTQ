@@ -18,6 +18,9 @@
             <xpath expr="//field[@name='order_line']" position="attributes">
               <attribute name="class">field_order_line</attribute>
             </xpath>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='name']" position="attributes">
+                 <attribute name="widget">html</attribute>
+            </xpath>
         </field>
     </record>
 </odoo>
