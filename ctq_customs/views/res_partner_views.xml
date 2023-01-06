@@ -12,6 +12,26 @@
                 </xpath>
             </field>
         </record>
-
+        <record id="view_partner_sales_team_form_ctq" model="ir.ui.view">
+            <field name="name">res.partner.salesteam.form.ctq</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="sales_team.res_partner_view_team"/>
+            <field name="arch" type="xml">
+                <xpath expr="//field[@name='team_id']" position="after">
+                    <field name="so_confirmed"/>
+                </xpath>
+            </field>
+        </record>
+        <record id="view_search_res_partner_form_ctq" model="ir.ui.view">
+            <field name="name">view.search.res.partner.form.ctq</field>
+            <field name="model">res.partner</field>
+            <field name="inherit_id" ref="base.view_res_partner_filter"/>
+            <field name="arch" type="xml">
+                <xpath expr="//search/filter[1]" position="before">
+                    <filter string="Customers with Confirmed Sales" name="sales_customers" domain="[('so_confirmed', '!=', False)]"/>
+                    <filter string="Customers without Confirmed Sales" name="without_sales_customers" domain="[('so_confirmed', '=', False)]"/>
+                </xpath>
+            </field>
+        </record>
     </data>
 </odoo>
