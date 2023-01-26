@@ -9,6 +9,7 @@ class ResPartner(models.Model):
     _inherit = 'res.partner'
 
     pots = fields.Binary(string="Proof of Tax Situation")
+    so_confirmed = fields.Boolean(compute="_compute_so_confirmed", store=True)
 
     @api.onchange('parent_id', 'company_id')
     def _onchange_company_id(self):
@@ -46,3 +47,12 @@ class ResPartner(models.Model):
         elif self.commercial_company_name:
             address_format = '%(company_name)s\n' + address_format
         return address_format % args
+
+
+        def _compute_so_confirmed(self):
+            for rec in self:
+                rec.so_confirmed = False
+                confirmed_so = rec.sale_order_ids.filtered(
+                    lambda s: s.state in ['sale', 'done'])
+                if confirmed_so:
+                    rec.so_confirmed = True
