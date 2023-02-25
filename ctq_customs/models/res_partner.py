@@ -48,7 +48,6 @@ class ResPartner(models.Model):
             address_format = '%(company_name)s\n' + address_format
         return address_format % args
 
-
     def _compute_so_confirmed(self):
         for rec in self:
             rec.so_confirmed = False

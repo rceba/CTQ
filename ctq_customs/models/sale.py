@@ -11,7 +11,6 @@ class SaleOrder(models.Model):
 
     version_number = fields.Integer(default="1")
     version_cluster = fields.Many2one('sale.order')
-    note = fields.Html()
 
     @api.model
     def create(self, vals):
@@ -48,4 +47,4 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    name = fields.Html()
+    name = fields.Html(translate=True)

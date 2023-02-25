@@ -4,22 +4,20 @@
 
 from odoo import models, fields, api
 
-class InventoryLine(models.Model):
-    _inherit = 'stock.inventory.line'
+class StockQuant(models.Model):
+    _inherit = 'stock.quant'
 
     def _check_no_duplicate_line(self):
-        for line in self:
+        for quant in self:
             domain = [
-                ('id', '!=', line.id),
-                ('product_id', '=', line.product_id.id),
-                ('location_id', '=', line.location_id.id),
-                ('partner_id', '=', line.partner_id.id),
-                ('package_id', '=', line.package_id.id),
-                ('prod_lot_id', '=', line.prod_lot_id.id),
-                ('inventory_id', '=', line.inventory_id.id),
-                ('inventory_id.state', '=', 'draft'),
+                ('id', '!=', quant.id),
+                ('product_id', '=', quant.product_id.id),
+                ('location_id', '=', quant.location_id.id),
+                ('owner_id', '=', quant.owner_id.id),
+                ('package_id', '=', quant.package_id.id),
+                ('lot_id', '=', quant.lot_id.id),
             ]
             existings = self.search_count(domain)
             if existings:
-                raise UserError(_("There is already one inventory adjustment line for this product,"
+                raise UserError(_("There is already one inventory adjustment quant for this product,"
                                   " you should rather modify this one instead of creating a new one."))

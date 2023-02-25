@@ -12,11 +12,11 @@
                 <field name="version_number"/>
                 <field name="version_cluster"/>
             </xpath>
-            <xpath expr="//field[@name='note']" position="replace">
-                <field name="note" widget="html"/>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                <attribute name="widget">html</attribute>
             </xpath>
-            <xpath expr="//field[@name='order_line']" position="attributes">
-              <attribute name="class">field_order_line</attribute>
+              <xpath expr="//form[1]/sheet[1]/notebook[1]/page[@name='order_lines']/field[@name='order_line']/tree[1]/field[@name='name']" position="attributes">
+                 <attribute name="widget">html</attribute>
             </xpath>
         </field>
     </record>

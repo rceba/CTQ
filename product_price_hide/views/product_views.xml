@@ -19,16 +19,7 @@
                 <attribute name="invisible">0</attribute>
                 <attribute name="groups">product_price_hide.hide_cost_product</attribute>
             </xpath>
-        </field>
-    </record>
-    
-    
-    <record model="ir.ui.view" id="product_template_form_pricelist">
-        <field name="name">product.template.show.pricelist</field>
-        <field name="model">product.template</field>
-        <field name="inherit_id" ref="sale.product_template_form_view_invoice_policy"/>
-        <field name="arch" type="xml">
-            <xpath expr="//group[@name='invoicing']" position="before">
+            <xpath expr="//group[@name='sale']" position="before">
                     <field name="pricelist_item_ids"/>
             </xpath>
         </field>

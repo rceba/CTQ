@@ -6,9 +6,9 @@
         <record id="l10n_mx_edi.view_l10n_mx_edi_invoice_form_inherit" model="ir.ui.view">
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
         </record>
-        <record id="l10n_mx_edi.view_l10n_mx_edi_invoice_filter_inherit" model="ir.ui.view">
+<!--         <record id="l10n_mx_edi.view_l10n_mx_edi_invoice_filter_inherit" model="ir.ui.view">
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
-        </record>
+        </record> -->
         
         <!-- account_payment_view -->
         <record id="l10n_mx_edi.view_account_payment_form_inh_l10n_mx" model="ir.ui.view">
@@ -60,13 +60,13 @@
         <!--</record>-->
         
         <!-- product_view -->
-        <record id="l10n_mx_edi.view_prod_form_inh_l10n_mx" model="ir.ui.view">
+        <record id="l10n_mx_edi_extended.view_prod_form_inh_l10n_mx" model="ir.ui.view">
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
         </record>
-        <record id="l10n_mx_edi.view_product_uom_form_inh_l10n_mx" model="ir.ui.view">
+        <record id="l10n_mx_edi_extended.view_product_uom_form_inh_l10n_mx" model="ir.ui.view">
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
         </record>
-        <record id="l10n_mx_edi.l10n_mx_edi_tariff_fraction_tree_view" model="ir.ui.view">
+        <record id="l10n_mx_edi_extended.l10n_mx_edi_tariff_fraction_tree_view" model="ir.ui.view">
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
         </record>
         
@@ -91,17 +91,17 @@
         </record>
         
         <!-- res_partner_view -->
-        <record id="l10n_mx_edi.res_partner_form_inherit_l10n_mx_edi" model="ir.ui.view">
+        <record id="l10n_mx_edi_extended.l10n_mx_edi_inh_res_partner_form" model="ir.ui.view">
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
         </record>
         
         <!-- menus -->
-        <record model='ir.ui.menu' id='l10n_mx_edi.account_product_menu'>
+<!--         <record model='ir.ui.menu' id='l10n_mx_edi.account_product_menu'>
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
-        </record>
-        <record model='ir.ui.menu' id='l10n_mx_edi.menu_invoicing_uom_form_action'>
+        </record> -->
+<!--         <record model='ir.ui.menu' id='l10n_mx_edi.menu_invoicing_uom_form_action'>
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
-        </record>
+        </record> -->
         <record model='ir.ui.menu' id='l10n_mx_edi.cfd_22_metodos_pago'>
             <field name="groups_id" eval="[(4, ref('ctq_customs.group_account_l10n_mx'))]"/>
         </record>

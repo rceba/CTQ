@@ -5,7 +5,7 @@
 {
     'name': 'CTQ Customizations',
     'category': 'Hidden',
-    'version': '13.0.1.0.0',
+    'version': '15.0.1.0.0',
     'description': """
        Module add custom flows for CTQ
         """,
@@ -18,6 +18,7 @@
         'l10n_mx_edi_landing',
         'l10n_mx_reports',
         'sale_keep_date',
+        'purchase',
     ],
     'data': [
         'report/purchase_report_templates.xml',
@@ -26,10 +27,18 @@
         'data/res_groups_data.xml',
         'views/account_move_views.xml',
         'views/report_templates.xml',
-        'views/res_config_settings_views.xml',
         'views/res_partner_views.xml',
         'views/sale_views.xml',
+        'views/purchase_views.xml',
         'views/templates.xml',
         'views/views.xml',
     ],
+    'assets': {
+    'web.assets_backend': [
+        'ctq_customs/static/src/js/**/*',
+    ],
+    'web.report_assets_common': [
+        'ctq_customs/static/src/css/report.css',
+    ],
+},
 }

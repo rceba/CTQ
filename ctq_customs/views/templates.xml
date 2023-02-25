@@ -1,18 +1,4 @@
-<odoo>
-    <template id="ctq_assets_backend" inherit_id="web.assets_backend" name="CTQ Customs Common Assets">
-        <xpath expr="." position="inside">
-            <link href="/ctq_customs/static/src/css/backend.css" rel="stylesheet"/>
-            <script type="text/javascript" src="/ctq_customs/static/src/js/switch_company_menu.js"></script>
-            <script type="text/javascript" src="/ctq_customs/static/src/js/field_html.js"></script>
-        </xpath>
-    </template>
-    
-    <template id="ctq_report_assets_common" inherit_id="web.report_assets_common">
-        <xpath expr="." position="inside">
-            <link href="/ctq_customs/static/src/css/report.css" rel="stylesheet"/>
-        </xpath>
-    </template>
-    
+<odoo>    
     <template id="ctq_portal_my_details" inherit_id="portal.portal_my_details">
         <xpath expr="//form" position="attributes">
             <attribute name="enctype">multipart/form-data</attribute>
