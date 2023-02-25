@@ -17,7 +17,8 @@ class SaleOrder(models.Model):
         help="Create date of sale quotations.",
         readonly=False,
     )
-    dateonly_order = fields.Date(compute="_compute_dateonly_order")
+    dateonly_order = fields.Date(
+        compute="_compute_dateonly_order")
 
     @api.depends('date_order')
     def _compute_dateonly_order(self):
