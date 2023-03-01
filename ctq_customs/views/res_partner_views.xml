@@ -12,7 +12,7 @@
                 </xpath>
             </field>
         </record>
-
+ 
         <record id="view_partner_sales_team_form_ctq" model="ir.ui.view">
             <field name="name">res.partner.salesteam.form.ctq</field>
             <field name="model">res.partner</field>

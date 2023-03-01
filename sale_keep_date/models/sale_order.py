@@ -17,7 +17,8 @@ class SaleOrder(models.Model):
         help="Create date of sale quotations.",
         readonly=False,
     )
-    dateonly_order = fields.Date(compute="_compute_dateonly_order")
+    dateonly_order = fields.Date(
+        compute="_compute_dateonly_order")
 
     @api.depends('date_order')
     def _compute_dateonly_order(self):
@@ -45,25 +46,25 @@ class SaleOrder(models.Model):
         return True
 
 
-class SaleOrderLine(models.Model):
-    _inherit = "sale.order.line"
+# class SaleOrderLine(models.Model):
+#     _inherit = "sale.order.line"
 
-    def _compute_margin(self, order_id, product_id, product_uom_id):
-        price = 0
-        date = order_id.date_order.date()
-        for line in self:
-            supplierinfo_id = product_id._select_seller(
-                quantity=line.product_uom_qty,
-                date=order_id.date_order and date,
-                uom_id=product_uom_id
-            )
-            if supplierinfo_id:
-                frm_cur = supplierinfo_id.currency_id
-                to_cur = order_id.pricelist_id.currency_id
-                price = frm_cur._convert(
-                    supplierinfo_id.price,
-                    to_cur,
-                    order_id.company_id or self.env.company,
-                    date or fields.Date.today()
-                )
-        return price
+#     def _compute_margin(self, order_id, product_id, product_uom_id):
+#         price = 0
+#         date = order_id.date_order.date()
+#         for line in self:
+#             supplierinfo_id = product_id._select_seller(
+#                 quantity=line.product_uom_qty,
+#                 date=order_id.date_order and date,
+#                 uom_id=product_uom_id
+#             )
+#             if supplierinfo_id:
+#                 frm_cur = supplierinfo_id.currency_id
+#                 to_cur = order_id.pricelist_id.currency_id
+#                 price = frm_cur._convert(
+#                     supplierinfo_id.price,
+#                     to_cur,
+#                     order_id.company_id or self.env.company,
+#                     date or fields.Date.today()
+#                 )
+#         return price
