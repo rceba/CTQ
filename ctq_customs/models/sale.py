@@ -47,4 +47,4 @@ class SaleOrder(models.Model):
 class SaleOrderLine(models.Model):
     _inherit = 'sale.order.line'
 
-    name = fields.Html()
+    name = fields.Html(translate=True)

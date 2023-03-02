@@ -18,6 +18,7 @@
         'l10n_mx_edi_landing',
         'l10n_mx_reports',
         'sale_keep_date',
+        'purchase',
     ],
     'data': [
         'report/purchase_report_templates.xml',
@@ -28,6 +29,7 @@
         'views/report_templates.xml',
         'views/res_partner_views.xml',
         'views/sale_views.xml',
+        'views/purchase_views.xml',
         'views/templates.xml',
         'views/views.xml',
     ],
