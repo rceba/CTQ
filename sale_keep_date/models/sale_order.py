@@ -54,7 +54,10 @@ class SaleOrderLine(models.Model):
         for line in self:
             purchase_price = 0
             date = line.order_id.date_order.date()
-            for line in self:
+            print("---------------------")
+            print(line.product_id)
+            print("---------------------")
+            if len(line.product_id) > 0:
                 supplierinfo_id = line.product_id._select_seller(
                     quantity=line.product_uom_qty,
                     date=line.order_id.date_order and date,
