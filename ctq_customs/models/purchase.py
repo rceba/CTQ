@@ -14,8 +14,9 @@ class PurchaseOrderLine(models.Model):
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
-    account_analytic_ids = fields.Many2many('account.analytic.account', compute="_compute_account_analytic_ids")
+    account_analytic_ids = fields.Many2many('account.analytic.account', compute="_compute_account_analytic_ids", store=True)
 
+    @api.depends('order_line')
     def _compute_account_analytic_ids(self):
         for order in self:
             accounts = []
