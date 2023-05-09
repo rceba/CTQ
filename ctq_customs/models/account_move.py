@@ -61,7 +61,7 @@ class AccountMove(models.Model):
                 invoice.date or fields.Date.today()
             )
 
-    def post(self):
+    def action_post(self):
         for move in self.filtered(lambda move: move.is_invoice()):
             move.state = 'posted'
             lots = move._get_invoiced_lot_values()
@@ -117,7 +117,7 @@ class AccountMove(models.Model):
                     if landed_cost or lots:
                         line.name += " -"
                     line.name += string
-        return super(AccountMove, self).post()
+        return super(AccountMove, self).action_post()
 
     @api.depends('amount_total_signed', 'amount_total')
     def _compute_tasa_cambio(self):
