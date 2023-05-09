@@ -9,3 +9,21 @@ class PurchaseOrderLine(models.Model):
     _inherit = 'purchase.order.line'
 
     name = fields.Html()
+
+
+class PurchaseOrder(models.Model):
+    _inherit = 'purchase.order'
+
+    account_analytic_ids = fields.Many2many('account.analytic.account', compute="_compute_account_analytic_ids")
+
+    def _compute_account_analytic_ids(self):
+        for order in self:
+            accounts = []
+            for line in order.order_line:
+                if line.account_analytic_id:
+                    accounts.append(line.account_analytic_id.id)
+                    
+            if len(accounts) > 0:
+                order.account_analytic_ids = [(6, 0, accounts)]
+            else:
+                order.account_analytic_ids = False
