@@ -5,4 +5,16 @@
             <span t-if="company.company_details" t-field="company.company_details"/>    
         </xpath>
     </template>
+
+    <template id="sale_order_portal_content_ctq" name="sale_order_portal" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//t[@t-if='not line.display_type']//span[@t-field='line.name']" position="attributes">
+            <attribute name="t-options">{'widget': 'html'}</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if=&quot;line.display_type == 'line_section'&quot;]//span[@t-field='line.name']" position="attributes">
+            <attribute name="t-options">{'widget': 'html'}</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if=&quot;line.display_type == 'line_note'&quot;]//span[@t-field='line.name']" position="attributes">
+            <attribute name="t-options">{'widget': 'html'}</attribute>
+        </xpath>
+    </template>
 </odoo>
