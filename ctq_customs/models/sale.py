@@ -43,8 +43,3 @@ class SaleOrder(models.Model):
             'target': 'current',
             'domain': [('id', 'in', field_ids)],
         }
-
-class SaleOrderLine(models.Model):
-    _inherit = 'sale.order.line'
-
-    name = fields.Html(translate=True)
