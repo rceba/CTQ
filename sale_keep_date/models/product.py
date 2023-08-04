@@ -2,19 +2,21 @@
 # Part of Odoo. See LICENSE file for full copyright and licensing details.
 
 from odoo import fields, models
+from odoo.tools import float_compare
 
 
 class ProductProduct(models.Model):
     _inherit = "product.product"
 
-    def _get_filtered_sellers(self, partner_id=False, quantity=0.0, date=None, uom_id=False, params=False):
+    def _get_filtered_sellers(self, partner_id=False, quantity=0.0, date=None, uom_id=False, params=False, filter_company=True):
         self.ensure_one()
         if date is None:
             date = fields.Date.context_today(self)
         precision = self.env['decimal.precision'].precision_get('Product Unit of Measure')
 
         sellers_filtered = self._prepare_sellers(params)
-        # sellers_filtered = sellers_filtered.filtered(lambda s: not s.company_id or s.company_id.id == self.env.company.id)
+        if filter_company:
+            sellers_filtered = sellers_filtered.filtered(lambda s: not s.company_id or s.company_id.id == self.env.company.id)
         sellers = self.env['product.supplierinfo']
         for seller in sellers_filtered:
             # Set quantity in UoM of seller
@@ -34,3 +36,11 @@ class ProductProduct(models.Model):
                 continue
             sellers |= seller
         return sellers
+
+    def _select_seller(self, partner_id=False, quantity=0.0, date=None, uom_id=False, params=False, filter_company=True):
+        sellers = self._get_filtered_sellers(partner_id=partner_id, quantity=quantity, date=date, uom_id=uom_id, params=params, filter_company=filter_company)
+        res = self.env['product.supplierinfo']
+        for seller in sellers:
+            if not res or res.name == seller.name:
+                res |= seller
+        return res and res.sorted('price')[:1]
