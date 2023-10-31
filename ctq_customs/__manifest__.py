@@ -36,6 +36,7 @@
     'assets': {
     'web.assets_backend': [
         'ctq_customs/static/src/js/**/*',
+        'ctq_customs/static/src/css/backend.css',
     ],
     'web.report_assets_common': [
         'ctq_customs/static/src/css/report.css',
