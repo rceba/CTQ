@@ -126,3 +126,13 @@ class AccountMove(models.Model):
                 rec.tasa_cambio = rec.amount_total_signed / rec.amount_total
             else:
                 rec.tasa_cambio = 0.0
+
+
+class AccountAnalyticAccount(models.Model):
+    _inherit = 'account.analytic.account'
+
+    def name_get(self):
+        res = []
+        for analytic in self:
+            res.append((analytic.id, analytic.name))
+        return res

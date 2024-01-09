@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
-    <template id="external_layout_boxed_ctq" inherit_id="web.external_layout_boxed">
-        <xpath expr="//span[@t-field='company.company_details']" position="replace">
-            <span t-if="company.company_details" t-field="company.company_details"/>    
+    <template id="sale_order_portal_content_ctq" name="sale_order_portal" inherit_id="sale.sale_order_portal_content">
+        <xpath expr="//t[@t-if='not line.display_type']//span[@t-field='line.name']" position="attributes">
+            <attribute name="t-options">{'widget': 'html'}</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if=&quot;line.display_type == 'line_section'&quot;]//span[@t-field='line.name']" position="attributes">
+            <attribute name="t-options">{'widget': 'html'}</attribute>
+        </xpath>
+        <xpath expr="//t[@t-if=&quot;line.display_type == 'line_note'&quot;]//span[@t-field='line.name']" position="attributes">
+            <attribute name="t-options">{'widget': 'html'}</attribute>
         </xpath>
     </template>
 </odoo>
