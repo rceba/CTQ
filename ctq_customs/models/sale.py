@@ -9,7 +9,7 @@ from datetime import datetime, timedelta
 class SaleOrder(models.Model):
     _inherit = 'sale.order'
 
-    version_number = fields.Integer(default="1")
+    version_number = fields.Integer(default="1", copy=False)
     version_cluster = fields.Many2one('sale.order')
 
     @api.model
