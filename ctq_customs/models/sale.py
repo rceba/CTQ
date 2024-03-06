@@ -21,7 +21,7 @@ class SaleOrder(models.Model):
 
     def new_version(self):
         so_new_version = self.copy()
-        so_new_version.version_number += self.version_number + 1
+        so_new_version.version_number = self.version_number + 1
         so_new_version.version_cluster = self.version_cluster
         so_new_version.name = so_new_version.version_cluster.name[:-1] + str(so_new_version.version_number)
         
