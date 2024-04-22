@@ -10,6 +10,7 @@ class PurchaseOrderLine(models.Model):
 
     name = fields.Html()
 
+
 class PurchaseOrder(models.Model):
     _inherit = 'purchase.order'
 
@@ -28,6 +29,7 @@ class PurchaseOrder(models.Model):
                 order.account_analytic_ids = [(6, 0, accounts)]
             else:
                 order.account_analytic_ids = False
+
     @api.model
     def write(self, vals):
         """
