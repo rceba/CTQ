@@ -168,6 +168,8 @@ class TablasCFDI(models.Model):
     caja_ahorro_retiro = fields.Many2one('hr.salary.rule', string='Caja / Fondo Ahorro retiro')
 
     isn =  fields.Float(string=_('Impuesto sobre nómina'), default='2.0', digits = (12,2))
+    pct_uma = fields.Float(string=_('% Valor mensual UMA'), default='11.82', digits = (12,2))
+    limit_sm = fields.Float(string=_('Límite salario mensual'), default='9081', digits = (12,2))
 
     @api.constrains('name')
     def _check_name(self):

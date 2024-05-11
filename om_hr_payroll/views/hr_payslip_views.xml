@@ -145,7 +145,7 @@
                         <button string="Compute Sheet" name="compute_sheet" type="object" invisible="state != 'draft'"
                                 class="oe_highlight"/>
                         <button string="Cancel Payslip" name="action_payslip_cancel" type="object"
-                                invisible="state not in ('draft', 'verify','done')"/>
+                                invisible="state != 'done'"/>
                         <field name="state" widget="statusbar" statusbar_visible="draft,confirm"/>
                     </header>
                     <sheet>
@@ -402,12 +402,12 @@
             <field name="arch" type="xml">
                 <form string="Payslips Batches">
                     <header>
-                        <button name="%(action_hr_payslip_by_employees)d" type="action" invisible="state in ['done', 'close']"
+                        <button name="%(action_hr_payslip_by_employees)d" type="action" invisible="state != 'draft'"
                                 string="Generate Payslips" class="oe_highlight"/>
                         <button string="Set to Draft" name="draft_payslip_run" type="object" invisible="state != 'close'"/>
-                        <button string="Mark As Done" name="done_payslip_run" type="object" invisible="state in ['done', 'close']"
+                        <button string="Mark As Done" name="done_payslip_run" type="object" invisible="state != 'draft'"
                                 class="oe_highlight"/>
-                        <button name="close_payslip_run" type="object" string="Close" invisible="state in ['done', 'close']"/>
+                        <!--<button name="close_payslip_run" type="object" string="Close" invisible="state != 'draft'"/>-->
                         <field name="state" widget="statusbar" statusbar_visible="draft,done"/>
                     </header>
                     <sheet>

@@ -1331,7 +1331,7 @@ class HrPayslip(models.Model):
                 },
                 'informacion': {
                       'cfdi': '4.0',
-                      'sistema': 'odoo16',
+                      'sistema': 'odoo17',
                       'version': '1',
                       'api_key': self.company_id.proveedor_timbrado,
                       'modo_prueba': self.company_id.modo_prueba,
