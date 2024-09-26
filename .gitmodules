@@ -1,8 +1,3 @@
-[submodule "itadmin01/morwi"]
-	path = itadmin01/morwi
-	url = git@github.com:itadmin01/morwi.git
-	branch = 15.0
-
 [submodule "Morwi-Odoo/morwi"]
 	path = Morwi-Odoo/morwi
 	url = git@github.com:Morwi-Odoo/morwi.git
