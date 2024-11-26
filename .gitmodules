@@ -1,0 +1,4 @@
+[submodule "Morwi-Odoo/morwi"]
+	path = Morwi-Odoo/morwi
+	url = git@github.com:Morwi-Odoo/morwi.git
+	branch = 15.0
