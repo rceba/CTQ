@@ -3,6 +3,7 @@
 # License LGPL-3.0 or later (https://www.gnu.org/licenses/lgpl.html).
 
 from odoo import _, api, models, fields
+from odoo.exceptions import UserError
 
 
 class SaleOrder(models.Model):
@@ -43,6 +44,13 @@ class SaleOrder(models.Model):
         self._action_confirm()
         if self.env.user.has_group('sale.group_auto_done_setting'):
             self.action_done()
+        products_without_purchase_price = self.order_line.filtered(
+            lambda ln: ln.product_id and ln.product_id.type == 'product' and not ln.purchase_price
+            )
+        if products_without_purchase_price:
+            # Recalculamos el margen junto con el costo
+            for product in products_without_purchase_price:
+                product._compute_margin()
         return True
 
 
