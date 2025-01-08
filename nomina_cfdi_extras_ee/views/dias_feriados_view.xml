@@ -63,7 +63,7 @@
         <field name="search_view_id" ref="search_dias_feriados_view" />
         <field name="context">{}</field>
     </record>
-
+<!--
     <menuitem
           name="Dias feriados"
           parent="nomina_cfdi_ee.menu_main_movimivientos"
@@ -72,7 +72,7 @@
           sequence="90"
           groups="nomina_cfdi_ee.group_nomina_mx"
       />
-
+-->
     <record id="action_selected_dias_feriados" model="ir.actions.server">
         <field name="name">Validar</field>
         <field name="type">ir.actions.server</field>

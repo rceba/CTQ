@@ -23,14 +23,14 @@ class HrPayrollStructure(models.Model):
     code = fields.Char(string='Reference', required=True)
     company_id = fields.Many2one('res.company', string='Company', required=True, default=lambda self: self.env.company)
     note = fields.Text(string='Description')
-    parent_id = fields.Many2one('hr.payroll.structure', string='Parent', default=_get_parent)
-    children_ids = fields.One2many('hr.payroll.structure', 'parent_id', string='Children', copy=True)
+    #parent_id = fields.Many2one('hr.payroll.structure', string='Parent', default=_get_parent)
+    #children_ids = fields.One2many('hr.payroll.structure', 'parent_id', string='Children', copy=True)
     rule_ids = fields.Many2many('hr.salary.rule', 'hr_structure_salary_rule_rel', 'struct_id', 'rule_id', string='Salary Rules')
 
-    @api.constrains('parent_id')
-    def _check_parent_id(self):
-        if not self._check_recursion():
-            raise ValidationError(_('You cannot create a recursive salary structure.'))
+#    @api.constrains('parent_id')
+#    def _check_parent_id(self):
+#        if not self._check_recursion():
+#            raise ValidationError(_('You cannot create a recursive salary structure.'))
 
     @api.returns('self', lambda value: value.id)
     def copy(self, default=None):
@@ -48,23 +48,11 @@ class HrPayrollStructure(models.Model):
         return all_rules
 
     def _get_parent_structure(self):
-        parent = self.mapped('parent_id')
-        if parent:
-            parent = parent._get_parent_structure()
-        return parent + self
-
-
-class HrContributionRegister(models.Model):
-    _name = 'hr.contribution.register'
-    _description = 'Contribution Register'
-
-    company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
-    partner_id = fields.Many2one('res.partner', string='Partner')
-    name = fields.Char(required=True)
-    register_line_ids = fields.One2many('hr.payslip.line', 'register_id',
-        string='Register Line', readonly=True)
-    note = fields.Text(string='Description')
-
+#        parent = self.mapped('parent_id')
+#        if parent:
+#            parent = parent._get_parent_structure()
+#        return parent + self
+        return self
 
 class HrSalaryRuleCategory(models.Model):
     _name = 'hr.salary.rule.category'
@@ -72,16 +60,16 @@ class HrSalaryRuleCategory(models.Model):
 
     name = fields.Char(required=True, translate=True)
     code = fields.Char(required=True)
-    parent_id = fields.Many2one('hr.salary.rule.category', string='Parent',
-        help="Linking a salary category to its parent is used only for the reporting purpose.")
-    children_ids = fields.One2many('hr.salary.rule.category', 'parent_id', string='Children')
+#    parent_id = fields.Many2one('hr.salary.rule.category', string='Parent',
+#        help="Linking a salary category to its parent is used only for the reporting purpose.")
+#    children_ids = fields.One2many('hr.salary.rule.category', 'parent_id', string='Children')
     note = fields.Text(string='Description')
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
 
-    @api.constrains('parent_id')
-    def _check_parent_id(self):
-        if not self._check_recursion():
-            raise ValidationError(_('Error! You cannot create recursive hierarchy of Salary Rule Category.'))
+#    @api.constrains('parent_id')
+#    def _check_parent_id(self):
+#        if not self._check_recursion():
+#            raise ValidationError(_('Error! You cannot create recursive hierarchy of Salary Rule Category.'))
 
 
 class HrSalaryRule(models.Model):
@@ -105,7 +93,7 @@ class HrSalaryRule(models.Model):
         help="If the active field is set to false, it will allow you to hide the salary rule without removing it.")
     appears_on_payslip = fields.Boolean(string='Appears on Payslip', default=True,
         help="Used to display the salary rule on payslip.")
-    parent_rule_id = fields.Many2one('hr.salary.rule', string='Parent Salary Rule', index=True)
+#    parent_rule_id = fields.Many2one('hr.salary.rule', string='Parent Salary Rule', index=True)
     company_id = fields.Many2one('res.company', string='Company', default=lambda self: self.env.company)
     condition_select = fields.Selection([
         ('none', 'Always True'),
@@ -158,25 +146,23 @@ class HrSalaryRule(models.Model):
 
                     result = contract.wage * 0.10''')
     amount_percentage_base = fields.Char(string='Percentage based on', help='result will be affected to a variable')
-    child_ids = fields.One2many('hr.salary.rule', 'parent_rule_id', string='Child Salary Rule', copy=True)
-    register_id = fields.Many2one('hr.contribution.register', string='Contribution Register',
-        help="Eventual third party involved in the salary payment of the employees.")
+#    child_ids = fields.One2many('hr.salary.rule', 'parent_rule_id', string='Child Salary Rule', copy=True)
     input_ids = fields.One2many('hr.rule.input', 'input_id', string='Inputs', copy=True)
     note = fields.Text(string='Description')
 
-    @api.constrains('parent_rule_id')
-    def _check_parent_rule_id(self):
-        if not self._check_recursion(parent='parent_rule_id'):
-            raise ValidationError(_('Error! You cannot create recursive hierarchy of Salary Rules.'))
+#    @api.constrains('parent_rule_id')
+#    def _check_parent_rule_id(self):
+#        if not self._check_recursion(parent='parent_rule_id'):
+#            raise ValidationError(_('Error! You cannot create recursive hierarchy of Salary Rules.'))
 
     def _recursive_search_of_rules(self):
-        """
-        @return: returns a list of tuple (id, sequence) which are all the children of the passed rule_ids
-        """
-        children_rules = []
-        for rule in self.filtered(lambda rule: rule.child_ids):
-            children_rules += rule.child_ids._recursive_search_of_rules()
-        return [(rule.id, rule.sequence) for rule in self] + children_rules
+#        """
+#        @return: returns a list of tuple (id, sequence) which are all the children of the passed rule_ids
+#        """
+#        children_rules = []
+#        for rule in self.filtered(lambda rule: rule.child_ids):
+#            children_rules += rule.child_ids._recursive_search_of_rules()
+        return [(rule.id, rule.sequence) for rule in self] #+ children_rules
 
     #TODO should add some checks on the type of result (should be float)
     def _compute_rule(self, localdict):

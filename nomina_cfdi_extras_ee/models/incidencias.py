@@ -44,6 +44,14 @@ class IncidenciasNomina(models.Model):
     sueldo_cotizacion_base_ant = fields.Float('Sueldo cotización base ant')
     fecha_anterior = fields.Date('Fecha anterior')
 
+    no_credito = fields.Char(string="Número de crédito INFONAVIT")
+    fecha_infonavit = fields.Date(string="Fecha de inicio de descuento")
+    tipo_de_descuento = fields.Selection([('1', 'Porcentaje %'), 
+                                          ('2', 'Cuota fija'),
+                                          ('3', 'Veces SMGV'),],
+                                            string='Tipo de descuento INFONAVIT')
+    valor_descuento = fields.Float(string="Valor descuento", digits = (12,4))
+
     @api.onchange('tipo_de_incidencia')
     def _onchange_incidencia(self):
         if self.tipo_de_incidencia == 'Reingreso':
@@ -54,7 +62,7 @@ class IncidenciasNomina(models.Model):
     
     @api.onchange('sueldo_mensual')
     def _compute_sueldo(self):
-        if self.sueldo_mensual:
+        if self.sueldo_mensual and self.contract_id:
             values = {
             'sueldo_diario': self.sueldo_mensual/self.contract_id.tablas_cfdi_id.dias_mes,
             'sueldo_por_horas': self.sueldo_mensual/self.contract_id.tablas_cfdi_id.dias_mes/8,
@@ -139,14 +147,15 @@ class IncidenciasNomina(models.Model):
                         'company_id': company.id,
                     })
 
-    @api.model
-    def create(self, vals):
-        if vals.get('name', _('New')) == _('New'):
-            if 'company_id' in vals:
-                vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('incidencias.nomina') or _('New')
-            else:
-                vals['name'] = self.env['ir.sequence'].next_by_code('incidencias.nomina') or _('New')
-        result = super(IncidenciasNomina, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+           if vals.get('name', _('New')) == _('New'):
+               if 'company_id' in vals:
+                   vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('incidencias.nomina') or _('New')
+               else:
+                   vals['name'] = self.env['ir.sequence'].next_by_code('incidencias.nomina') or _('New')
+        result = super(IncidenciasNomina, self).create(vals_list)
         return result
 
     
@@ -155,7 +164,7 @@ class IncidenciasNomina(models.Model):
         if employee:
             if self.tipo_de_incidencia=='Cambio reg. patronal':
                 self.registro_patronal_ant = employee.registro_patronal_id.id
-                employee.write({'registro_patronal':self.registro_patronal.id})
+                employee.write({'registro_patronal_id':self.registro_patronal.id})
             elif self.tipo_de_incidencia=='Cambio salario':
                 if self.contract_id:
                     self.sueldo_mensual_ant = self.contract_id.wage

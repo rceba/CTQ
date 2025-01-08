@@ -40,14 +40,15 @@ class IncapacidadesNomina(models.Model):
                         'company_id': company.id,
                     })
 
-    @api.model
-    def create(self, vals):
-        if vals.get('name', _('New')) == _('New'):
-            if 'company_id' in vals:
-                vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('incapacidades.nomina') or _('New')
-            else:
-                vals['name'] = self.env['ir.sequence'].next_by_code('incapacidades.nomina') or _('New')
-        result = super(IncapacidadesNomina, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+           if vals.get('name', _('New')) == _('New'):
+               if 'company_id' in vals:
+                   vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('incapacidades.nomina') or _('New')
+               else:
+                   vals['name'] = self.env['ir.sequence'].next_by_code('incapacidades.nomina') or _('New')
+        result = super(IncapacidadesNomina, self).create(vals_list)
         return result
 
 #   
@@ -64,17 +65,17 @@ class IncapacidadesNomina(models.Model):
             if self.company_id.leave_type_rie_id: 
                leave_type = self.company_id.leave_type_rie_id
             else:
-               raise UserError(_('Falta configurar el tipo de falta'))
+               raise UserError(_('Falta configurar el tipo de falta en Configuracion - Ajustes'))
         elif self.ramo_de_seguro=='Enfermedad general':
             if self.company_id.leave_type_enf_id: 
                leave_type = self.company_id.leave_type_enf_id
             else:
-               raise UserError(_('Falta configurar el tipo de falta'))
+               raise UserError(_('Falta configurar el tipo de falta en Configuracion - Ajustes'))
         elif self.ramo_de_seguro=='Maternidad':
             if self.company_id.leave_type_mat_id: 
                leave_type = self.company_id.leave_type_mat_id
             else:
-               raise UserError(_('Falta configurar el tipo de falta'))
+               raise UserError(_('Falta configurar el tipo de falta en Configuracion - Ajustes'))
 
         if self.fecha:
             date_from = self.fecha

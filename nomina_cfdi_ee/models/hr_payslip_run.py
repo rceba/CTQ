@@ -72,6 +72,14 @@ class HrPayslipRun(models.Model):
                    ],
         string=_('Mes / Periodo'),)
     company_cfdi = fields.Boolean(related="company_id.company_cfdi",store=True)
+    total_procesamiento = fields.Float(string='Total Nominas', compute='_compute_total_procesamiento')
+
+    def _compute_total_procesamiento(self):
+        for payslip_run in self:
+           payslip_run.total_procesamiento = 0
+           for payslip in payslip_run.slip_ids:
+               if payslip.state != 'cancel':
+                  payslip_run.total_procesamiento += payslip.total_nom
 
     @api.onchange('tipo_configuracion')
     def _set_periodicidad(self):
@@ -444,7 +452,7 @@ class NominaMessageWizard(models.TransientModel):
     message = fields.Text('Respuesta', required=True)
     log_txt = fields.Text(string='log', default='Sin errores')
     file_data = fields.Binary("File Data")
-    nombre = fields.Text(string='log', default='Sin errores')
+    nombre = fields.Text(string='nombre', default='Sin errores')
 
     def action_close(self):
         return {'type': 'ir.actions.act_window_close'}

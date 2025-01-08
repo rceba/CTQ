@@ -33,9 +33,9 @@
                      <group>
                          <field name="fecha" readonly="state != 'draft'" required="state == 'draft'"/>
                          <field name="employee_id" readonly="state != 'draft'" required="state == 'draft'"/>
-                         <field name="tiempo" readonly="state != 'draft'"/>
-                        <!-- <field name="crear_ausencia" attrs="{'readonly' : [('state', '!=','draft')]}"/>-->
-                     	<field name="company_id" groups="base.group_multi_company"/>
+                         <field name="tiempo_retardo" readonly="state != 'draft'"/>
+                         <field name="crear_ausencia" readonly="state != 'draft'"/>
+                         <field name="company_id" groups="base.group_multi_company"/>
                      </group>
                  </group>
              </sheet>

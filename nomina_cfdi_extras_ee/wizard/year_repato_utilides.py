@@ -13,7 +13,7 @@ class XLSUploadWizard(models.TransientModel):
     _name = 'repart.outilidades.wizard'
     _description = 'Reparto utilidades'
 
-    ano = fields.Selection([('2022','2022'),('2023','2023'),('2024','2024')],string="Año")
+    ano = fields.Selection([('2023','2023'),('2024','2024'),('2025','2025')],string="Año")
     total_repartir = fields.Float("Monto a repartir")
     file_data = fields.Binary("File Data")
     date_slip = fields.Date(string='Fecha')

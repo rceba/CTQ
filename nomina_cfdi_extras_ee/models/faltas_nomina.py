@@ -35,14 +35,15 @@ class FaltasNomina(models.Model):
                         'company_id': company.id,
                     })
 
-    @api.model
-    def create(self, vals):
-        if vals.get('name', _('New')) == _('New'):
-            if 'company_id' in vals:
-                vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('faltas.nomina') or _('New')
-            else:
-                vals['name'] = self.env['ir.sequence'].next_by_code('faltas.nomina') or _('New')
-        result = super(FaltasNomina, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+           if vals.get('name', _('New')) == _('New'):
+               if 'company_id' in vals:
+                   vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('faltas.nomina') or _('New')
+               else:
+                   vals['name'] = self.env['ir.sequence'].next_by_code('faltas.nomina') or _('New')
+        result = super(FaltasNomina, self).create(vals_list)
         return result
 
    
@@ -61,22 +62,22 @@ class FaltasNomina(models.Model):
             if self.company_id.leave_type_fjc: 
                leave_type = self.company_id.leave_type_fjc
             else:
-               raise UserError(_('Falta configurar el tipo de falta'))
+               raise UserError(_('Falta configurar el tipo de falta en Configuracion - Ajustes'))
         elif self.tipo_de_falta=='Justificada sin goce de sueldo':
             if self.company_id.leave_type_fjs: 
                leave_type = self.company_id.leave_type_fjs
             else:
-               raise UserError(_('Falta configurar el tipo de falta'))
+               raise UserError(_('Falta configurar el tipo de falta en Configuracion - Ajustes'))
         elif self.tipo_de_falta=='Injustificada':
             if self.company_id.leave_type_fi: 
                leave_type = self.company_id.leave_type_fi
             else:
-               raise UserError(_('Falta configurar el tipo de falta'))
+               raise UserError(_('Falta configurar el tipo de falta en Configuracion - Ajustes'))
         elif self.tipo_de_falta=='retardo':
             if self.company_id.leave_type_fr: 
                leave_type = self.company_id.leave_type_fr
             else:
-               raise UserError(_('Falta configurar el tipo de falta'))
+               raise UserError(_('Falta configurar el tipo de falta en Configuracion - Ajustes'))
 
         date_from = self.fecha_inicio.strftime('%Y-%m-%d') # +' 00:00:00'
         date_to = self.fecha_fin.strftime('%Y-%m-%d') # +' 23:59:59'

@@ -2,6 +2,8 @@
 from odoo import api, fields, models, _
 #import datetime
 from datetime import datetime, timedelta
+from collections import defaultdict
+from odoo.osv import expression
 import logging
 _logger = logging.getLogger(__name__)
 
@@ -87,6 +89,11 @@ class Contract(models.Model):
     prima_dominical = fields.Boolean(string='Prima dominical')
     calc_isr_extra = fields.Boolean(string='Incluir nóminas extraordinarias en calculo ISR mensual', default = False)
     company_cfdi = fields.Boolean(related="company_id.company_cfdi",store=True)
+    wage_type = fields.Selection([
+        ('monthly', 'Sueldo fijo'),
+        ('hourly', 'Sueldo por hora')
+    ], default='monthly')
+    vacaciones_adelantadas = fields.Integer('Dias vacaciones adelantadas', default=0) 
 
     @api.onchange('wage')
     def _compute_sueldo(self):
@@ -197,6 +204,92 @@ class Contract(models.Model):
            }
            contract.env['incidencias.nomina'].create(vals)
 
+    def _get_work_hours_domain(self, date_from, date_to, domain=None, inside=True):
+        if domain is None:
+            domain = []
+        domain = expression.AND([domain, [
+            ('state', 'in', ['validated', 'draft']),
+            ('contract_id', 'in', self.ids),
+        ]])
+        if inside:
+            domain = expression.AND([domain, [
+                ('date_start', '>=', date_from),
+                ('date_stop', '<=', date_to)]])
+        else:
+            domain = expression.AND([domain, [
+                '|', '|',
+                '&', '&',
+                    ('date_start', '>=', date_from),
+                    ('date_start', '<', date_to),
+                    ('date_stop', '>', date_to),
+                '&', '&',
+                    ('date_start', '<', date_from),
+                    ('date_stop', '<=', date_to),
+                    ('date_stop', '>', date_from),
+                '&',
+                    ('date_start', '<', date_from),
+                    ('date_stop', '>', date_to)]])
+        return domain
+
+    def _get_work_hours(self, date_from, date_to, domain=None):
+        """
+        Returns the amount (expressed in hours) of work
+        for a contract between two dates.
+        If called on multiple contracts, sum work amounts of each contract.
+        :param date_from: The start date
+        :param date_to: The end date
+        :returns: a dictionary {work_entry_id: hours_1, work_entry_2: hours_2}
+        """
+        assert isinstance(date_from, datetime)
+        assert isinstance(date_to, datetime)
+
+        # First, found work entry that didn't exceed interval.
+        work_entries = self.env['hr.work.entry']._read_group(
+            self._get_work_hours_domain(date_from, date_to, domain=domain, inside=True),
+            ['work_entry_type_id'],
+            ['duration:sum']
+        )
+        work_data = defaultdict(int)
+        work_data.update({work_entry_type.id: duration_sum for work_entry_type, duration_sum in work_entries})
+        self._preprocess_work_hours_data(work_data, date_from, date_to)
+
+        # Second, find work entry that exceeds interval and compute right duration.
+        work_entries = self.env['hr.work.entry'].search(self._get_work_hours_domain(date_from, date_to, domain=domain, inside=False))
+
+        for work_entry in work_entries:
+            date_start = max(date_from, work_entry.date_start)
+            date_stop = min(date_to, work_entry.date_stop)
+            if work_entry.work_entry_type_id.is_leave:
+                contract = work_entry.contract_id
+                calendar = contract.resource_calendar_id
+                employee = contract.employee_id
+                contract_data = employee._get_work_days_data_batch(
+                    date_start, date_stop, compute_leaves=False, calendar=calendar
+                )[employee.id]
+
+                work_data[work_entry.work_entry_type_id.id] += contract_data.get('hours', 0)
+            else:
+                work_data[work_entry.work_entry_type_id.id] += work_entry._get_work_duration(date_start, date_stop)  # Number of hours
+        return work_data
+
+    def _preprocess_work_hours_data(self, work_data, date_from, date_to):
+        """
+        Removes extra hours from attendance work data and add a new entry for extra hours
+        """
+        attendance_contracts = self.filtered(lambda c: c.work_entry_source == 'attendance' and c.wage_type == 'hourly')
+        overtime_work_entry_type = self.env.ref('hr_work_entry.overtime_work_entry_type', False)
+        default_work_entry_type = self.env['hr.work.entry.type'].sudo().search([('code','=','WORK100')]) #self.structure_type_id.default_work_entry_type_id
+        if not attendance_contracts or not overtime_work_entry_type or len(default_work_entry_type) != 1:
+            return
+        overtime_hours = self.env['hr.attendance.overtime']._read_group(
+            [('employee_id', 'in', self.employee_id.ids),
+                ('date', '>=', date_from), ('date', '<=', date_to)],
+            [], ['duration:sum'],
+        )[0][0]
+        if not overtime_hours or overtime_hours < 0:
+            return
+        work_data[default_work_entry_type.id] -= overtime_hours
+        work_data[overtime_work_entry_type.id] = overtime_hours
 
 class TablasVacacioneslLine(models.Model):
     _name = 'tablas.vacaciones.line'
@@ -205,13 +298,13 @@ class TablasVacacioneslLine(models.Model):
     form_id = fields.Many2one('hr.contract', string='Vacaciones', required=True)
     dias = fields.Integer('Dias disponibles')
     ano = fields.Selection(
-        selection=[('2018', '2018'),
-                   ('2019', '2019'),
-                   ('2020', '2020'),
-                   ('2021', '2021'),
+        selection=[('2021', '2021'),
                    ('2022', '2022'),
                    ('2023', '2023'),
                    ('2024', '2024'),
+                   ('2025', '2025'),
+                   ('2026', '2026'),
+                   ('2027', '2027'),
                    ],
         string=_('Año'), required=True)
     estado = fields.Selection(
@@ -219,6 +312,6 @@ class TablasVacacioneslLine(models.Model):
                    ('inactivo', 'Inactivo'),
                    ],
         string=_('Estatus'),)
-    dias_consumido = fields.Integer('Dias consumidos')
-    dias_otorgados = fields.Integer('Dias otorgados') 
+    #dias_consumido = fields.Integer('Dias consumidos')
+    dias_otorgados = fields.Integer('Dias otorgados')
     caducidad = fields.Date('Caducidad')

@@ -79,7 +79,7 @@ class PayslipBatches(models.Model):
                    else:
                        result[line.code] = round(line.total, 2)
         return result
-    
+
     def get_payslip_group_by_department(self):
         result = {}
         start_range = self._context.get('start_range')
@@ -96,7 +96,6 @@ class PayslipBatches(models.Model):
                     continue
                 if emp_no >= start_range and emp_no <= end_range:
                     slips += slip
-            
         else:
             slips = self.slip_ids
         for line in slips:
@@ -106,7 +105,6 @@ class PayslipBatches(models.Model):
                 result[line.employee_id.department_id.id] = [line]
         return result
 
-   
     def get_all_columns(self):
         result = {}
         all_col_list_seq = []
@@ -220,12 +218,9 @@ class PayslipBatches(models.Model):
                         for line in slip.details_by_salary_rule_category:
                            if line.code == code:
                                amt = round(line.total,2)
-#                        amt = slip.get_amount_from_rule_code(code)
-#                        if amt:
                                grand_total[code] = grand_total.get(code) + amt
                                total[code] = total.get(code) + amt
                     else:
-                        #amt = slip.get_amount_from_rule_code(code)
                         for line in slip.details_by_salary_rule_category:
                            if line.code == code:
                                amt = round(line.total,2)

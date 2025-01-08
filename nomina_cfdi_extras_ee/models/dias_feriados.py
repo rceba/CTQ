@@ -31,17 +31,17 @@ class DiasFeriados(models.Model):
                         'company_id': company.id,
                     })
 
-    @api.model
-    def create(self, vals):
-        if vals.get('name', _('New')) == _('New'):
-            if 'company_id' in vals:
-                vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('dias.feriados') or _('New')
-            else:
-                vals['name'] = self.env['ir.sequence'].next_by_code('dias.feriados') or _('New')
-        result = super(DiasFeriados, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+           if vals.get('name', _('New')) == _('New'):
+               if 'company_id' in vals:
+                   vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('dias.feriados') or _('New')
+               else:
+                   vals['name'] = self.env['ir.sequence'].next_by_code('dias.feriados') or _('New')
+        result = super(DiasFeriados, self).create(vals_list)
         return result
 
-   
     def action_validar(self):
         if self.fecha:
             fecha = self.fecha
@@ -73,12 +73,12 @@ class DiasFeriados(models.Model):
            if self.company_id.leave_type_dfes: 
               leave_type = self.company_id.leave_type_dfes
            else:
-              raise UserError(_('Falta configurar el tipo de falta'))
+              raise UserError(_('Falta configurar el tipo de falta en Configuracion - Ajustes'))
         elif self.tipo=='triple':
            if self.company_id.leave_type_dfes3: 
               leave_type = self.company_id.leave_type_dfes3
            else:
-              raise UserError(_('Falta configurar el tipo de falta'))
+              raise UserError(_('Falta configurar el tipo de falta en Configuracion - Ajustes'))
         if not leave_type:
            leave_type = self.env['hr.leave.type'].create({'name': 'DFES'})
 

@@ -17,7 +17,6 @@
                     <field name="amount"/>
                     <field name="total"/>
                     <field name="amount_select" invisible="1"/>
-                    <field name="register_id" invisible="1"/>
                 </tree>
             </field>
         </record>
@@ -58,7 +57,6 @@
                     <field name="slip_id"/>
                     <group col="8" colspan="4" expand="0" string="Group By">
                         <filter string="Salary Rule Category" name="category_id" context="{'group_by':'category_id'}"/>
-                        <filter string="Contribution Register" name="register_id" context="{'group_by':'register_id'}"/>
                         <filter string="Amount Type" name="amount_select" context="{'group_by':'amount_select'}"/>
                         <filter string="Employees" name="employee_id" context="{'group_by':'employee_id'}"/>
                     </group>
@@ -228,9 +226,9 @@
                                         <field name="name"/>
                                         <field name="code"/>
                                         <field name="category_id"/>
-                                        <field name="sequence" invisible="1"/>
+                                        <!--<field name="sequence" invisible="1"/>
                                         <field name="quantity"/>
-                                        <field name="rate"/>
+                                        <field name="rate"/>-->
                                         <field name="salary_rule_id"/>
                                         <field name="amount"/>
                                         <field name="total"/>
@@ -240,9 +238,9 @@
                                             <field name="name"/>
                                             <field name="code"/>
                                             <field name="category_id"/>
-                                            <field name="sequence"/>
+                                            <!--<field name="sequence"/>
                                             <field name="quantity"/>
-                                            <field name="rate"/>
+                                            <field name="rate"/>-->
                                             <field name="amount"/>
                                             <field name="total"/>
                                             <field name="salary_rule_id"/>
@@ -250,7 +248,7 @@
                                     </form>
                                 </field>
                             </page>
-                            <page string="Details By Salary Rule Category">
+                            <!--<page string="Details By Salary Rule Category">
                                 <field name="details_by_salary_rule_category"
                                        context="{'search_default_category_id':1}"
                                        domain="[('appears_on_payslip', '=', True)]">
@@ -261,7 +259,7 @@
                                         <field name="total"/>
                                     </tree>
                                 </field>
-                            </page>
+                            </page>-->
                             <page string="Accounting Information">
                                 <group>
                                     <group string="Miscellaneous">
@@ -440,15 +438,6 @@
         <menuitem id="menu_hr_payslip_run"
                   action="action_hr_payslip_run_tree"
                   parent="menu_hr_payroll_root"/>
-
-        <!--  Shortcuts -->
-
-        <record id="act_contribution_reg_payslip_lines" model="ir.actions.act_window">
-            <field name="name">Payslip Lines</field>
-            <field name="res_model">hr.payslip.line</field>
-            <field name="domain">[('register_id', '=', active_id)]</field>
-            <field name="context">{'default_register_id': active_id, 'search_default_register_id': 1}</field>
-        </record>
 
     </data>
 

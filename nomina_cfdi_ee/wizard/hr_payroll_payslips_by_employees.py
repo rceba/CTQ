@@ -2,7 +2,15 @@
 
 from odoo import api, models, fields, _
 from odoo.exceptions import UserError
-from datetime import datetime
+from datetime import datetime, date, time
+from collections import defaultdict
+from dateutil.relativedelta import relativedelta
+import pytz
+from odoo.osv import expression
+from odoo.tools import format_date
+
+import logging
+_logger = logging.getLogger(__name__)
 
 class HrPayslipEmployeesExt(models.TransientModel):
     _inherit = 'hr.payslip.employees'
@@ -21,11 +29,58 @@ class HrPayslipEmployeesExt(models.TransientModel):
             raise UserError(_("You must select employee(s) to generate payslip(s)."))
         payslip_batch = self.env['hr.payslip.run'].browse(active_id)
         struct_id = payslip_batch.estructura and payslip_batch.estructura.id or False
+
+        employees = self.env['hr.employee'].browse(data['employee_ids'])
+
+        ##### Compute Work Entries - New way
+        contracts = employees._get_contracts(payslip_batch.date_start, payslip_batch.date_end, states=['open', 'close']).filtered(lambda c: c.active)
+        contracts.generate_work_entries(payslip_batch.date_start, payslip_batch.date_end)
+        work_entries = self.env['hr.work.entry'].search([
+            ('date_start', '<=', payslip_batch.date_end + relativedelta(days=1)),
+            ('date_stop', '>=', payslip_batch.date_start + relativedelta(days=-1)),
+            ('employee_id', 'in', employees.ids),
+        ])
+        for slip in payslip_batch.slip_ids:
+            slip_tz = pytz.timezone(slip.contract_id.resource_calendar_id.tz)
+            utc = pytz.timezone('UTC')
+            date_from = slip_tz.localize(datetime.combine(slip.date_from, time.min)).astimezone(utc).replace(tzinfo=None)
+            date_to = slip_tz.localize(datetime.combine(slip.date_to, time.max)).astimezone(utc).replace(tzinfo=None)
+            payslip_work_entries = work_entries.filtered_domain([
+                ('contract_id', '=', slip.contract_id.id),
+                ('date_stop', '<=', date_to),
+                ('date_start', '>=', date_from),
+            ])
+            payslip_work_entries._check_undefined_slots(slip.date_from, slip.date_to)
+
+
+#        if(self.structure_id.type_id.default_struct_id == self.structure_id):
+        work_entries = work_entries.filtered(lambda work_entry: work_entry.state != 'validated')
+        if work_entries._check_if_error():
+                work_entries_by_contract = defaultdict(lambda: self.env['hr.work.entry'])
+
+                for work_entry in work_entries.filtered(lambda w: w.state == 'conflict'):
+                    work_entries_by_contract[work_entry.contract_id] |= work_entry
+
+                for contract, work_entries in work_entries_by_contract.items():
+                    conflicts = work_entries._to_intervals()
+                    time_intervals_str = "\n - ".join(['', *["%s -> %s" % (s[0], s[1]) for s in conflicts._items]])
+                return {
+                    'type': 'ir.actions.client',
+                    'tag': 'display_notification',
+                    'params': {
+                        'title': _('Some work entries could not be validated.'),
+                        'message': _('Time intervals to look for:%s', time_intervals_str),
+                        'sticky': False,
+                    }
+                }
+
+        #Add Other Inputs
         other_inputs = []
         for other in payslip_batch.tabla_otras_entradas:
             if other.descripcion and other.codigo: 
                 other_inputs.append((0,0,{'name':other.descripcion, 'code': other.codigo, 'amount':other.monto}))
-            
+
+        ##### Compute Payslips old way
         for employee in self.env['hr.employee'].browse(data['employee_ids']):
             slip_data = self.env['hr.payslip'].onchange_employee_id(from_date, to_date, employee.id, contract_id=False)
             res = {
@@ -83,11 +138,9 @@ class HrPayslipEmployeesExt(models.TransientModel):
                 ultima_nomina =  True
 
             res.update({'dias_pagar': payslip_batch.dias_pagar,
-                            #'imss_dias': payslip_batch.imss_dias,
                             'imss_mes': payslip_batch.imss_mes,
                             'ultima_nomina': ultima_nomina,
                             'mes': payslip_batch.mes,
-                            #'isr_devolver': payslip_batch.isr_devolver,
                             'isr_ajustar': payslip_batch.isr_ajustar,
                             'isr_anual': payslip_batch.isr_anual,
                             'periodicidad_pago': payslip_batch.periodicidad_pago,
@@ -111,8 +164,8 @@ class HrPayslipEmployeesExt(models.TransientModel):
             if caja:
                for other in caja:
                   if other.descripcion and other.clave: 
-                      other_inputsb.append((0,0,{'name':other.descripcion, 'code': other.clave, 'amount':other.importe, 'contract_id':employ_contract_id.id}))
-                      res.update({'input_line_ids': other_inputsb,})
+                     other_inputsb.append((0,0,{'name':other.descripcion, 'code': other.clave, 'amount':other.importe, 'contract_id':employ_contract_id.id}))
+                     res.update({'input_line_ids': other_inputsb,})
 
             #Compute days for attendance module
             module = self.env['ir.module.module'].sudo().search([('name','=','hr_attendance_sheet')])
@@ -124,7 +177,6 @@ class HrPayslipEmployeesExt(models.TransientModel):
                         res.update({'worked_days_line_ids': [(0, 0, x) for x in emp_line_exist.create_worklines(slip_data['value'].get('worked_days_line_ids'))],})
 
             payslips += self.env['hr.payslip'].create(res)
-
         payslips.compute_sheet()
-        
+
         return {'type': 'ir.actions.act_window_close'}

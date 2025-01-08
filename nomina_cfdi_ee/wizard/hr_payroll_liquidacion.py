@@ -156,7 +156,7 @@ class GeneraLiquidaciones(models.TransientModel):
         #Creación de nomina extraordinaria
         if self.tipo_de_baja == '02':
             payslip_vals2 = {**payslip_onchange_vals.get('value',{})}
-            structure = self.env['hr.payroll.structure'].sudo().search([('name','=','Liquidación - indemnizacion/finiquito')], limit=1)
+            structure = self.env['hr.payroll.structure'].sudo().search([('name','=','Liquidación - indemnizacion/finiquito'), ('company_id', '=', employee.company_id.id)], limit=1)
             if structure: 
                 payslip_vals2['struct_id'] = structure.id
 
@@ -312,23 +312,18 @@ class GeneraLiquidaciones(models.TransientModel):
                     self.dias_vacaciones = ((last_day - date_start).days + 1) / 365.0 * tablas_cfdi_line.vacaciones
                     self.prima_vac = tablas_cfdi_line.prima_vac
 
-
-            #dias de vacaciones adicionales entregados y no pagados
+            #Suma dias de vacaciones de tabla, prima vacacional dependiendo de como se paga
+            dias_pri_vac = self.dias_vacaciones
+            for lineas_vac in self.contract_id.tabla_vacaciones:
+                self.dias_vacaciones += lineas_vac.dias
             if self.contract_id.tipo_prima_vacacional == '02':
-                ano_buscar = 0
-                if last_day <= date_start:
-                    ano_buscar = last_day.year -1
-                else:
-                    ano_buscar = last_day.year
-                for lineas_vac in self.contract_id.tabla_vacaciones:
-                    if lineas_vac.ano == str(ano_buscar):
-                        self.dias_vacaciones += lineas_vac.dias
+                dias_pri_vac = self.dias_vacaciones
 
             #fondo de ahorro (si hay)
             self.fondo_ahorro = self.get_fondo_ahorro()
 
             #prima vacacional liquidacion
-            self.dias_prima_vac = self.dias_vacaciones * self.prima_vac / 100.0
+            self.dias_prima_vac = dias_pri_vac * self.prima_vac / 100.0
 
 #            self.refresh()
           

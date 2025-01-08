@@ -1,4 +1,4 @@
-from odoo import fields,models
+from odoo import fields,models, api, _
 
 class EnviarNomina(models.TransientModel):
     _name='enviar.nomina'
@@ -41,5 +41,15 @@ class EnviarNomina(models.TransientModel):
                    if payslip.employee_id.work_email:
                       mail = payslip.employee_id.work_email
                if not mail:continue
+               attachment_ids=[]
+               domain = [
+                         ('res_id', '=', payslip.id),
+                         ('res_model', '=', payslip._name),
+                         ('name', '=', payslip.number.replace('/', '_') + '.xml')]
+               xml_file = self.env['ir.attachment'].search(domain, limit=1)
+               if xml_file:
+                  attachment_ids.append(xml_file.id)
+               if attachment_ids:
+                  template.attachment_ids = [(6, 0, attachment_ids)]
                template.send_mail(payslip.id, force_send=True,email_values={'email_to': mail})
         return True

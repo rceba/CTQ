@@ -16,7 +16,7 @@
 
               <xpath expr="//notebook" position="inside">
                 <field name="company_cfdi" invisible="1"/>
-                <page name="info_cdfi" string="CFDI" invisible="company_cfdi == True">
+                <page name="info_cdfi" string="CFDI" invisible="company_cfdi != True">
                         <group cols="4">
                             <group string="Datos CFDI">
                                 <field name="tipo_comprobante" readonly="estado_factura != 'factura_no_generada'"/>
@@ -143,7 +143,7 @@
                                        </div>
                                        <field name="fecha_pago" invisible="company_cfdi != True" required="company_cfdi == True"/>
                                        <field name="mes" required="tipo_nomina == 'O' or company_cfdi == True" invisible="tipo_nomina != 'O' or company_cfdi != True"/>
-                                       <field name="company_id" readonly="0"/> <!--groups="base.group_multi_company" -->
+                                       <field name="company_id" readonly="0"/>
                                     </group>
                                     <group invisible="company_cfdi != True">
                                        <field name="tipo_configuracion" invisible="tipo_nomina != 'O'"/>
@@ -171,20 +171,20 @@
                             <page name="nominas" string="Nominas" invisible="company_cfdi != True">
                                 <field name="slip_ids" force_save="1"/>
                             </page>
-		                	<page name="otras_entradas" string="Otras Entradas" invisible="company_cfdi != True">
-		                		<group  string="Otras entradas">
-				                   <field name="tabla_otras_entradas">
-				                            <tree editable="bottom">
-				                               <field name="descripcion"/>
-				                               <field name="codigo"/>
-				                               <field name="monto"/>
-				                            </tree>
-				                        </field>
-				                 </group>
-		                	</page>
-		                </notebook>
-            		</sheet>
-            	</xpath>
+                            <page name="otras_entradas" string="Otras Entradas" invisible="company_cfdi != True">
+                                <group  string="Otras entradas">
+                                    <field name="tabla_otras_entradas">
+                                        <tree editable="bottom">
+                                            <field name="descripcion"/>
+                                            <field name="codigo"/>
+                                            <field name="monto"/>
+                                        </tree>
+                                    </field>
+                                </group>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </xpath>
                 <xpath expr="//header/button[@name='draft_payslip_run']" position="after">
                     <button string="Descarga PDF y XML" name="download_zip" type="object" class="oe_highlight"/>
                 </xpath>
@@ -196,10 +196,21 @@
                     <button string="Enviar Nomina" name="enviar_nomina" type="object" 
                             invisible="state == 'close' or company_cfdi != True" class="oe_highlight"/>
                     <button string="Recalcular nómina" name="recalcular_nomina" type="object"
-                            invisible="all_payslip_generated != True or state == 'close' or company_cfdi != True" class="oe_highlight"/>
+                            invisible="all_payslip_generated_draft != True or state == 'close' or company_cfdi != True" class="oe_highlight"/>
                 </button>
             </field>
        </record>
+
+        <record id="hr_payslip_run_ext" model="ir.ui.view">
+            <field name="name">hr.payslip.run.ext</field>
+            <field name="model">hr.payslip.run</field>
+            <field name="inherit_id" ref="om_hr_payroll.hr_payslip_run_tree" />
+            <field name="arch" type="xml">
+                <field name="date_end" position="after">
+                    <field name="total_procesamiento"/>
+                </field>
+            </field>
+        </record>
 
     <record id="view_hr_payslip_tree" model="ir.ui.view">
         <field name="name">hr.payslip.inherit.tree</field>

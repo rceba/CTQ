@@ -12,11 +12,9 @@ class ResCompany(models.Model):
 
     curp = fields.Char(string=_('CURP'))
     proveedor_timbrado= fields.Selection(
-        selection=[('multifactura', _('Servidor 1')),
-                   ('gecoerp', _('Servidor 2')),
-                   ('multifactura2', _('Servidor 3')),
-                   ('multifactura3', _('Servidor 4')),],
-        string=_('Proveedor de timbrado'), 
+        selection=[('servidor', _('Principal')),
+                   ('servidor2', _('Respaldo')),],
+        string=_('Servidor de timbrado'), default='servidor'
     )
     api_key = fields.Char(string=_('API Key'))
     modo_prueba = fields.Boolean(string=_('Modo prueba'))
@@ -140,7 +138,12 @@ class ResCompany(models.Model):
         tablas_cfdi_line = tablas_cfdi_lines[0]
         today = datetime.today()
         current_year = today.strftime('%Y')
-        contract.write({'tabla_vacaciones': [(0, 0, {'ano':current_year, 'dias': tablas_cfdi_line.vacaciones})]})
+        vac_adelantada = self.env['ir.config_parameter'].sudo().get_param('nomina_cfdi_extras_ee.vacaciones_adelantadas')
+        if not vac_adelantada:
+           contract.write({'tabla_vacaciones': [(0, 0, {'ano':current_year, 'dias': tablas_cfdi_line.vacaciones, 'dias_otorgados': tablas_cfdi_line.vacaciones})]})
+        else:
+           contract.write({'tabla_vacaciones': [(0, 0, {'ano':current_year, 'dias': tablas_cfdi_line.vacaciones - contract.vacaciones_adelantadas, 'dias_otorgados': tablas_cfdi_line.vacaciones})], 
+                           'vacaciones_adelantadas': 0})
         return True
 
     @api.model
@@ -203,24 +206,23 @@ class ResCompany(models.Model):
         return True
 
     def get_saldo(self):
+        if not self.vat:
+           raise UserError(_('Falta colocar el RFC'))
+        if not self.proveedor_timbrado:
+           raise UserError(_('Falta seleccionar el servidor de timbrado'))
         values = {
                  'rfc': self.vat,
                  'api_key': self.proveedor_timbrado,
                  'modo_prueba': self.modo_prueba,
                  }
         url=''
-        if self.proveedor_timbrado == 'multifactura':
-            url = '%s' % ('http://facturacion.itadmin.com.mx/api/saldo')
-        elif self.proveedor_timbrado == 'gecoerp':
-            if self.modo_prueba:
-                #url = '%s' % ('https://ws.gecoerp.com/itadmin/pruebas/invoice/?handler=OdooHandler33')
-                url = '%s' % ('https://itadmin.gecoerp.com/invoice/?handler=OdooHandler33')
-            else:
-                url = '%s' % ('https://itadmin.gecoerp.com/invoice/?handler=OdooHandler33')
+        if self.proveedor_timbrado == 'servidor':
+            url = '%s' % ('https://facturacion.itadmin.com.mx/api/saldo')
+
         if not url:
             return
         try:
-            response = requests.post(url,auth=None,verify=False, data=json.dumps(values),headers={"Content-type": "application/json"})
+            response = requests.post(url,auth=None,data=json.dumps(values),headers={"Content-type": "application/json"})
             json_response = response.json()
         except Exception as e:
             print(e)
@@ -247,16 +249,14 @@ class ResCompany(models.Model):
                  'contrasena': self.contrasena,
                  }
         url=''
-        if self.proveedor_timbrado == 'multifactura':
-            url = '%s' % ('http://facturacion.itadmin.com.mx/api/validarcsd')
-        elif self.proveedor_timbrado == 'multifactura2':
-            url = '%s' % ('http://facturacion2.itadmin.com.mx/api/validarcsd')
-        elif self.proveedor_timbrado == 'multifactura3':
-            url = '%s' % ('http://facturacion3.itadmin.com.mx/api/validarcsd')
+        if self.proveedor_timbrado == 'servidor':
+            url = '%s' % ('https://facturacion.itadmin.com.mx/api/validarcsd')
+        elif self.proveedor_timbrado == 'servidor2':
+            url = '%s' % ('https://facturacion2.itadmin.com.mx/api/validarcsd')
         if not url:
             return
         try:
-            response = requests.post(url,auth=None,verify=False, data=json.dumps(values),headers={"Content-type": "application/json"})
+            response = requests.post(url,auth=None,data=json.dumps(values),headers={"Content-type": "application/json"})
             json_response = response.json()
         except Exception as e:
             print(e)
@@ -282,16 +282,14 @@ class ResCompany(models.Model):
                  'rfc': self.vat,
                  }
         url=''
-        if self.proveedor_timbrado == 'multifactura':
-            url = '%s' % ('http://facturacion.itadmin.com.mx/api/borrarcsd')
-        elif self.proveedor_timbrado == 'multifactura2':
-            url = '%s' % ('http://facturacion2.itadmin.com.mx/api/borrarcsd')
-        elif self.proveedor_timbrado == 'multifactura3':
-            url = '%s' % ('http://facturacion3.itadmin.com.mx/api/borrarcsd')
+        if self.proveedor_timbrado == 'servidor':
+            url = '%s' % ('https://facturacion.itadmin.com.mx/api/borrarcsd')
+        elif self.proveedor_timbrado == 'servidor2':
+            url = '%s' % ('https://facturacion2.itadmin.com.mx/api/borrarcsd')
         if not url:
             return
         try:
-            response = requests.post(url,auth=None,verify=False, data=json.dumps(values),headers={"Content-type": "application/json"})
+            response = requests.post(url,auth=None,data=json.dumps(values),headers={"Content-type": "application/json"})
             json_response = response.json()
         except Exception as e:
             print(e)

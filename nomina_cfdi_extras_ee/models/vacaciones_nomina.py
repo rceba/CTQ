@@ -29,8 +29,10 @@ class VacacionesNomina(models.Model):
     @api.onchange('dias')
     def _onchange_dias(self):
         if self.dias and self.dias > self.dias_de_vacaciones_disponibles:
-            raise UserError("No tiene suficientes dias de vacaciones")
-            
+            vac_adelantada = self.env['ir.config_parameter'].sudo().get_param('nomina_cfdi_extras_ee.vacaciones_adelantadas')
+            if not vac_adelantada:
+               raise UserError("No tiene suficientes dias de vacaciones")
+
     @api.model
     def init(self):
         company_id = self.env['res.company'].search([])
@@ -44,25 +46,27 @@ class VacacionesNomina(models.Model):
                         'company_id': company.id,
                     })
         
-    @api.model
-    def create(self, vals):
-        if vals.get('name', _('New')) == _('New'):
-            if 'company_id' in vals:
-                vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('vacaciones.nomina') or _('New')
-            else:
-                vals['name'] = self.env['ir.sequence'].next_by_code('vacaciones.nomina') or _('New')
-        result = super(VacacionesNomina, self).create(vals)
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+           if vals.get('name', _('New')) == _('New'):
+               if 'company_id' in vals:
+                   vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('vacaciones.nomina') or _('New')
+               else:
+                   vals['name'] = self.env['ir.sequence'].next_by_code('vacaciones.nomina') or _('New')
+        result = super(VacacionesNomina, self).create(vals_list)
         return result
-    
-    
+
     def action_validar(self):
+        vac_adelantada = self.env['ir.config_parameter'].sudo().get_param('nomina_cfdi_extras_ee.vacaciones_adelantadas')
         if self.dias and self.dias > self.dias_de_vacaciones_disponibles:
-            raise UserError("No tiene suficientes dias de vacaciones para validar el registro")
+            if not vac_adelantada:
+               raise UserError("No tiene suficientes dias de vacaciones para validar el registro")
 
         if self.company_id.leave_type_vac: 
             leave_type = self.company_id.leave_type_vac
         else:
-            raise UserError(_('Falta configurar el tipo de falta'))
+            raise UserError(_('Falta configurar el tipo de falta en Configuracion - Ajustes'))
         if self.fecha_inicial:
             date_from = self.fecha_inicial
             date_to = date_from + relativedelta(days=self.dias - 1)
@@ -119,17 +123,21 @@ class VacacionesNomina(models.Model):
            vacacion.action_validate()
         self.write({'state':'done'})
 
-        dias = self.dias
-        if self.employee_id and dias:
-            contract = self.employee_id.contract_id
-            if contract:
-                for vac in contract.tabla_vacaciones.sorted(key=lambda object1: object1.ano):
-                    if dias <= vac.dias:
-                        vac.write({'dias':vac.dias-dias})
-                        break
-                    elif dias > vac.dias:
-                        dias = dias-vac.dias
-                        vac.write({'dias':0})
+        if self.dias and self.dias > self.dias_de_vacaciones_disponibles:
+           contract = self.employee_id.contract_id
+           contract.vacaciones_adelantadas += self.dias
+        else:
+           dias = self.dias
+           if self.employee_id and dias:
+               contract = self.employee_id.contract_id
+               if contract:
+                   for vac in contract.tabla_vacaciones.sorted(key=lambda object1: object1.ano):
+                       if dias <= vac.dias:
+                           vac.write({'dias':vac.dias-dias})
+                           break
+                       elif dias > vac.dias:
+                           dias = dias-vac.dias
+                           vac.write({'dias':0})
         return True
 
     def action_cancelar(self):
@@ -143,12 +151,16 @@ class VacacionesNomina(models.Model):
                if registro_falta:
                   registro_falta.action_refuse()
 
-               contract = record.employee_id.contract_id
-               if contract:
-                  vac = contract.tabla_vacaciones.sorted(key=lambda object1: object1.ano)
-                  if vac:
-                     saldo_ant = vac[0].dias + record.dias
-                     vac[0].write({'dias':saldo_ant})
+               if self.dias and self.dias > self.dias_de_vacaciones_disponibles:
+                  contract = record.employee_id.contract_id
+                  contract.vacaciones_adelantadas -= self.dias
+               else:
+                  contract = record.employee_id.contract_id
+                  if contract:
+                     vac = contract.tabla_vacaciones.sorted(key=lambda object1: object1.ano)
+                     if vac:
+                        saldo_ant = vac[0].dias + record.dias
+                        vac[0].write({'dias':saldo_ant})
 
     def action_draft(self):
         self.write({'state':'draft'})

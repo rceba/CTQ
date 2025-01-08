@@ -208,8 +208,8 @@ class HrPayslip(models.Model):
     @api.model
     def _get_payslip_lines(self, contract_ids, payslip_id):
         def _sum_salary_rule_category(localdict, category, amount):
-            if category.parent_id:
-                localdict = _sum_salary_rule_category(localdict, category.parent_id, amount)
+            #if category.parent_id:
+            #    localdict = _sum_salary_rule_category(localdict, category.parent_id, amount)
             localdict['categories'].dict[category.code] = category.code in localdict['categories'].dict and localdict['categories'].dict[category.code] + amount or amount
             return localdict
 
@@ -340,7 +340,6 @@ class HrPayslip(models.Model):
                         'amount_python_compute': rule.amount_python_compute,
                         'amount_percentage': rule.amount_percentage,
                         'amount_percentage_base': rule.amount_percentage_base,
-                        'register_id': rule.register_id.id,
                         'amount': amount,
                         'employee_id': contract.employee_id.id,
                         'quantity': qty,
@@ -510,7 +509,7 @@ class HrPayslipWorkedDays(models.Model):
     payslip_id = fields.Many2one('hr.payslip', string='Pay Slip', required=True, ondelete='cascade', index=True)
     sequence = fields.Integer(required=True, index=True, default=10)
     code = fields.Char(required=True, help="The code that can be used in the salary rules")
-    number_of_days = fields.Float(string='Number of Days')
+    number_of_days = fields.Float(string='Number of Days', digits=(0,4))
     number_of_hours = fields.Float(string='Number of Hours')
     contract_id = fields.Many2one('hr.contract', string='Contract', required=True,
         help="The contract for which applied this input")

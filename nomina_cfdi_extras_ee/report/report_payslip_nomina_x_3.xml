@@ -18,7 +18,24 @@
             <field name="dpi">90</field>
         </record>
 
+        <template id="nomina_x3_layout">
+			<!-- Multicompany -->
+			<t t-if="not o and doc">
+				<t t-set="o" t-value="doc" />
+			</t>
+			<t t-if="o and 'company_id' in o">
+				<t t-set="company" t-value="o.company_id"></t>
+			</t>
+			<t t-if="not o or not 'company_id' in o">
+				<t t-set="company" t-value="res_company"></t>
+            </t>
+        <div class="article o_report_layout_standard"  t-att-data-oe-model="o and o._name" t-att-data-oe-id="o and o.id">
+            <t t-raw="0" />
+        </div>
+    </template>
+
         <template id="report_payslip_nomina_x3_document">
+          <t t-call="nomina_cfdi_extras_ee.nomina_x3_layout">
             <t t-set="o" t-value="o.with_context({'lang':'es_MX'})"/>
             <t t-set="no_nominas" t-value="0.0"/>
             <div class="page" style="padding-top: 5px; font-size:12px;">
@@ -292,6 +309,7 @@
                     </t>
                 </t>
             </div>
+           </t>
         </template>
 
         <template id="report_payslip_nomina_x3_ext">

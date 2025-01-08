@@ -7,10 +7,10 @@
     Nomina CFDI Module
     ''',
     'author': 'IT Admin',
-    'version': '17.01',
+    'version': '17.03',
     'category': 'Employees',
     'depends': [
-        'om_hr_payroll','account'
+        'om_hr_payroll','account', 'hr_work_entry_ce',
     ],
     'data': [
         'security/security.xml',
@@ -46,7 +46,8 @@
     ],
     'assets': {
         'web.assets_backend': [
-#            'nomina_cfdi_ee/static/src/js/caja_nomina.js',
+            'nomina_cfdi_ee/static/src/js/caja_nomina.js',
+            'nomina_cfdi_ee/static/src/xml/caja_nomina.xml'
         ],
     },
     'installable': True,

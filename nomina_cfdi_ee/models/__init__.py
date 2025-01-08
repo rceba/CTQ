@@ -12,3 +12,4 @@ from . import ctalogo_nomina
 from . import registro_patronal
 from . import caja_ahorro
 from . import employee_public
+from . import hr_work_entry

@@ -155,6 +155,7 @@
             <t t-set="worked_days" t-value="o.worked_days_line_ids.filtered(lambda x:x.code=='VAC')" />
             <t t-if="len(worked_days)>0">
                  <t t-set="dias_vacaiones" t-value="worked_days[0].number_of_days"/>
+                 <t t-set="dias_trabajados" t-value="dias_trabajados + worked_days[0].number_of_days"/>
             </t>
             <t t-set="worked_days" t-value="o.worked_days_line_ids.filtered(lambda x:x.code=='PDM')" />
             <t t-if="len(worked_days)>0">

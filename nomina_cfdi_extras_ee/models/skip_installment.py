@@ -22,13 +22,13 @@ class dev_skip_installment(models.Model):
         return self.env.user
 
     name = fields.Char('Nombre', default='/')
-    employee_id = fields.Many2one('hr.employee',string='Empleado',required="1", default=_get_employee)
-    loan_id = fields.Many2one('employee.loan',string='Deducción',required="1")
-    installment_id = fields.Many2one('installment.line',string='Entrega', required="1")
+    employee_id = fields.Many2one('hr.employee',string='Empleado',required=True, default=_get_employee)
+    loan_id = fields.Many2one('employee.loan',string='Deducción',required=True)
+    installment_id = fields.Many2one('installment.line',string='Entrega', required=True)
     date = fields.Date(string='Fecha')#, default=fields.date.today())
     user_id = fields.Many2one('res.users',string='Usuario', default=_get_default_user)
-    notes = fields.Text('Razón', required="1")
-#    manager_id = fields.Many2one('hr.employee',string='Gerente de departamento', required="1")
+    notes = fields.Text('Razón', required=True)
+#    manager_id = fields.Many2one('hr.employee',string='Gerente de departamento', required=True)
     skip_installment_url = fields.Char('URL', compute='get_url')
 #    hr_manager_id = fields.Many2one('hr.employee',string='Gerente de RH')
     state = fields.Selection([('draft','Borrador'),
@@ -223,18 +223,16 @@ class dev_skip_installment(models.Model):
                         'company_id': company.id,
                     })
     
-    @api.model
-    def create(self, vals):
-        if vals.get('name', '/') == '/':
-            if 'company_id' in vals:
-                vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code(
-                    'dev.skip.installment') or '/'
-            else:
-                vals['name'] = self.env['ir.sequence'].next_by_code(
-                    'dev.skip.installment') or '/'
-        return super(dev_skip_installment, self).create(vals)
-        
-   
+    @api.model_create_multi
+    def create(self, vals_list):
+        for vals in vals_list:
+           if vals.get('name', '/') == '/':
+               if 'company_id' in vals:
+                   vals['name'] = self.env['ir.sequence'].with_company(vals['company_id']).next_by_code('dev.skip.installment') or '/'
+               else:
+                   vals['name'] = self.env['ir.sequence'].next_by_code('dev.skip.installment') or '/'
+        return super(dev_skip_installment, self).create(vals_list)
+
     def copy(self, default=None):
         if default is None:
             default = {}
