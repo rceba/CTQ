@@ -23,6 +23,7 @@
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
             <t t-set="xml" t-value="l10n_mx_edi_get_xml_etree(o.datas)"/>
             <t t-set="tfd" t-value="l10n_mx_edi_get_tfd_etree(xml)"/>
+            <t t-set="conceptos" t-value="l10n_mx_edi_get_conceptos(xml)"/>
             <t t-set="tfd_original_string" t-value="_get_l10n_mx_edi_cadena(o.datas)"/>
             <t t-set="supplier_rfc" t-value="xml.Receptor.get('Rfc', xml.Receptor.get('rfc'))"/>
             <t t-set="customer_rfc" t-value="xml.Emisor.get('Rfc', xml.Emisor.get('rfc'))"/>
@@ -133,8 +134,7 @@
                     </thead>
                     <tbody class="invoice_tbody">
                         <t t-set="current_subtotal" t-value="0"/>
-
-                        <t t-foreach="xml.Conceptos.Concepto" t-as="line">
+                        <t t-foreach="conceptos" t-as="line">
                             <t t-set="tax_per_amount" t-value="get_tax_amount(line)"/>
                             <t t-set="price_subtotal"
                                t-value="round(float(line.get('ValorUnitario','0.0'))*float(line.get('Cantidad','0.0')),2)"/>

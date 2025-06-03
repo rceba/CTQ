@@ -126,4 +126,13 @@ class Reportfacturas_de_clientes(models.AbstractModel):
             'l10n_mx_edi_get_tfd_etree': self.l10n_mx_edi_get_tfd_etree,
             '_get_l10n_mx_edi_cadena': self._get_l10n_mx_edi_cadena,
             'get_tax_amount_by_percent' : self.get_tax_amount_by_percent,
+            'l10n_mx_edi_get_conceptos' : self.l10n_mx_edi_get_conceptos,
             }
+
+    @api.model
+    def l10n_mx_edi_get_conceptos(self, cfdi):
+        lines = []
+        if hasattr(cfdi, 'Conceptos'):
+            for line in cfdi.Conceptos.Concepto:
+               lines.append(line)
+        return lines
