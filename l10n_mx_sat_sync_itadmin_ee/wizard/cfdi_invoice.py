@@ -95,8 +95,8 @@ class CfdiInvoiceAttachment(models.TransientModel):
 
             invoice_obj = self.env['account.move']
             cfdi_uuids = attachments.mapped("cfdi_uuid")
-            exist_invoices = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom', 'in', cfdi_uuids)])
-            exist_invoice_uuids = exist_invoices.mapped('l10n_mx_edi_cfdi_uuid_cusom')
+#            exist_invoices = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom', 'in', cfdi_uuids)])
+#            exist_invoice_uuids = exist_invoices.mapped('l10n_mx_edi_cfdi_uuid_cusom')
 
             create_so_po = ctx.get('create_so_po', False)
 
@@ -105,9 +105,9 @@ class CfdiInvoiceAttachment(models.TransientModel):
                 if not cfdi_uuid:
                     not_imported_attachment.update({attachment.name: 'Archivo adjunto no válido'})
                     continue
-                if cfdi_uuid in exist_invoice_uuids:
-                    existed_attachment.append(attachment.name)
-                    continue
+#                if cfdi_uuid in exist_invoice_uuids:
+#                    existed_attachment.append(attachment.name)
+#                    continue
                 p, ext = os.path.splitext(attachment.name)
 
                 if ext[1:].lower() != 'xml':
@@ -235,12 +235,12 @@ class CfdiInvoiceAttachment(models.TransientModel):
 
         vendor_uuid = timbrado_data.get('@UUID')
 
-        if vendor_uuid != '':
-            vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom', '=', vendor_uuid.lower())], limit=1)
-            if not vendor_order_exist:
-                vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom', '=', vendor_uuid.upper())], limit=1)
-            if vendor_order_exist:
-                raise UserError("Factura ya existente con ese UUID %s" % (vendor_uuid))
+        #if vendor_uuid != '':
+        #    vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom', '=', vendor_uuid.lower())], limit=1)
+        #    if not vendor_order_exist:
+        #        vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom', '=', vendor_uuid.upper())], limit=1)
+        #    if vendor_order_exist:
+        #        raise UserError("Factura ya existente con ese UUID %s" % (vendor_uuid))
 
         if customer_reference != '':
             invoice_exist = invoice_obj.search([('ref', '=', customer_reference), ('move_type', '=', 'out_invoice')], limit=1)
@@ -406,12 +406,12 @@ class CfdiInvoiceAttachment(models.TransientModel):
         except Exception as e:
            vendor_uuid = timbrado_data[0].get('@UUID')
 
-        if vendor_uuid != '':
-            vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',vendor_uuid.lower())],limit=1)
-            if not vendor_order_exist:
-                vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',vendor_uuid.upper())],limit=1)
-            if vendor_order_exist:
-                raise UserError("Factura ya existente con ese UUID %s" % (vendor_uuid))
+        #if vendor_uuid != '':
+        #    vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',vendor_uuid.lower())],limit=1)
+        #    if not vendor_order_exist:
+        #        vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',vendor_uuid.upper())],limit=1)
+        #    if vendor_order_exist:
+        #        raise UserError("Factura ya existente con ese UUID %s" % (vendor_uuid))
 
         if vendor_reference != '':
             invoice_exist = invoice_obj.search([('ref','=',vendor_reference), ('move_type','=', 'in_invoice')],limit=1)
@@ -601,12 +601,12 @@ class CfdiInvoiceAttachment(models.TransientModel):
         timbrado_data = data.get('Comprobante', {}).get('Complemento', {}).get('TimbreFiscalDigital', {})
 
         vendor_uuid = timbrado_data.get('@UUID')
-        if vendor_uuid != '':
-            vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',vendor_uuid.lower())],limit=1)
-            if not vendor_order_exist:
-                vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',vendor_uuid.upper())],limit=1)
-            if vendor_order_exist:
-                raise UserError("Factura ya existente con ese UUID %s" % (vendor_uuid))
+        #if vendor_uuid != '':
+        #    vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',vendor_uuid.lower())],limit=1)
+        #    if not vendor_order_exist:
+        #        vendor_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',vendor_uuid.upper())],limit=1)
+        #    if vendor_order_exist:
+        #        raise UserError("Factura ya existente con ese UUID %s" % (vendor_uuid))
 
         if customer_reference != '':
             invoice_exist = invoice_obj.search([('ref', '=', customer_reference), ('move_type', '=', 'out_refund')], limit=1)
@@ -771,12 +771,12 @@ class CfdiInvoiceAttachment(models.TransientModel):
         timbrado_data = data.get('Comprobante', {}).get('Complemento', {}).get('TimbreFiscalDigital', {})
 
         purchase_uuid = timbrado_data.get('@UUID')
-        if purchase_uuid != '':
-            purchase_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',purchase_uuid.lower())],limit=1)
-            if not purchase_order_exist:
-                purchase_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',purchase_uuid.upper())],limit=1)
-            if purchase_order_exist:
-                raise UserError("Factura ya existente con ese UUID %s" % (purchase_uuid))
+        #if purchase_uuid != '':
+        #    purchase_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',purchase_uuid.lower())],limit=1)
+        #    if not purchase_order_exist:
+        #        purchase_order_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',purchase_uuid.upper())],limit=1)
+        #    if purchase_order_exist:
+        #        raise UserError("Factura ya existente con ese UUID %s" % (purchase_uuid))
 
         if vendor_reference != '':
             invoice_exist = invoice_obj.search([('ref', '=', vendor_reference), ('move_type', '=', 'in_refund')], limit=1)
@@ -1118,12 +1118,12 @@ class CfdiInvoiceAttachment(models.TransientModel):
         timbrado_data = data.get('Comprobante', {}).get('Complemento', {}).get('TimbreFiscalDigital', {})
 
         purchase_uuid = timbrado_data.get('@UUID')
-        if purchase_uuid != '':
-            purchase_order_exist = purchase_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',purchase_uuid.lower())],limit=1)
-            if not purchase_order_exist:
-                purchase_order_exist = purchase_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',purchase_uuid.upper())],limit=1)
-            if purchase_order_exist:
-                raise UserError("Factura ya existente con ese UUID %s" % (purchase_uuid))
+        #if purchase_uuid != '':
+        #    purchase_order_exist = purchase_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',purchase_uuid.lower())],limit=1)
+        #    if not purchase_order_exist:
+        #        purchase_order_exist = purchase_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',purchase_uuid.upper())],limit=1)
+        #    if purchase_order_exist:
+        #        raise UserError("Factura ya existente con ese UUID %s" % (purchase_uuid))
 
         if vendor_reference != '':
             purchase_order_exist = purchase_obj.search([('partner_ref','=',vendor_reference)],limit=1)
@@ -1134,7 +1134,7 @@ class CfdiInvoiceAttachment(models.TransientModel):
         order_vals = {
             'partner_id':vendor.id,
             'partner_ref':vendor_reference,
-            'l10n_mx_edi_cfdi_uuid_cusom':timbrado_data.get('@UUID'),
+            #'l10n_mx_edi_cfdi_uuid_cusom':timbrado_data.get('@UUID'),
             #'forma_pago':data.get('Comprobante',{}).get('@FormaPago',{}), 
             #'methodo_pago':data.get('Comprobante',{}).get('@MetodoPago',{}),
             #'uso_cfdi':receptor_data.get('@UsoCFDI') if receptor_data.get('@UsoCFDI') != 'P01' else 'S01',

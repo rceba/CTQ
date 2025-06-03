@@ -42,31 +42,31 @@ class XMLInvoiceReconcile(models.TransientModel):
                    ('30', '30 - Aplicación de anticipos'), 
                    ('31', '31 - Intermediario pagos'), 
                    ('99', '99 - Por definir'),],
-        string=_('Forma de pago'),
+        string='Forma de pago',
     )
     uso_cfdi = fields.Selection(
-        selection=[('G01', _('Adquisición de mercancías')),
-                   ('G02', _('Devoluciones, descuentos o bonificaciones')),
-                   ('G03', _('Gastos en general')),
-                   ('I01', _('Construcciones')),
-                   ('I02', _('Mobiliario y equipo de oficina por inversiones')),
-                   ('I03', _('Equipo de transporte')),
-                   ('I04', _('Equipo de cómputo y accesorios')),
-                   ('I05', _('Dados, troqueles, moldes, matrices y herramental')),
-                   ('I06', _('Comunicacion telefónica')),
-                   ('I07', _('Comunicación Satelital')),
-                   ('I08', _('Otra maquinaria y equipo')),
-                   ('D01', _('Honorarios médicos, dentales y gastos hospitalarios')),
-                   ('D02', _('Gastos médicos por incapacidad o discapacidad')),
-                   ('D03', _('Gastos funerales')),
-                   ('D04', _('Donativos')),
-                   ('D07', _('Primas por seguros de gastos médicos')),
-                   ('D08', _('Gastos de transportación escolar obligatoria')),
-                   ('D10', _('Pagos por servicios educativos (colegiaturas)')),
-                   ('S01', _('Sin efectos fiscales')),
-                   ('CP01', _('Pago')),
-                   ('CN01', _('Nomina')),],
-        string=_('Uso CFDI (cliente)'),
+        selection=[('G01', 'Adquisición de mercancías'),
+                   ('G02', 'Devoluciones, descuentos o bonificaciones'),
+                   ('G03', 'Gastos en general'),
+                   ('I01', 'Construcciones'),
+                   ('I02', 'Mobiliario y equipo de oficina por inversiones'),
+                   ('I03', 'Equipo de transporte'),
+                   ('I04', 'Equipo de cómputo y accesorios'),
+                   ('I05', 'Dados, troqueles, moldes, matrices y herramental'),
+                   ('I06', 'Comunicacion telefónica'),
+                   ('I07', 'Comunicación Satelital'),
+                   ('I08', 'Otra maquinaria y equipo'),
+                   ('D01', 'Honorarios médicos, dentales y gastos hospitalarios'),
+                   ('D02', 'Gastos médicos por incapacidad o discapacidad'),
+                   ('D03', 'Gastos funerales'),
+                   ('D04', 'Donativos'),
+                   ('D07', 'Primas por seguros de gastos médicos'),
+                   ('D08', 'Gastos de transportación escolar obligatoria'),
+                   ('D10', 'Pagos por servicios educativos (colegiaturas)'),
+                   ('S01', 'Sin efectos fiscales'),
+                   ('CP01', 'Pago'),
+                   ('CN01', 'Nomina'),],
+        string='Uso CFDI (cliente)',
     )
     
     numero_cetificado = fields.Char("Numero cetificado")
@@ -80,10 +80,10 @@ class XMLInvoiceReconcile(models.TransientModel):
                    ('P', 'Pago'),
                    ('N', 'Nomina'),
                     ('T', 'Traslado'),],
-        string=_('Tipo de comprobante'),
+        string='Tipo de comprobante',
     )
-    fecha_factura = fields.Datetime(string=_('Fecha Factura'))
-    number_folio = fields.Char(string=_('Folio'))
+    fecha_factura = fields.Datetime(string='Fecha Factura')
+    number_folio = fields.Char(string='Folio')
     invoice_type = fields.Char("Invoice Type")
     payment_type = fields.Char("Payment Type")
     client_rfc = fields.Char("RFC")

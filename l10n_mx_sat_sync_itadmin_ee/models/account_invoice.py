@@ -21,7 +21,6 @@ class AccountInvoice(models.Model):
     _inherit = 'account.move'
 
     attachment_id = fields.Many2one("ir.attachment", 'Attachment Sync')
-    l10n_mx_edi_cfdi_uuid_cusom = fields.Char(string='Fiscal Folio UUID', copy=False, readonly=True, compute="_compute_cfdi_uuid", store=True)
     hide_message = fields.Boolean(string='Hide Message', default=False, copy=False)
     l10n_mx_edi_cfdi_sat_state = fields.Selection(selection_add=[('skip', 'Skip')])
 
