@@ -153,10 +153,10 @@ class MailTrackingEmail(models.Model):
     def email_score_from_email(self, email):
         if not email:
             return 0.0
-        data = self.read_group(
+        data = self._read_group(
             [("recipient_address", "=", email.lower())],
-            ["recipient_address", "state"],
-            ["state"],
+            ['state'],
+            ['recipient_address:sum'],
         )
         mapped_data = {state["state"]: state["state_count"] for state in data}
         return self.with_context(mt_states=mapped_data).email_score()
