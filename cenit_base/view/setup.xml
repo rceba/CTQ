@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<odoo>
 
         <menuitem id="menu_cenit_connectors" name="API Connectors"
                   parent="menu_cenit_integration" sequence="2"/>
@@ -10,7 +9,7 @@
             <field name="name">view.cenit.connection.tree</field>
             <field name="model">cenit.connection</field>
             <field name="arch" type="xml">
-                <tree string="Connections">
+                <tree>
                     <field name="namespace"/>
                     <field name="name"/>
                     <field name="url"/>
@@ -89,7 +88,7 @@
             <field name="name">view.cenit.connection.role.tree</field>
             <field name="model">cenit.connection.role</field>
             <field name="arch" type="xml">
-                <tree string="Roles">
+                <tree>
                     <field name="namespace"/>
                     <field name="name"/>
                 </tree>
@@ -156,7 +155,7 @@
             <field name="name">view.cenit.webhook.tree</field>
             <field name="model">cenit.webhook</field>
             <field name="arch" type="xml">
-                <tree string="Webhooks">
+                <tree>
                     <field name="namespace"/>
                     <field name="name"/>
                     <field name="path"/>
@@ -230,7 +229,7 @@
             <field name="name">view.cenit.operation.tree</field>
             <field name="model">cenit.operation</field>
             <field name="arch" type="xml">
-                <tree string="Operations">
+                <tree>
                     <field name="resource_id"/>
                     <field name="method"/>
                     <field name="purpose"/>
@@ -284,7 +283,7 @@
             <field name="name">view.cenit.resource.tree</field>
             <field name="model">cenit.resource</field>
             <field name="arch" type="xml">
-                <tree string="Resources">
+                <tree>
                     <field name="namespace"/>
                     <field name="name"/>
                     <field name="path"/>
@@ -361,7 +360,7 @@
             <field name="name">view.cenit.flow.tree</field>
             <field name="model">cenit.flow</field>
             <field name="arch" type="xml">
-                <tree string="Flows">
+                <tree>
                     <field name="namespace"/>
                     <field name="name"/>
                     <field name="schema"/>
@@ -426,7 +425,7 @@
             <field name="name">view.cenit.event.tree</field>
             <field name="model">cenit.event</field>
             <field name="arch" type="xml">
-                <tree string="Available Events">
+                <tree>
                     <field name="namespace"/>
                     <field name="name"/>
                     <field name="type_"/>
@@ -474,7 +473,7 @@
             <field name="name">view.cenit.translator.tree</field>
             <field name="model">cenit.translator</field>
             <field name="arch" type="xml">
-                <tree string="Available Translators" create="false">
+                <tree create="false">
                     <field name="namespace"/>
                     <field name="name"/>
                     <field name="type_"/>
@@ -496,5 +495,4 @@
                   parent="menu_cenit_workflows" sequence="2"
                   action="action_cenit_translator"/>
 
-    </data>
-</openerp>
+</odoo>

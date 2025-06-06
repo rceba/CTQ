@@ -8,7 +8,7 @@
             <field name="name">view.cenit.namespace.tree</field>
             <field name="model">cenit.namespace</field>
             <field name="arch" type="xml">
-                <tree string="Namespaces">
+                <tree>
                     <field name="name"/>
                     <field name="slug"/>
                 </tree>
@@ -46,7 +46,7 @@
             <field name="name">view.cenit.schema.tree</field>
             <field name="model">cenit.schema</field>
             <field name="arch" type="xml">
-                <tree string="Data types">
+                <tree>
                     <field name="namespace"/>
                     <field name="name"/>
                     <field name="slug"/>
@@ -86,7 +86,7 @@
             <field name="name">view.cenit.data_type.tree</field>
             <field name="model">cenit.data_type</field>
             <field name="arch" type="xml">
-                <tree string="data_types">
+                <tree>
                     <field name="namespace"/>
                     <field name="name"/>
                     <field name="model"/>
@@ -115,7 +115,7 @@
                         <notebook>
                             <page string="Mapping">
                                 <field name="lines">
-                                    <tree string="Lines" editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="value" string="Data type property"/>
                                         <field name="name" string="Model value"/>
                                         <field name="line_type"/>
@@ -131,7 +131,7 @@
                             </page>
                             <page string="Triggers">
                                 <field name="triggers">
-                                    <tree string="Triggers" editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="name" string="Event"/>
                                         <field name="cron_lapse"
                                                attrs="{'invisible': [('name','!=','interval')]}"/>
@@ -144,7 +144,7 @@
                             </page>
                             <page string="Conditions">
                                 <field name="domain">
-                                    <tree string="Conditions" editable="bottom">
+                                    <tree editable="bottom">
                                         <field name="field"/>
                                         <field name="op"/>
                                         <field name="value"/>

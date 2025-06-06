@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -22,7 +21,7 @@
 {
     "name": "Cenit IO Integrations Client",
     "category": "Hidden",
-    "version": "0.13.1",
+    "version": "17.0.1.0.0",
     "application": True,
     "author": "Cenit IO",
     "website": "https://cenit.io",
