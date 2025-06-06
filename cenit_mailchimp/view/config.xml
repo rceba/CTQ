@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<openerp>
-    <data>
+<odoo>
 
         <record id="view_cenit_mailchimp_settings" model="ir.ui.view">
             <field name="name">Mailchimp settings</field>
@@ -39,5 +38,4 @@
             parent="cenit_base.menu_cenit_integrations_settings_alt"
             sequence="1" action="action_cenit_mailchimp_settings"/>
 
-    </data>
-</openerp>
+</odoo>

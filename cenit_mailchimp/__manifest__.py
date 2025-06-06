@@ -1,4 +1,3 @@
-# -*- coding: utf-8 -*-
 ##############################################################################
 #
 #    OpenERP, Open Source Management Solution
@@ -21,7 +20,7 @@
 
 {
     'name': 'Mailchimp Integration',
-    'version': '1.0.0',
+    'version': "17.0.1.0.0",
     'author': 'Cenit IO',
     'website': 'https://cenit.io',
     # ~ 'license': 'LGPL-3',
