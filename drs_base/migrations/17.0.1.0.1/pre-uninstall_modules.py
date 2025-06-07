@@ -1,4 +1,8 @@
+import logging
+
 from odoo.upgrade import util
+
+_logger = logging.getLogger("DRS_MIG")
 
 
 def migrate(cr, version):
@@ -6,4 +10,5 @@ def migrate(cr, version):
 
     for module in modules_to_remove:
         if util.module_installed(cr, module):
-            util.uninstall_module(cr, module)
+            util.remove_module(cr, module)
+            _logger.info(f"Modulo {module} desinstalado correctamente.")
