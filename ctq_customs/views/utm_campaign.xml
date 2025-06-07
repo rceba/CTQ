@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo>
-    <template id="utm_campaign_view_form_ctq" inherit_id="utm.utm_campaign_view_form">
-        <xpath expr="//field[@name='user_id']" position="after">
-            <field name="company_id"/>
-        </xpath>
-    </template>
-</odoo>
