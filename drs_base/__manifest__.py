@@ -9,7 +9,8 @@
     "category": "Tools",
     "version": "17.0.1.0.1",
     "depends": ["base", "hr_work_entry_ce"],
-    "data": [],
+    "data": ["data/payroll.xml"],
     "application": True,
     "installable": True,
+    "licence": "LGPL-3"
 }

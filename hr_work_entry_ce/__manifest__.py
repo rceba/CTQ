@@ -1,4 +1,4 @@
-#-*- coding:utf-8 -*-
+# -*- coding:utf-8 -*-
 
 {
     'name': 'HR Work Entries Community',
@@ -10,11 +10,13 @@
     'summary': 'Funcionalidades para menus de work entries.',
     'description': """Funcionalidades para menus de work entries.""",
     'depends': [
-        'om_hr_payroll', 'hr_work_entry', 'hr_work_entry_contract', 'hr_work_entry_holidays', 'hr_work_entry_contract_attendance',
+        'om_hr_payroll', 'hr_work_entry', 'hr_work_entry_contract', 'hr_work_entry_holidays',
+        'hr_work_entry_contract_attendance',
     ],
     'data': [
         'data/hr_payroll_data.xml',
         'views/hr_work_entry_menu.xml',
     ],
     'application': True,
+    "licence": "LGPL-3"
 }
