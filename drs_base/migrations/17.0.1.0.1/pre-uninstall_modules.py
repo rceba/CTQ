@@ -23,9 +23,12 @@ def migrate(cr, version):
             "DELETE FROM ir_ui_view WHERE name='Odoo Studio: sale.order.tree customization'",
             "DELETE FROM ir_ui_view WHERE name='Odoo Studio: account.invoice.tree customization'",
             "DELETE FROM ir_ui_view WHERE name='Odoo Studio: account.payment.tree customization'",
+            "DELETE FROM ir_ui_view WHERE name='Default graph view for ir.model(217,)'",
             "DELETE FROM ir_ui_view WHERE name='Default graph view for account.journal'",
             "DELETE FROM ir_asset WHERE name like '%auditlog%'",
             "DELETE FROM ir_asset WHERE name like '%mail_tracking%'",
+            "DELETE FROM ir_asset WHERE name like '%ctq_customs%'",
+            "DELETE FROM hr_work_entry WHERE contract_id IS NULL"
         ],
     )
 
