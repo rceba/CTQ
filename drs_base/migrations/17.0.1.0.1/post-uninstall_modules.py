@@ -6,7 +6,7 @@ _logger = logging.getLogger("DRS_MIG")
 
 
 def migrate(cr, version):
-    def_contract = util.ref(cr, "hr_contract_migration")
+    def_contract = util.ref(cr, "d_base.hr_contract_migration")
     if def_contract:
         util.parallel_execute(
             cr,
