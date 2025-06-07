@@ -28,11 +28,11 @@
     'summary': "Mailchimp Integration",
     'description': "Mailchimp Integration",
     'depends': ['cenit_base'],
-    'data': [
-        'security/ir.model.access.csv',
-        'view/config.xml',
-        'view/wizard.xml'
-    ],
+    # 'data': [
+    #     'security/ir.model.access.csv',
+    #     'view/config.xml',
+    #     'view/wizard.xml'
+    # ],
     'images': ['static/images/banner.jpg'],
     'installable': True
 }

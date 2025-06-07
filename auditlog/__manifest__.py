@@ -9,13 +9,13 @@
     "website": "https://github.com/OCA/server-tools",
     "category": "Tools",
     "depends": ["base", "drs_base"],
-    "data": [
-        "security/ir.model.access.csv",
-        "data/ir_cron.xml",
-        "views/auditlog_view.xml",
-        "views/http_session_view.xml",
-        "views/http_request_view.xml",
-    ],
+    # "data": [
+    #     "security/ir.model.access.csv",
+    #     "data/ir_cron.xml",
+    #     "views/auditlog_view.xml",
+    #     "views/http_session_view.xml",
+    #     "views/http_request_view.xml",
+    # ],
     "application": True,
     "installable": True,
 }

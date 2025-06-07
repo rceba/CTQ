@@ -35,12 +35,12 @@
     "external_dependencies": {
         "python": ["inflect", "pyasn1", "OpenSSL", "ndg"]
     },
-    "data": [
-        "security/ir.model.access.csv",
-        "view/config.xml",
-        "view/data_definitions.xml",
-        "view/setup.xml",
-    ],
+    # "data": [
+    #     "security/ir.model.access.csv",
+    #     "view/config.xml",
+    #     "view/data_definitions.xml",
+    #     "view/setup.xml",
+    # ],
     "images": [
         "static/screenshots/main.png"
     ],
