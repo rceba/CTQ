@@ -8,7 +8,7 @@
     "website": "https://www.drasi.odoo.com",
     "category": "Tools",
     "version": "17.0.1.0.1",
-    "depends": ["base"],
+    "depends": ["base", "hr_work_entry_ce"],
     "data": [],
     "application": True,
     "installable": True,

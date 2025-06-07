@@ -28,7 +28,6 @@ def migrate(cr, version):
             "DELETE FROM ir_asset WHERE name like '%auditlog%'",
             "DELETE FROM ir_asset WHERE name like '%mail_tracking%'",
             "DELETE FROM ir_asset WHERE name like '%ctq_customs%'",
-            "DELETE FROM hr_work_entry WHERE contract_id IS NULL"
         ],
     )
 
