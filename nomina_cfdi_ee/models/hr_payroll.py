@@ -1821,6 +1821,7 @@ class HrPayslip(models.Model):
             return None
         return '%.*f' % (precision, amount)
 
+
 class HrPayslipMail(models.Model):
     _name = "hr.payslip.mail"
     _inherit = ['mail.thread']
@@ -1830,30 +1831,3 @@ class HrPayslipMail(models.Model):
     name = fields.Char(related='payslip_id.name')
     employee_id = fields.Many2one(related='payslip_id.employee_id')
     company_id = fields.Many2one(related='payslip_id.company_id')
-
-
-class MailComposeMessage(models.TransientModel):
-    _inherit = 'mail.compose.message'
-
-    def _compute_attachment_ids(self):
-        res = super(MailComposeMessage, self)._compute_attachment_ids()
-        for rec in self:
-            if rec.model == 'hr.payslip':
-                attachment_ids=[]
-                template_id = rec.env.ref('nomina_cfdi_ee.email_template_payroll')
-                #_logger.info('template2 id %s', template_id.id)
-                if rec.template_id.id == template_id.id:
-                    res_ids = ast.literal_eval(rec.res_ids)
-                    for res_id in res_ids:
-                        slip = rec.env[rec.model].browse(res_id)
-                        domain = [
-                            ('res_id', '=', slip.id),
-                            ('res_model', '=', slip._name),
-                            ('name', '=', slip.number.replace('/', '_') + '.xml')]
-                        xml_file = rec.env['ir.attachment'].search(domain, limit=1)
-                        if xml_file:
-                            attachment_ids.extend(rec.attachment_ids.ids)
-                            attachment_ids.append(xml_file.id)
-                    if attachment_ids:
-                        rec.attachment_ids = [(6, 0, attachment_ids)]
-        return res

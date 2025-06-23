@@ -1,0 +1,59 @@
+# Archivos y carpetas específicos de macOS
+.DS_Store
+._*
+.Spotlight-V100
+.Trashes
+__MACOSX/
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtualenv
+venv/
+.env/
+.venv/
+
+# IDE y editores
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Archivos de instalación / paquetes
+*.egg-info/
+*.egg
+dist/
+build/
+*.so
+*.dylib
+
+# Archivos de pruebas y coverage
+htmlcov/
+.tox/
+.nox/
+.coverage
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# Archivos de configuración local
+*.local
+.env.local
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+
+# Logs y bases de datos
+*.log
+*.sqlite3
+
+# Archivos de entorno
+.env
+.env.dev
+.env.prod
+
+# Archivos de depuración
+*.prof
