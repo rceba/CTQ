@@ -19,6 +19,8 @@ class MailTemplate(models.Model):
                             ("name", '=', f"{slip.number.replace('/', '_')}.xml")
                         ]
                     )
+                    if not attachment:
+                        continue
                     result[res_id]["attachments"].append((attachment.name, attachment.raw))
         except (ValueError, KeyError, IndexError):
             pass
