@@ -7,7 +7,6 @@ class AccountPayment(models.Model):
     _inherit = 'account.payment'
 
     attachment_id = fields.Many2one("ir.attachment", 'Attachment Sync')
-    l10n_mx_edi_cfdi_uuid_cusom = fields.Char(string='Fiscal Folio UUID', copy=False, readonly=True, compute="_compute_cfdi_uuid", store=True)
 
     @api.depends('l10n_mx_edi_cfdi_attachment_id')
     def _compute_cfdi_uuid(self):

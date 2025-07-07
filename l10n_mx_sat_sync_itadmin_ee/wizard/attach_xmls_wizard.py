@@ -226,24 +226,6 @@ class AttachXmlsWizard(models.TransientModel):
                     'type' :'binary',
                     'company_id' :company_id,
                     }
-            if cfdi_type=='SP' or cfdi_type=='P':
-                    for uu in [xml_uuid,xml_uuid.lower(),xml_uuid.upper()]:
-                        payment_exist = payment_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',uu)],limit=1)
-                        if payment_exist:
-                            vals.update({'creado_en_odoo' : True,'payment_ids':[(6,0, payment_exist.ids)]})
-                            break
-            if cfdi_type=='SE' or cfdi_type=='E':
-                    for uu in [xml_uuid,xml_uuid.lower(),xml_uuid.upper()]:
-                        invoice_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',uu)],limit=1)
-                        if invoice_exist:
-                            vals.update({'creado_en_odoo' : True,'invoice_ids':[(6,0, invoice_exist.ids)]})
-                            break
-            else:
-                    for uu in [xml_uuid,xml_uuid.lower(),xml_uuid.upper()]:
-                        invoice_exist = invoice_obj.search([('l10n_mx_edi_cfdi_uuid_cusom','=',uu)],limit=1)
-                        if invoice_exist:
-                            vals.update({'creado_en_odoo' : True,'invoice_ids':[(6,0, invoice_exist.ids)]})
-                            break
             attachment_uuids.update({xml_uuid : [vals, key]})
 
         attas = attach_obj.sudo().search([('cfdi_uuid','in',list(attachment_uuids.keys())), ('company_id', '=', company_id)])
