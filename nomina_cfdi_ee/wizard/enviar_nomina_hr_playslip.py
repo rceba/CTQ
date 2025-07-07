@@ -33,23 +33,13 @@ class EnviarNomina(models.TransientModel):
                       if not mail:continue
                       template.send_mail(payslip.id, force_send=True,email_values={'email_to': mail})
             else:
-               if not template:return
-               mail = None
-               if payslip.employee_id.correo_electronico:
-                   mail = payslip.employee_id.correo_electronico
-               if not mail:
-                   if payslip.employee_id.work_email:
-                      mail = payslip.employee_id.work_email
-               if not mail:continue
-               attachment_ids=[]
-               domain = [
-                         ('res_id', '=', payslip.id),
-                         ('res_model', '=', payslip._name),
-                         ('name', '=', payslip.number.replace('/', '_') + '.xml')]
-               xml_file = self.env['ir.attachment'].search(domain, limit=1)
-               if xml_file:
-                  attachment_ids.append(xml_file.id)
-               if attachment_ids:
-                  template.attachment_ids = [(6, 0, attachment_ids)]
-               template.send_mail(payslip.id, force_send=True,email_values={'email_to': mail})
+                if not template: return
+                mail = None
+                if payslip.employee_id.correo_electronico:
+                    mail = payslip.employee_id.correo_electronico
+                if not mail:
+                    if payslip.employee_id.work_email:
+                        mail = payslip.employee_id.work_email
+                if not mail: continue
+                template.send_mail(payslip.id, force_send=True, email_values={'email_to': mail})
         return True
