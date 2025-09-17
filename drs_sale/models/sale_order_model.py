@@ -21,15 +21,20 @@ class SaleOrder(models.Model):
             )
         return order
 
+    def get_so_version_name(self):
+        pass
+
     def new_version(self):
         # Recompute Dates
         d1 = self.date_order.date()
         d2 = self.validity_date
+        so_ref = self.version_cluster.name or self.name
+        version_cluster_name = so_ref.split("v")[0]
         self.with_context(avoid_cluster_copy=True).copy(
             {
                 "version_number": self.version_number + 1,
                 "version_cluster": self.version_cluster.id,
-                "name": self.version_cluster.name[:-1] + f"{self.version_number + 1}",
+                "name": f"{version_cluster_name}v{self.version_number + 1}",
                 "validity_date": datetime.now() + timedelta(days=(d2 - d1).days),
             }
         )
