@@ -15,7 +15,6 @@ class SaleOrderLine(models.Model):
                 quantity=line.product_uom_qty,
                 date=line.order_id.date_order and date,
                 uom_id=line.product_uom,
-                filter_company=False,
             )
             if supplierinfo_id:
                 frm_cur = supplierinfo_id.currency_id

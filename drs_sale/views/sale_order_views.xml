@@ -5,8 +5,8 @@
         <field name="inherit_id" ref="sale.view_order_form"/>
         <field name="arch" type="xml">
             <header position="inside">
-                <button name="new_version" string="Crear versión nueva" type="object" states="draft,sent"
-                        class="btn-primary"/>
+                <button name="new_version" string="Crear versión nueva" type="object" class="btn-primary"
+                        invisle="state not in ['draft', 'sent']"/>
             </header>
             <xpath expr="//field[@name='origin']" position="after">
                 <field name="version_number"/>
@@ -17,9 +17,6 @@
             </xpath>
             <xpath expr="//field[@name='order_line']/tree" position="attributes">
                 <attribute name="class">large-description</attribute>
-            </xpath>
-            <xpath expr="//field[@name='sale_order_option_ids']/tree/field[@name='name']" position="attributes">
-                <attribute name="widget">html</attribute>
             </xpath>
         </field>
     </record>

@@ -17,4 +17,5 @@
     "web.assets_backend": [
         "drs_sale/static/src/css/backend.css",
     ],
+    "licence": "LGPL-3",
 }
