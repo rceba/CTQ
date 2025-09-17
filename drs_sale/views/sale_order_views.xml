@@ -6,7 +6,7 @@
         <field name="arch" type="xml">
             <header position="inside">
                 <button name="new_version" string="Crear versión nueva" type="object" class="btn-primary"
-                        invisle="state not in ['draft', 'sent']"/>
+                        invisible="state not in ['draft', 'sent']"/>
             </header>
             <xpath expr="//field[@name='origin']" position="after">
                 <field name="version_number"/>
