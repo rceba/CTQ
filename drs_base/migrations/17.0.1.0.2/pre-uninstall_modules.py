@@ -28,6 +28,10 @@ def migrate(cr, version):
             "DELETE FROM ir_asset WHERE name like '%auditlog%'",
             "DELETE FROM ir_asset WHERE name like '%mail_tracking%'",
             "DELETE FROM ir_asset WHERE name like '%ctq_customs%'",
+            "UPDATE ir_ui_view SET name=concat('DRASI-', name),active=false where name='Odoo Studio: report_saleorder_document customization'",
+            "UPDATE ir_ui_view SET name=concat('DRASI-', name),active=false where name='Odoo Studio: report_purchaseorder_document customization'",
+            "UPDATE ir_ui_view SET name=concat('DRASI-', name),active=false where name='Odoo Studio: report_invoice_document customization'",
+            "UPDATE ir_ui_view SET name=concat('DRASI-', name),active=false where name='Odoo Studio: report_purchaseorder_document copy(2) customization'",
         ],
     )
 

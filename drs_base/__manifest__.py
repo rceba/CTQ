@@ -7,10 +7,13 @@
     "author": "Drasi Consulting",
     "website": "https://www.drasi.odoo.com",
     "category": "Tools",
-    "version": "17.0.1.0.1",
-    "depends": ["base", "hr_work_entry"],
-    "data": ["data/payroll.xml"],
+    "version": "17.0.1.0.2",
+    "depends": ["base", "hr_work_entry", "sale_margin"],
+    "data": ["data/payroll.xml", "views/sale_order_views.xml"],
     "application": True,
     "installable": True,
+    "web.assets_backend": [
+        "drs_sale/static/src/css/backend.css",
+    ],
     "licence": "LGPL-3",
 }
