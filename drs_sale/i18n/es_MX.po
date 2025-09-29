@@ -1,0 +1,86 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* drs_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-09-29 06:26+0000\n"
+"PO-Revision-Date: 2025-09-29 00:27-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_MX\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid "<span>Subtotal</span>"
+msgstr "<span>Subtotal</span>"
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid ""
+"<strong>Moneda:</strong>\n"
+"                    <br/>"
+msgstr ""
+"<strong>Moneda:</strong>\n"
+"                    <br/>"
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid ""
+"<strong>Plazos de pago:</strong>\n"
+"                    <br/>"
+msgstr ""
+"<strong>Plazos de pago:</strong>\n"
+"                    <br/>"
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid "Branch"
+msgstr "Marca"
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid "Image"
+msgstr "Imagen"
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid "Inmediato"
+msgstr "Inmediato"
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid "MXN"
+msgstr "MXN"
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid "Order No."
+msgstr "N° de Pedido."
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid "Pro-Forma Invoice #"
+msgstr "Factura Pro-forma #"
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid "Product"
+msgstr "Producto"
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid "Quotation No."
+msgstr "Cotización No."
+
+#. module: drs_sale
+#: model_terms:ir.ui.view,arch_db:drs_sale.report_saleorder_document
+msgid "SO0000"
+msgstr "SO0000"

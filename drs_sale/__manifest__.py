@@ -11,6 +11,7 @@
     "version": "17.0.1.0.0",
     "depends": ["sale"],
     "data": [
+        "views/sale_report_views.xml"
     ],
     "licence": "LGPL-3",
 }
