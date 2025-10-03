@@ -1,0 +1,16 @@
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//div[@name='expiration_date']/strong" position="replace">
+            <strong>Expiration date:</strong>
+        </xpath>
+        <xpath expr="//div[@name='expiration_date']//span[1]" position="replace">
+            <span class="m-0" t-field="doc.validity_date" t-options='{"format": "dd/MMMM/yyyy"}'/>
+        </xpath>
+        <xpath expr="//div[@name='informations_date']//span[1]" position="replace">
+            <span class="m-0" t-field="doc.date_order" t-options='{"format": "dd/MMMM/yyyy"}'/>
+        </xpath>
+        <xpath expr="//div[@id='informations']//span[@t-field='doc.user_id']/preceding-sibling::strong[1]" position="replace">
+            <strong><span>Salesperson:</span></strong>
+        </xpath>
+    </template>
+</odoo>

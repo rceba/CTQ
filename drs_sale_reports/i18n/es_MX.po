@@ -1,0 +1,97 @@
+# Translation of Odoo Server.
+# This file contains the translation of the following modules:
+# 	* drs_sale
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: Odoo Server 17.0+e\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2025-10-02 06:26+0000\n"
+"PO-Revision-Date: 2025-10-02 00:27-0600\n"
+"Last-Translator: \n"
+"Language-Team: \n"
+"Language: es_MX\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Generator: Poedit 3.5\n"
+
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_saleorder_document
+msgid "<strong>Expiration date:</strong>"
+msgstr "<strong>Fecha de Expiración:</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_saleorder_document
+msgid "<strong><span>Salesperson:</span></strong>"
+msgstr "<strong><span>Asesor de ventas:</span></strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.address_layout
+msgid "Request for Quotation No."
+msgstr "Solicitud de presupuesto No."
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.address_layout
+msgid "<strong>Bill to</strong>"
+msgstr "<strong>Facturar a</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<strong>Purchasing Representative:</strong><br/>"
+msgstr "<strong>Representante de Compras:</strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<strong>Product</strong>"
+msgstr "<strong>Producto</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<strong>Description</strong>"
+msgstr "<strong>Descripción</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<strong>Currency:</strong><br/>"
+msgstr "<strong>Moneda:</strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<strong>Shipping Method:</strong><br/>"
+msgstr "<strong>Método de Envío:</strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<strong>Comments:</strong><br/>"
+msgstr "<strong>Comentarios:</strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<strong>Delivery Details:</strong><br/>"
+msgstr "<strong>Detalles de la Entrega:</strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<span><b>Authorization Signature:</b></span>"
+msgstr "<span><b>Firma de autorización:</b></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<span><b>Reception Confirmation:<br/></b></span>"
+msgstr "<span><b>Confirmación de recepción:<br/></b></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<span>Date</span>"
+msgstr "<span>Fecha</span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchasequotation_document
+msgid "<span>Signature _________________________</span>"
+msgstr "<span>Firma _________________________</span>"
+
+
+
