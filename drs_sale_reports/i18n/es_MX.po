@@ -94,4 +94,117 @@ msgid "<span>Signature _________________________</span>"
 msgstr "<span>Firma _________________________</span>"
 
 
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "Request for Quotation No."
+msgstr "Solicitud de presupuesto No."
 
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "Purchase Order No."
+msgstr "Orden No."
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "Cancelled Purchase Order No."
+msgstr "Orden Cancelada No."
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<span><b>Supplier:</b></span>"
+msgstr "<span><b>Proveedor:</b></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<span><b>Ship To:</b></span>"
+msgstr "<span><b>Dirección de Entrega:</b></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<span><b>Bill To:</b></span>"
+msgstr "<span><b>Dirección de Facturación:</b></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Purchasing Representative:</strong>"
+msgstr "<strong>Representante de Compras:</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Delivery Date:</strong>"
+msgstr "<strong>Fecha de Entrega:</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Payment Terms:</strong>"
+msgstr "<strong>Plazos de pago:</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Product</strong>"
+msgstr "<strong>Producto</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Unit Price</strong>"
+msgstr "<strong>Precio Unitario</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>LINE TOTAL</strong>"
+msgstr "<strong>Subtotal</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<span>Taxes</span>"
+msgstr "<span>Impuestos</span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Line Total</strong>"
+msgstr "<strong>Importe</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Description</strong>"
+msgstr "<strong>Descripción</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Currency:</strong><br/>"
+msgstr "<strong>Moneda:</strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Shipping Method:</strong><br/>"
+msgstr "<strong>Método de Envío:</strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Comments:</strong><br/>"
+msgstr "<strong>Comentarios:</strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<strong>Delivery Details:</strong><br/>"
+msgstr "<strong>Detalles de la Entrega:</strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<span><b>Authorization Signature:</b></span>"
+msgstr "<span><b>Firma de autorización:</b></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<span><b>Reception Confirmation:<br/></b></span>"
+msgstr "<span><b>Confirmación de recepción:<br/></b></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<span>Date</span>"
+msgstr "<span>Fecha</span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
+msgid "<span>Signature _________________________</span>"
+msgstr "<span>Firma _________________________</span>"
