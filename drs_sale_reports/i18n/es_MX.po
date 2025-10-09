@@ -208,3 +208,169 @@ msgstr "<span>Fecha</span>"
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_purchaseorder_document
 msgid "<span>Signature _________________________</span>"
 msgstr "<span>Firma _________________________</span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<span>Invoice No. </span>"
+msgstr "<span>Factura No. </span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong>Invoice date:</strong>"
+msgstr "<strong>Fecha de emisión:</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong><span>Due Date:</span></strong>"
+msgstr "<strong><span>Fecha de vencimiento:</span></strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<b>Bill to:</b>"
+msgstr "<b>Facturado a:</b>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<b>Deliver to:</b>"
+msgstr "<b>Entregar a:</b>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong><span>Payment Way:</span></strong><br/>"
+msgstr "<strong><span>Forma de pago:</span></strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong><span>Usage:</span></strong><br/>"
+msgstr "<strong><span>Uso:</span></strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong><span>Payment terms:</span></strong><br/>"
+msgstr "<strong><span>Plazos de pago:</span></strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong><span>Payment Method:</span></strong><br/>"
+msgstr "<strong><span>Método de Pago:</span></strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong>Product</strong>"
+msgstr "<strong>Producto</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong>Code SAT</strong>"
+msgstr "<strong>Código SAT</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong>Description</strong>"
+msgstr "<strong>Descripción</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong>Request number</strong>"
+msgstr "<strong>Número de pedimento</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<br/>Customs:"
+msgstr ""
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong>Qty</strong>"
+msgstr "<strong>Cant</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong>Unit Price</strong>"
+msgstr "<strong>Precio Unitario</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<span><strong>Payment Communication:</strong><br/></span>"
+msgstr "<span><strong>Referencia Orden de Compra:</strong><br/></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<span><strong>Currency:</strong><br/></span>"
+msgstr "<span><strong>Moneda:</strong><br/></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<span><strong>Exchange rate:</strong><br/></span>"
+msgstr "<span><strong>Tasa de cambio:</strong><br/></span>"
+
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<span>Invoice No. </span>"
+msgstr "<span>Factura No. </span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<strong><span>Invoice Date:</span></strong>"
+msgstr "<strong><span>Fecha de emisión:</span></strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<strong><span>Due Date:</span></strong><br/>"
+msgstr "<strong><span>Fecha de vencimiento:</span></strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<b>Bill to:</b>"
+msgstr "<b>Facturado a:</b>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<b>Deliver to:</b>"
+msgstr "<b>Entregar a:</b>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<strong><span>Payment Type:</span></strong><br/>"
+msgstr "<strong><span>Forma de pago:</span></strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<strong><span>Payment terms:</span></strong><br/>"
+msgstr "<strong><span>Plazos de pago:</span></strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<strong>Product</strong>"
+msgstr "<strong>Producto</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<strong>Description</strong>"
+msgstr "<strong>Descripción</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<br/>Customs:"
+msgstr ""
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<strong>Qty</strong>"
+msgstr "<strong>Cant</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<strong>Unit Price</strong>"
+msgstr "<strong>Precio Unitario</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<span><strong>Reference:</strong><br/></span>"
+msgstr "<span><strong>Referencia:</strong><br/></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<span><strong>Currency:</strong><br/></span>"
+msgstr "<span><strong>Moneda:</strong><br/></span>"

@@ -68,7 +68,7 @@
         </xpath>
         <xpath expr="//table//tbody//td[@id='product']" position="after">
             <td id="order_line_description">
-                <span t-field="line.name"/>
+                <span t-raw="line.name" t-options="{'widget': 'html'}"/>
             </td>
         </xpath>
         <xpath expr="//table//thead//th[@name='th_date_req']" position="replace"></xpath>

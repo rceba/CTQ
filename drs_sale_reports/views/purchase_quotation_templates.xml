@@ -57,7 +57,7 @@
         </xpath>
         <xpath expr="//table//tbody//td[@id='product']" position="after">
             <td id="order_line_description" style="border-top: none !important;border-bottom: none !important;">
-                <span t-field="order_line.name"/>
+                <span t-raw="order_line.name" t-options="{'widget': 'html'}"/>
             </td>
         </xpath>
         <xpath expr="//table//thead//th[@name='th_quantity']" position="attributes">

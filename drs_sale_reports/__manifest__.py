@@ -13,12 +13,15 @@
         'sale',
         'purchase',
         'purchase_stock',
-        'l10n_mx_edi'
+        'l10n_mx_edi',
+        'l10n_mx_edi_extended'
     ],
     "data": [
         'views/report_saleorder_document.xml',
         'views/purchase_quotation_templates.xml',
         'views/purchase_order_templates.xml',
+        'views/report_invoice.xml',
+        'views/report_invoice_trac.xml',
     ],
     "licence": "LGPL-3",
 }
