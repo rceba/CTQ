@@ -178,6 +178,12 @@
         <xpath expr="//div[@name='l10n_mx_edi_payment_method_details']" position="replace">
             <div t-att-class="o_grid_layout" name="l10n_mx_edi_payment_method_details"></div>
         </xpath>
+        <xpath expr="//t[@name='l10n_mx_edi_condition_display_usage']//div" position="replace">
+        </xpath>
+        <xpath expr="//div[@name='l10n_mx_edi_payment_way_details']" position="replace">
+        </xpath>
+        <xpath expr="//div[@name='l10n_mx_edi_bank_account_details']" position="replace">
+        </xpath>
         <xpath expr="//th[@name='l10n_mx_edi_product_code_header']" position="replace"></xpath>
         <xpath expr="//td[@name='l10n_mx_edi_product_code_cell']" position="replace"></xpath>
         <xpath expr="//table[@name='invoice_line_table']//th[@name='th_discount']/following-sibling::th[1]" position="replace">

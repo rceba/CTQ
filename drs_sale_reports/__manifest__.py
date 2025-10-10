@@ -11,6 +11,7 @@
     "version": "17.0.1.0.0",
     "depends": [
         'sale',
+        'drs_sale',
         'purchase',
         'purchase_stock',
         'l10n_mx_edi',
@@ -22,6 +23,7 @@
         'views/purchase_order_templates.xml',
         'views/report_invoice.xml',
         'views/report_invoice_trac.xml',
+        'views/sale_report_views.xml'
     ],
     "licence": "LGPL-3",
 }

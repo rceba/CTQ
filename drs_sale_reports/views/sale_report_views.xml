@@ -1,0 +1,24 @@
+<odoo>
+    <template id="report_saleorder_document_drs_sale" inherit_id="drs_sale.report_saleorder_document">
+        <xpath expr="//th[@name='branch']" position="replace">
+            <th name="branch" class="text-start">BRAND</th>
+        </xpath>
+        <xpath expr="//div[@name='currency_id']//.." position="replace">
+            <div class="mt-4 mb-2">
+                <div t-if="doc.currency_id" class="mb-2" name="currency_id">
+                    <strong><span>Currency:</span></strong><br/>
+                    <span class="m-0" t-field="doc.currency_id"></span>
+                </div>
+                <div t-if="doc.payment_term_id" class="mb-2" name="payment_term_id">
+                    <strong><span>Payment terms:</span></strong><br/>
+                    <span class="m-0" t-field="doc.payment_term_id"></span>
+                </div>
+            </div>
+        </xpath>
+    </template>
+    <template id="report_saleorder_document_drs_sale_report" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//th[@name='th_quantity']" position="replace">
+            <th name="th_quantity" class="text-end">QTY</th>
+        </xpath>
+    </template>
+</odoo>

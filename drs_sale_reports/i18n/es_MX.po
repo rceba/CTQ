@@ -374,3 +374,23 @@ msgstr "<span><strong>Referencia:</strong><br/></span>"
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
 msgid "<span><strong>Currency:</strong><br/></span>"
 msgstr "<span><strong>Moneda:</strong><br/></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_saleorder_document_drs_sale
+msgid "BRAND"
+msgstr "MARCA"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_saleorder_document_drs_sale_report
+msgid "QTY"
+msgstr "CANT"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_saleorder_document_drs_sale
+msgid "<strong><span>Currency:</span></strong><br/>"
+msgstr "<strong><span>Moneda:</span></strong><br/>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_saleorder_document_drs_sale
+msgid "<strong><span>Payment terms:</span></strong><br/>"
+msgstr "<strong><span>Plazos de pago:</span></strong><br/>"
