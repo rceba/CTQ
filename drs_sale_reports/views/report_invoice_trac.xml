@@ -13,16 +13,16 @@
         <t t-call="web.external_layout">
             <t t-set="o" t-value="o.with_context(lang=lang)"/>
             <div class="page">
-                <h2>
+                <h2 style="margin-top: -40px">
                     <span t-if="o.move_type == 'out_invoice' and o.state == 'posted'">
-                        <span>Invoice No. </span>
+                        <span style="color: black; font-weight: bold; font-style: italic">Invoice No. </span>
                     </span>
                     <span t-if="o.move_type == 'out_invoice' and o.state == 'draft'">Draft Invoice</span>
                     <span t-if="o.move_type == 'out_invoice' and o.state == 'cancel'">Cancelled Invoice</span>
                     <span t-if="o.move_type == 'out_refund'">Credit Note</span>
                     <span t-if="o.move_type == 'in_refund'">Vendor Credit Note</span>
                     <span t-if="o.move_type == 'in_invoice'">Vendor Bill</span>
-                    <span t-if="o.name != '/'" t-field="o.name" class="text-black"/>
+                    <span t-if="o.name != '/'" t-field="o.name" class="text-black" style="font-weight: bold; font-style: italic"/>
                 </h2>
                 <div id="informations" class="row mt-3 mb-1">
                     <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2"
@@ -87,23 +87,22 @@
                     <thead t-attf-style="#{has_long_desc and 'display: table-row-group;' or ''}">
                         <tr>
                             <th name="line_number" class="text-center"><strong>#</strong></th>
-                            <th name="th_product">
+                            <th name="th_product" class="text-center">
                                 <strong>Product</strong>
                             </th>
-                            <th name="th_description">
+                            <th name="th_description" class="text-center">
                                 <strong>Description</strong>
                             </th>
-                            <th name="th_quantity" class="text-end">
+                            <th name="th_quantity" class="text-center">
                                 <strong>Qty</strong>
                             </th>
                             <th name="th_uom" class="text-center">
                                 <strong>UOM</strong>
                             </th>
-                            <th name="th_priceunit"
-                                t-attf-class="text-end {{ 'd-none d-md-table-cell' if report_type == 'html' else '' }}">
+                            <th name="th_priceunit" class="text-center">
                                 <strong>Unit Price</strong>
                             </th>
-                            <th name="th_subtotal" class="text-end">
+                            <th name="th_subtotal" class="text-center">
                                 <strong>Subtotal</strong>
                             </th>
                         </tr>
@@ -230,5 +229,6 @@
         <field name="print_report_name">'%s' % (object.name).replace('/', '')</field>
         <field name="binding_model_id" ref="account.model_account_move"/>
         <field name="binding_type">report</field>
+        <field name="paperformat_id" ref="drs_sale_reports.paperformat_reports_drs_sale"/>
     </record>
 </odoo>

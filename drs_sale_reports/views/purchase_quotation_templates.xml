@@ -1,8 +1,11 @@
 <odoo>
+    <record id="purchase.report_purchase_quotation" model="ir.actions.report">
+        <field name="paperformat_id" ref="drs_sale_reports.paperformat_reports_drs_sale"/>
+    </record>
     <template id="address_layout" inherit_id="web.address_layout">
         <xpath expr="//div" position="before">
             <t t-if="show_request_for_quotation == 1">
-                <h3 style="color: black !important; font-style: italic"><b>Request for Quotation No. <span t-field="o.name"/></b></h3>
+                <h3 style="color: black !important; font-style: italic; margin-top: -40px"><b>Request for Quotation No. <span style="color: black !important; font-style: italic" t-field="o.name"/></b></h3>
             </t>
         </xpath>
         <xpath expr="//div//div[@name='address']//t" position="before">
@@ -43,7 +46,7 @@
         <xpath expr="//table//thead//th[@name='th_expected_date']" position="replace"></xpath>
         <xpath expr="//table//tbody//span[@t-field='order_line.date_planned']/.." position="replace"></xpath>
         <xpath expr="//table//thead//th[@name='th_description']" position="replace">
-            <th name="th_description">
+            <th name="th_description" class="text-center">
                 <strong>Product</strong>
             </th>
         </xpath>
@@ -51,7 +54,7 @@
             <span t-field="order_line.product_id"/>
         </xpath>
         <xpath expr="//table//thead//th[@name='th_description']" position="after">
-            <th name="th_description">
+            <th name="th_description" class="text-center">
                 <strong>Description</strong>
             </th>
         </xpath>
