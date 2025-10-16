@@ -30,7 +30,7 @@
     </template>
     <template id="report_saleorder_document_drs_sale" inherit_id="drs_sale.report_saleorder_document">
         <xpath expr="//div[@id='partner_number']" position="attributes">
-            <attribute name="style">margin-top: -40px !important;</attribute>
+            <attribute name="style">margin-top: -40px !important;</attribute>˜
         </xpath>
         <xpath expr="//span[@t-field='doc.name']" position="attributes">
             <attribute name="style">color: black !important;font-style: italic;</attribute>

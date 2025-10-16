@@ -28,7 +28,7 @@
                     <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2"
                          t-if="o.invoice_date" name="invoice_date">
                         <t t-if="o.move_type == 'out_invoice'">
-                            <strong><span>Invoice Date:</span></strong>
+                            <strong><span style="color: black !important;">Invoice Date:</span></strong>
                         </t>
                         <t t-elif="o.move_type == 'out_refund'"><strong>Credit Note Date:</strong></t>
                         <t t-elif="o.move_type == 'out_receipt'"><strong>Receipt Date:</strong></t>
@@ -36,7 +36,7 @@
                         <span t-field="o.invoice_date" t-options='{"format": "dd/MMMM/yyyy"}'></span>
                     </div>
                     <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.invoice_date_due and o.move_type == 'out_invoice' and o.state == 'posted'" name="due_date">
-                        <strong><span>Due Date:</span></strong><br/>
+                        <strong><span style="color: black !important;">Due Date:</span></strong><br/>
                         <span t-field="o.invoice_date_due" t-options='{"format": "dd/MMMM/yyyy"}'></span>
                     </div>
                 </div>
@@ -46,14 +46,14 @@
                     <div class="col-3"/></div>
                 <div class="row" style="margin-bottom:0px">
                     <div class="col-6">
-                        <span>
+                        <span style="color: black !important;">
                             <p>
                                 <b>Bill to:</b>
                             </p>
                         </span>
                     </div>
                     <div class="col-6">
-                        <span>
+                        <span style="color: black !important;">
                             <p>
                                 <b>Deliver to:</b>
                             </p>
@@ -70,11 +70,11 @@
                 </div>
                 <div id="informations_extra" class="row mt-3 mb-1">
                     <div class="col-3 mw-100 mb-2">
-                        <strong><span>Payment Type:</span></strong><br/>
+                        <strong><span style="color: black !important;">Payment Type:</span></strong><br/>
                         <span t-out="o.l10n_mx_edi_payment_method_id.display_name"/>
                     </div>
                     <div class="col-3 mw-100 mb-2">
-                        <strong><span>Payment terms:</span></strong><br/>
+                        <strong><span style="color: black !important;">Payment terms:</span></strong><br/>
                         <span t-field="o.invoice_payment_term_id.display_name"/>
                     </div>
                 </div>
@@ -86,23 +86,23 @@
                 <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
                     <thead t-attf-style="#{has_long_desc and 'display: table-row-group;' or ''}">
                         <tr>
-                            <th name="line_number" class="text-center"><strong>#</strong></th>
-                            <th name="th_product" class="text-center">
+                            <th name="line_number" class="text-center" style="color: black !important;"><strong>#</strong></th>
+                            <th name="th_product" class="text-center" style="color: black !important;">
                                 <strong>Product</strong>
                             </th>
-                            <th name="th_description" class="text-center">
+                            <th name="th_description" class="text-center" style="color: black !important;">
                                 <strong>Description</strong>
                             </th>
-                            <th name="th_quantity" class="text-center">
+                            <th name="th_quantity" class="text-center" style="color: black !important;">
                                 <strong>Qty</strong>
                             </th>
-                            <th name="th_uom" class="text-center">
+                            <th name="th_uom" class="text-center" style="color: black !important;">
                                 <strong>UOM</strong>
                             </th>
-                            <th name="th_priceunit" class="text-center">
+                            <th name="th_priceunit" class="text-center" style="color: black !important;">
                                 <strong>Unit Price</strong>
                             </th>
-                            <th name="th_subtotal" class="text-center">
+                            <th name="th_subtotal" class="text-center" style="color: black !important;">
                                 <strong>Subtotal</strong>
                             </th>
                         </tr>

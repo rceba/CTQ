@@ -312,13 +312,13 @@ msgstr "Factura No. "
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
-msgid "<strong><span>Invoice Date:</span></strong>"
-msgstr "<strong><span>Fecha de emisión:</span></strong>"
+msgid "Invoice Date:"
+msgstr "Fecha de emisión:"
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
-msgid "<strong><span>Due Date:</span></strong><br/>"
-msgstr "<strong><span>Fecha de vencimiento:</span></strong><br/>"
+msgid "Due Date:"
+msgstr "Fecha de vencimiento:"
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
@@ -332,13 +332,13 @@ msgstr "<b>Entregar a:</b>"
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
-msgid "<strong><span>Payment Type:</span></strong><br/>"
-msgstr "<strong><span>Forma de pago:</span></strong><br/>"
+msgid "Payment Type:"
+msgstr "Forma de pago:"
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
-msgid "<strong><span>Payment terms:</span></strong><br/>"
-msgstr "<strong><span>Plazos de pago:</span></strong><br/>"
+msgid "Payment terms:"
+msgstr "Plazos de pago:"
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
