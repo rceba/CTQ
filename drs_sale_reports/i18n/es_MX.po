@@ -261,7 +261,12 @@ msgstr "<strong>Producto</strong>"
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
-msgid "<strong>Code SAT</strong>"
+msgid "<strong>UOM</strong>"
+msgstr "<strong>UM</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "<strong>SAT Code</strong>"
 msgstr "<strong>Código SAT</strong>"
 
 #. module: drs_sale_reports
@@ -271,7 +276,7 @@ msgstr "<strong>Descripción</strong>"
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
-msgid "<strong>Request number</strong>"
+msgid "<strong>number Request</strong>"
 msgstr "<strong>Número de pedimento</strong>"
 
 #. module: drs_sale_reports
@@ -291,8 +296,13 @@ msgstr "<strong>Precio Unitario</strong>"
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
-msgid "<span><strong>Payment Communication:</strong><br/></span>"
+msgid "<span><strong>Communication Payment:</strong><br/></span>"
 msgstr "<span><strong>Referencia Orden de Compra:</strong><br/></span>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
+msgid "Fiscal Regime:"
+msgstr "Regimen Fiscal:"
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.report_invoice_document
@@ -359,6 +369,11 @@ msgstr ""
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
 msgid "<strong>Qty</strong>"
 msgstr "<strong>Cant</strong>"
+
+#. module: drs_sale_reports
+#: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template
+msgid "<strong>UOM</strong>"
+msgstr "<strong>UM</strong>"
 
 #. module: drs_sale_reports
 #: model_terms:ir.ui.view,arch_db:drs_sale_reports.reporte_factura_trac_template

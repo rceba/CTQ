@@ -60,6 +60,10 @@
 			<div class="row address">
 				<div class="col-5">
 					<div t-field="o.partner_shipping_id" t-options-widget="'contact'"/>
+                    <t t-set="invoice_partner_fiscal" t-value="o.partner_id if o.partner_id.type == 'invoice' else o.partner_id.commercial_partner_id"/>
+                    <t t-if="invoice_partner_fiscal.l10n_mx_edi_fiscal_regime">
+                        <span>Fiscal Regime: <span t-esc="invoice_partner_fiscal.l10n_mx_edi_fiscal_regime"></span></span>
+                    </t>
                 </div>
 				<div class="col-5 offset-1">
 					<div t-field="o.partner_shipping_id" t-options-widget="'contact'"/>
@@ -110,13 +114,13 @@
         </xpath>
         <xpath expr="//table//thead//th[@name='th_description']" position="after">
             <th name="th_codigo_sat" class="text-center">
-                <strong>Code SAT</strong>
+                <strong>SAT Code</strong>
             </th>
             <th name="th_description" class="text-center">
                 <strong>Description</strong>
             </th>
             <th name="th_num_pedimento" class="text-center">
-                <strong>Request number</strong>
+                <strong>number Request</strong>
             </th>
         </xpath>
         <xpath expr="//table//tbody//td[@name='account_invoice_line_name']" position="after">
@@ -180,7 +184,7 @@
                     <span t-field="o.currency_id.display_name"/>
                 </div>
                 <div class="col-6">
-                    <span><strong>Payment Communication:</strong><br/></span>
+                    <span><strong>Communication Payment:</strong><br/></span>
                     <span t-field="o.payment_reference"/>
                 </div>
                 <div class="col-3">
@@ -190,6 +194,9 @@
             </div>
         </xpath>
         <xpath expr="//p[@name='payment_communication']//.." position="replace">
+        </xpath>
+        <xpath expr="//span[@id='payment_terms_note_id']/.." position="replace">
+            <br/>
         </xpath>
     </template>
     <template id="report_invoice_document_l10n_mx_edi" inherit_id="l10n_mx_edi.report_invoice_document">
