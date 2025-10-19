@@ -1,0 +1,139 @@
+<odoo>
+    <record id="purchase.report_purchase_quotation" model="ir.actions.report">
+        <field name="paperformat_id" ref="drs_sale_reports.paperformat_reports_drs_sale"/>
+    </record>
+    <template id="address_layout" inherit_id="web.address_layout">
+        <xpath expr="//div" position="before">
+            <t t-if="show_request_for_quotation == 1">
+                <h3 style="color: black !important; font-style: italic; margin-top: -40px"><b>Request for Quotation No. <span style="color: black !important; font-style: italic" t-field="o.name"/></b></h3>
+            </t>
+        </xpath>
+        <xpath expr="//div//div[@name='address']//t" position="before">
+            <t t-if="show_request_for_quotation == 1">
+                <strong>Bill to</strong>
+            </t>
+        </xpath>
+    </template>
+    <template id="report_purchasequotation_document" inherit_id="purchase.report_purchasequotation_document">
+        <xpath expr="//t//t" position="before">
+            <t t-set="show_request_for_quotation" t-value="1"/>
+        </xpath>
+        <xpath expr="//table" position="before">
+            <strong>Purchasing Representative:</strong><br/>
+            <span t-field="o.user_id.name"/>
+            <t t-set="order_line_count" t-value="1"/>
+        </xpath>
+        <xpath expr="//t//h2" position="replace"></xpath>
+        <xpath expr="//table//tbody//t[@t-foreach='o.order_line']" position="inside">
+            <t t-if="not order_line.display_type">
+                <t t-set="order_line_count" t-value="order_line_count + 1"/>
+            </t>
+        </xpath>
+        <xpath expr="//table//tbody//tr" position="attributes">
+            <attribute name="t-att-style">'border: none !important;'</attribute>
+        </xpath>
+        <xpath expr="//table//tbody//td" position="attributes">
+            <attribute name="t-att-style">'border-top: none !important;border-bottom: none !important;'</attribute>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_description']" position="before">
+            <th name="line_number" class="text-center">#</th>
+        </xpath>
+        <xpath expr="//table//tbody//td[@id='product']" position="before">
+            <td name="line_number" class="text-center" style="border-top: none !important;border-bottom: none !important;">
+                <span t-out="order_line_count"/>
+            </td>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_expected_date']" position="replace"></xpath>
+        <xpath expr="//table//tbody//span[@t-field='order_line.date_planned']/.." position="replace"></xpath>
+        <xpath expr="//table//thead//th[@name='th_description']" position="replace">
+            <th name="th_description" class="text-center">
+                <strong>Product</strong>
+            </th>
+        </xpath>
+        <xpath expr="//table//tbody//td[@id='product']/span" position="replace">
+            <span t-field="order_line.product_id"/>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_description']" position="after">
+            <th name="th_description" class="text-center">
+                <strong>Description</strong>
+            </th>
+        </xpath>
+        <xpath expr="//table//tbody//td[@id='product']" position="after">
+            <td id="order_line_description" style="border-top: none !important;border-bottom: none !important;">
+                <span t-raw="order_line.name" t-options="{'widget': 'html'}"/>
+            </td>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_quantity']" position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table//tbody//span[@t-field='order_line.product_qty']/.." position="replace">
+            <td class="text-center" style="border-top: none !important;border-bottom: none !important;">
+                <span t-field="order_line.product_qty"/>
+                <span t-if="order_line.product_packaging_id">
+                    (<span t-field="order_line.product_packaging_qty" t-options='{"widget": "integer"}'/> <span t-field="order_line.product_packaging_id"/>)
+                </span>
+            </td>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_quantity']" position="after">
+            <th name="th_quantity" class="text-center"><strong>UOM</strong></th>
+        </xpath>
+        <xpath expr="//table//tbody//span[@t-field='order_line.product_qty']/.." position="after">
+            <td class="text-center" style="background: none; border-top: none !important;border-bottom: none !important;">
+                <span t-field="order_line.product_uom"/>
+            </td>
+        </xpath>
+        <xpath expr="//p[@t-field='o.notes']" position="before">
+            <div class="row mt-4 mb-2">
+                <div class="col-4">
+                    <strong>Currency:</strong><br/>
+                    <span class="m-0" t-field="o.currency_id"></span>
+                </div>
+                <div class="col-4">
+                    <strong>Shipping Method:</strong><br/>
+                    <span class="m-0" t-field="o.x_studio_mtodo_de_envo"></span>
+                </div>
+            </div>
+            <div class="row mt-4 mb-2">
+                <div class="col-4">
+                    <strong>Comments:</strong><br/>
+                    <span class="m-0" t-field="o.x_studio_comments"></span>
+                </div>
+                <div class="col-4">
+                    <strong>Delivery Details:</strong><br/>
+                    <span class="m-0" t-field="o.x_studio_shipment_details"></span>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="text-start col-6">
+                    <span><b>Authorization Signature:</b></span>
+                </div>
+                <div class="col-4 text-start" style="margin-bottom:25px">
+                    <span><b>Reception Confirmation:<br/></b></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-5">
+                    <span>__________________________________________________</span>
+                </div>
+                <div class="text-start col-1">
+                    <span>Date</span>
+<!--                    <span style="margin-left: 15px">03</span>-->
+                </div>
+                <div class="text-start col-1">
+                    <span style="margin-left: 15px">/</span>
+<!--                    <span style="margin-left: 10px">10</span>-->
+                </div>
+                <div class="text-start col-1">
+                    <span>/</span>
+<!--                    <span style="margin-left: 10px">2025</span>-->
+                </div>
+                <div class="text-start col-3">
+                    <span>Signature _________________________</span>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//p[@t-field='o.notes']" position="replace"></xpath>
+    </template>
+</odoo>

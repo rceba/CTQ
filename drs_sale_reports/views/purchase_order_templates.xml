@@ -1,0 +1,188 @@
+<odoo>
+    <record id="purchase.action_report_purchase_order" model="ir.actions.report">
+        <field name="paperformat_id" ref="drs_sale_reports.paperformat_reports_drs_sale"/>
+    </record>
+    <template id="report_purchaseorder_document" inherit_id="purchase.report_purchaseorder_document">
+        <xpath expr="//t[@t-set='address']" position="replace"/>
+        <xpath expr="//t[@t-set='information_block']" position="replace"/>
+        <xpath expr="//div[@id='informations']" position="before">
+            <h2 style="color: black !important; font-style: italic" t-if="o.state in ['draft', 'sent', 'to approve']"><b>Request for Quotation No. <span style="color: black !important; font-style: italic" t-field="o.name"/></b></h2>
+            <h2 style="color: black !important; font-style: italic" t-if="o.state in ['purchase', 'done']"><b>Purchase Order No. <span style="color: black !important; font-style: italic" t-field="o.name"/></b></h2>
+            <h2 style="color: black !important; font-style: italic" t-if="o.state == 'cancel'"><b>Cancelled Purchase Order No. <span style="color: black !important; font-style: italic" t-field="o.name"/></b></h2>
+            <div class="row">
+                <div class="col-4 text-black">
+                    <span><b>Supplier:</b></span>
+                </div>
+                <div class="col-4 text-black">
+                    <span><b>Ship To:</b></span>
+                </div>
+                <div class="col-4 text-black">
+                    <span><b>Bill To:</b></span>
+                </div>
+            </div>
+            <div class="row" style="margin-bottom:25px">
+                <div class="col-4">
+                    <div t-field="o.partner_id" t-options-widget="'contact'" t-options-no_marker="True"
+                         style="width:250px"/>
+                    <t t-if="o.partner_id.vat"><t t-esc="o.company_id.country_id.vat_label or 'Tax ID'"/>: <span
+                            t-field="o.partner_id.vat" style="width:250px;" t-options-no_marker="True"/></t>
+                </div>
+                <div class="col-4">
+                    <div t-field="o.x_studio_ship_to" t-options-widget="'contact'" style="width:250px"
+                         t-options-no_marker="True"/>
+                </div>
+                <div class="col-4">
+                    <div t-field="o.x_studio_bill_to" t-options-widget="'contact'" t-options-no_marker="True"/>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//t//h2" position="replace"></xpath>
+        <xpath expr="//t//h2[1]" position="replace"></xpath>
+        <xpath expr="//t//h2[1]" position="replace"></xpath>
+        <xpath expr="//div[hasclass('mt-4')]" position="attributes">
+            <attribute name="class"></attribute>
+            <attribute name="style">margin-top: -40px</attribute>
+        </xpath>
+        <xpath expr="//div[@id='informations']//div//strong" position="replace">
+            <strong>Purchasing Representative:</strong>
+        </xpath>
+        <xpath expr="//div[@id='informations']//div[3]" position="after">
+            <div t-if="o.date_planned" class="col-3 bm-2">
+                <strong>Delivery Date:</strong>
+                <p t-field="o.date_planned" class="m-0"/>
+            </div>
+            <div t-if="o.payment_term_id" class="col-3 bm-2">
+                <strong>Payment Terms:</strong>
+                <p t-field="o.payment_term_id" class="m-0"/>
+            </div>
+        </xpath>
+        <xpath expr="//div[@t-if='o.partner_ref']" position="replace"></xpath>
+        <xpath expr="//table//thead//th[@name='th_description']" position="replace">
+            <th name="th_description" class="text-center">
+                <strong>Product</strong>
+            </th>
+        </xpath>
+        <xpath expr="//table//tbody//td[@id='product']/span" position="replace">
+            <span t-field="line.product_id"/>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_description']" position="after">
+            <th name="th_description" class="text-center">
+                <strong>Description</strong>
+            </th>
+        </xpath>
+        <xpath expr="//table//tbody//td[@id='product']" position="after">
+            <td id="order_line_description">
+                <span t-raw="line.name" t-options="{'widget': 'html'}"/>
+            </td>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_date_req']" position="replace"></xpath>
+        <xpath expr="//table//tbody//span[@t-field='line.date_planned']/.." position="replace"></xpath>
+        <xpath expr="//table//tbody//span[@t-field='line.product_qty']/.." position="replace">
+            <td class="text-center">
+                <span t-field="line.product_qty"/>
+                <span t-if="line.product_packaging_id">
+                    (<span t-field="line.product_packaging_qty" t-options='{"widget": "integer"}'/> <span t-field="line.product_packaging_id"/>)
+                </span>
+            </td>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_quantity']" position="after">
+            <th name="th_quantity" class="text-center"><strong>UOM</strong></th>
+        </xpath>
+        <xpath expr="//table//tbody//span[@t-field='line.product_qty']/.." position="after">
+            <td class="text-center">
+                <span t-field="line.product_uom"/>
+            </td>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_price_unit']" position="replace">
+            <th name="th_price_unit" class="text-center"><strong>Unit Price</strong></th>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_discount']" position="replace"></xpath>
+        <xpath expr="//table//tbody//span[@t-field='line.discount']/../.." position="replace"></xpath>
+        <xpath expr="//table//thead//th[@name='th_taxes']" position="replace"></xpath>
+        <xpath expr="//table//tbody//td[@name='td_taxes']" position="replace"></xpath>
+        <xpath expr="//table//thead//th[@name='th_subtotal']" position="attributes">
+            <attribute name="class">text-center</attribute>
+        </xpath>
+        <xpath expr="//table//thead//th[@name='th_subtotal']//strong" position="replace"><strong>LINE TOTAL</strong></xpath>
+        <xpath expr="//div[@id='total']" position="replace">
+            <div id="total" class="row justify-content-end" style="margin-bottom:10px">
+                <div class="col-4">
+                    <table class="table table-sm">
+                        <tr class="border-black" style="border-bottom: none !important">
+                            <td name="td_subtotal_label" class="text-black o_bold" style="border-bottom: none !important;">
+                                <strong>Line Total</strong>
+                            </td>
+                            <td class="text-end" style="border-bottom: none !important">
+                                <span t-field="o.amount_untaxed" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td name="td_taxes_label"><span>Taxes</span></td>
+                            <td class="text-end">
+                                <span t-field="o.amount_tax" t-options="{'widget': 'monetary', 'display_currency': o.currency_id}"/>
+                            </td>
+                        </tr>
+                        <tr class="border-black o_total">
+                            <td name="td_amount_total_label">
+                                <span t-field="o.currency_id.name"/>
+                                <strong>Total</strong></td>
+                            <td class="text-end">
+                                <span t-field="o.amount_total" t-options="{'widget': 'monetary', 'display_currency''': o.currency_id}"/>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//p[@t-field='o.notes']" position="before">
+            <div class="row mt-4 mb-2">
+                <div class="col-4">
+                    <strong>Currency:</strong><br/>
+                    <span class="m-0" t-field="o.currency_id"></span>
+                </div>
+                <div class="col-4">
+                    <strong>Shipping Method:</strong><br/>
+                    <span class="m-0" t-field="o.x_studio_mtodo_de_envo"></span>
+                </div>
+            </div>
+            <div class="row mt-4 mb-2">
+                <div class="col-4">
+                    <strong>Comments:</strong><br/>
+                    <span class="m-0" t-field="o.x_studio_comments"></span>
+                </div>
+                <div class="col-4">
+                    <strong>Delivery Details:</strong><br/>
+                    <span class="m-0" t-field="o.x_studio_shipment_details"></span>
+                </div>
+            </div>
+
+            <div class="row" style="margin-top:20px">
+                <div class="text-start col-6">
+                    <span><b>Authorization Signature:</b></span>
+                </div>
+                <div class="col-4 text-start" style="margin-bottom:25px">
+                    <span><b>Reception Confirmation:<br/></b></span>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-5">
+                    <span>__________________________________________________</span>
+                </div>
+                <div class="text-start col-1">
+                    <span>Date</span>
+                </div>
+                <div class="text-start col-1">
+                    <span style="margin-left: 15px">/</span>
+                </div>
+                <div class="text-start col-1">
+                    <span>/</span>
+                </div>
+                <div class="text-start col-3">
+                    <span>Signature _________________________</span>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//p[@t-field='o.notes']" position="replace"></xpath>
+    </template>
+</odoo>

@@ -1,0 +1,23 @@
+<odoo>
+    <record id="view_order_form_ctq" model="ir.ui.view">
+        <field name="name">sale.order.form.ctq</field>
+        <field name="model">sale.order</field>
+        <field name="inherit_id" ref="sale.view_order_form"/>
+        <field name="arch" type="xml">
+            <header position="inside">
+                <button name="new_version" string="Crear versión nueva" type="object" class="btn-primary"
+                        invisible="state not in ['draft', 'sent']"/>
+            </header>
+            <xpath expr="//field[@name='origin']" position="after">
+                <field name="version_number"/>
+                <field name="version_cluster"/>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree/field[@name='name']" position="attributes">
+                <attribute name="widget">html</attribute>
+            </xpath>
+            <xpath expr="//field[@name='order_line']/tree" position="attributes">
+                <attribute name="class">large-description</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

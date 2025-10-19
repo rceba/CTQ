@@ -1,0 +1,91 @@
+<odoo>
+    <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
+        <xpath expr="//td[@name='td_name']/span" position="attributes">
+            <attribute name="t-options-widget">"html"</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_section_line']/span" position="attributes">
+            <attribute name="t-options-widget">"html"</attribute>
+        </xpath>
+        <xpath expr="//td[@name='td_note_line']/span" position="attributes">
+            <attribute name="t-options-widget">"html"</attribute>
+        </xpath>
+        <xpath expr="//t[@t-set='address']" position="replace"/>
+        <xpath expr="//t[@t-set='information_block']/.." position="replace"/>
+        <xpath expr="//div[@id='informations']" position="before">
+            <div class="row mt-4 mb-2" id="partner_number">
+                <div class="col-6" t-field="doc.partner_id"
+                     t-options='{"widget": "contact", "fields": ["address", "name"], "no_marker": True}'/>
+                <div class="col-6 text-end text-black">
+                    <h2 class="mt-4">
+                        <span class="fst-italic fw-bold" t-if="env.context.get('proforma', False) or is_pro_forma">
+                            Pro-Forma Invoice #
+                        </span>
+                        <span class="fst-italic fw-bold" t-elif="doc.state in ['draft','sent']">Quotation No.</span>
+                        <span class="fst-italic fw-bold" t-else="">Order No.</span>
+                        <br/>
+                        <span class="fst-italic fw-bold" t-field="doc.name">SO0000</span>
+                    </h2>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//span[@t-field='doc.name']/.." position="replace"/>
+        <xpath expr="//div[@name='so_total_summary']" position="before">
+            <div class="row mt-4 mb-2">
+                <div t-if="doc.currency_id" class="col-auto col-3 mw-100 mb-2" name="currency_id">
+                    <strong>Moneda:</strong>
+                    <br/>
+                    <span class="m-0" t-field="doc.currency_id">MXN</span>
+                </div>
+                <div t-if="doc.payment_term_id" class="col-auto col-3 mw-100 mb-2" name="payment_term_id">
+                    <strong>Plazos de pago:</strong>
+                    <br/>
+                    <span class="m-0" t-field="doc.payment_term_id">Inmediato</span>
+                </div>
+            </div>
+        </xpath>
+        <xpath expr="//t[@t-foreach='lines_to_report']" position="before">
+            <t t-set="line_count" t-value="1"/>
+        </xpath>
+        <xpath expr="//t[@t-foreach='lines_to_report']" position="inside">
+            <t t-if="not line.display_type">
+                <t t-set="line_count" t-value="line_count + 1"/>
+            </t>
+        </xpath>
+        <xpath expr="//span[@t-field='doc.payment_term_id.note']/.." position="replace"/>
+        <xpath expr="//th[@name='th_description']" position="after">
+            <th name="branch" class="text-start">Branch</th>
+        </xpath>
+        <xpath expr="//th[@name='th_description']" position="before">
+            <th name="line_number" class="text-start">#</th>
+            <th name="imagen" class="text-start">Image</th>
+            <th name="product" class="text-start">Product</th>
+        </xpath>
+        <xpath expr="//td[@name='td_name']" position="after">
+            <td name="branch" class="text-start">
+                <span t-field="line.product_id.categ_id"/>
+            </td>
+        </xpath>
+        <xpath expr="//td[@name='td_name']" position="before">
+            <td name="line_number" class="text-start">
+                <span t-out="line_count"/>
+            </td>
+            <td name="imagen" class="text-start">
+                <t t-if="line.product_id.image_1920">
+                    <img t-att-src="image_data_uri(line.product_id.image_1920)" width="50"/>
+                </t>
+            </td>
+            <td name="imagen" class="text-start">
+                <span t-field="line.product_id"/>
+            </td>
+        </xpath>
+        <xpath expr="//td[@name='td_taxes']" position="replace"/>
+        <xpath expr="//th[@name='th_taxes']" position="replace"/>
+        <xpath expr="//th[@name='th_discount']" position="replace"/>
+        <xpath expr="//span[@t-field='line.discount']/.." position="replace"/>
+        <xpath expr="//th[@name='th_subtotal']" position="replace">
+            <th name="th_subtotal" class="text-end">
+                <span>Subtotal</span>
+            </th>
+        </xpath>
+    </template>
+</odoo>

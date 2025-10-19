@@ -1,0 +1,11 @@
+<odoo noupdate="1">
+    <record id="hr_contract_migration" model="hr.contract">
+        <field name="name">MIG: Contrato por defecto</field>
+        <field name="date_start" eval="time.strftime('%Y')+'-1-1'"/>
+        <field eval="7540.0" name="wage"/>
+        <field name="state">open</field>
+        <field name="kanban_state">normal</field>
+        <field name="resource_calendar_id" ref="resource.resource_calendar_std_38h"/>
+        <field name="hr_responsible_id" ref="base.user_admin"/>
+    </record>
+</odoo>
