@@ -120,7 +120,7 @@
                 <strong>Description</strong>
             </th>
             <th name="th_num_pedimento" class="text-center">
-                <strong>number Request</strong>
+                <strong>Customs Number</strong>
             </th>
         </xpath>
         <xpath expr="//table//tbody//td[@name='account_invoice_line_name']" position="after">
@@ -184,7 +184,7 @@
                     <span t-field="o.currency_id.display_name"/>
                 </div>
                 <div class="col-6">
-                    <span><strong>Communication Payment:</strong><br/></span>
+                    <span><strong>P.O. Reference:</strong><br/></span>
                     <span t-field="o.payment_reference"/>
                 </div>
                 <div class="col-3">
