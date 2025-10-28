@@ -198,6 +198,21 @@
         <xpath expr="//span[@id='payment_terms_note_id']/.." position="replace">
             <br/>
         </xpath>
+        <xpath expr="//tbody[@class='invoice_tbody']//t[contains(@t-elif, 'line_section')]/td/span"
+               position="attributes">
+            <attribute name="t-options">{'widget': 'html'}</attribute>
+        </xpath>
+        <xpath expr="//tbody[@class='invoice_tbody']//t[contains(@t-elif, 'line_note')]/td/span" position="attributes">
+            <attribute name="t-options">{'widget': 'html'}</attribute>
+        </xpath>
+        <xpath expr="//div[@name='reference']" position="replace">
+            <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.partner_id.ref"
+                 name="reference">
+                <strong>Reference:</strong>
+                <br/>
+                <span t-field="o.partner_id.ref">CUST-00001</span>
+            </div>
+        </xpath>
     </template>
     <template id="report_invoice_document_l10n_mx_edi" inherit_id="l10n_mx_edi.report_invoice_document">
         <xpath expr="//div[@name='l10n_mx_edi_payment_method_details']" position="replace">
@@ -218,6 +233,12 @@
 
     <template id="report_invoice_document_l10n_mx_edi_extended" inherit_id="l10n_mx_edi_extended.report_invoice_document">
         <xpath expr="//t[@t-if='custom_numbers']" position="replace">
+        </xpath>
+    </template>
+
+    <template id="stock_account_report_invoice_document_extended" inherit_id="stock_account.stock_account_report_invoice_document">
+        <xpath expr="//t[@t-set='lot_values']" position="replace">
+            <t t-set="lot_values" t-value="False"/>
         </xpath>
     </template>
 </odoo>
