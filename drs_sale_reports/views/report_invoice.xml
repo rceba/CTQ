@@ -206,11 +206,11 @@
             <attribute name="t-options">{'widget': 'html'}</attribute>
         </xpath>
         <xpath expr="//div[@name='reference']" position="replace">
-            <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.partner_id.ref"
+            <div t-attf-class="#{'col-auto col-3 mw-100' if report_type != 'html' else 'col'} mb-2" t-if="o.ref"
                  name="reference">
                 <strong>Reference:</strong>
                 <br/>
-                <span t-field="o.partner_id.ref">CUST-00001</span>
+                <span t-field="o.ref">CUST-00001</span>
             </div>
         </xpath>
     </template>

@@ -18,6 +18,7 @@
         'l10n_mx_edi_extended'
     ],
     "data": [
+        'views/account_move_views.xml',
         'views/paperformat_reports_drs.xml',
         'views/report_saleorder_document.xml',
         'views/purchase_quotation_templates.xml',
