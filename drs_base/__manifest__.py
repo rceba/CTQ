@@ -9,7 +9,12 @@
     "category": "Tools",
     "version": "17.0.1.0.2",
     "depends": ["base", "hr_work_entry", "sale_margin"],
-    "data": ["data/payroll.xml", "views/sale_order_views.xml"],
+    "data": [
+        "data/payroll.xml",
+        "views/sale_order_views.xml",
+        "views/purchase_order_views.xml",
+        "views/account_move_views.xml"
+    ],
     "application": True,
     "installable": True,
     "web.assets_backend": [
