@@ -86,7 +86,7 @@
                 <div class="oe_structure"></div>
                 <t t-set="order_line_count" t-value="1"/>
                 <t t-set="has_long_desc"
-                   t-value="any(line.name and line.name.count('\n') > 30 for line in o.invoice_line_ids if line.name)"/>
+                   t-value="any(line.ctq_name and line.ctq_name.count('\n') > 30 for line in o.invoice_line_ids if line.ctq_name)"/>
                 <table class="table table-sm o_main_table table-borderless" name="invoice_line_table">
                     <thead t-attf-style="#{has_long_desc and 'display: table-row-group;' or ''}">
                         <tr>
@@ -130,7 +130,7 @@
                                         <span t-field="line.product_id.display_name"/>
                                     </td>
                                     <td id="line_description">
-                                        <span t-raw="line.name" t-options="{'widget': 'html'}"/>
+                                        <span t-field="line.ctq_name"/>
                                         <t t-set="custom_numbers" t-value="line._l10n_mx_edi_get_custom_numbers()"/>
                                         <t t-if="custom_numbers">
                                             <br/>Customs:

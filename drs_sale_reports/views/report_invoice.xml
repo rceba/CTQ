@@ -128,7 +128,7 @@
                 <span t-field="line.product_id.unspsc_code_id.code"/>
             </td>
             <td id="line_description">
-                <span t-raw="line.name" t-options="{'widget': 'html'}"/>
+                <span t-field="line.ctq_name"/>
                 <t t-set="custom_numbers" t-value="line._l10n_mx_edi_get_custom_numbers()"/>
                 <t t-if="custom_numbers">
                     <br/>Customs:
