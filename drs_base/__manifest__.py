@@ -7,7 +7,7 @@
     "author": "Drasi Consulting",
     "website": "https://www.drasi.odoo.com",
     "category": "Tools",
-    "version": "17.0.1.0.3",
+    "version": "17.0.1.0.4",
     "depends": ["base", "hr_work_entry", "sale_margin"],
     "data": [
         "data/payroll.xml",

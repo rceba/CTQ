@@ -159,7 +159,7 @@
                                 </t>
                                 <t t-elif="line.display_type == 'line_section'">
                                     <td colspan="99">
-                                        <span t-if="line.name" t-field="line.name" t-options="{'widget': 'html'}">A
+                                        <span t-if="line.name" t-field="line.name">A
                                             section title</span>
                                     </td>
                                     <t t-set="current_section" t-value="line"/>
@@ -167,7 +167,7 @@
                                 </t>
                                 <t t-elif="line.display_type == 'line_note'">
                                     <td colspan="99">
-                                        <span t-if="line.name" t-field="line.name" t-options="{'widget': 'html'}">A
+                                        <span t-if="line.name" t-field="line.name">A
                                             note, whose content usually applies to the section or product above.</span>
                                     </td>
                                 </t>
