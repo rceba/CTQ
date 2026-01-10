@@ -1,7 +1,5 @@
-from odoo import fields, models
+from odoo import models
 
 
 class SaleOrderLine(models.Model):
     _inherit = "sale.order.line"
-
-    name = fields.Html()

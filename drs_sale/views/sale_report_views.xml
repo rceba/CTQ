@@ -1,7 +1,7 @@
 <odoo>
     <template id="report_saleorder_document" inherit_id="sale.report_saleorder_document">
-        <xpath expr="//td[@name='td_name']/span" position="attributes">
-            <attribute name="t-options-widget">"html"</attribute>
+        <xpath expr="//td[@name='td_name']/span" position="replace">
+            <span t-field="line.name">Bacon Burger</span>
         </xpath>
         <xpath expr="//td[@name='td_section_line']/span" position="attributes">
             <attribute name="t-options-widget">"html"</attribute>
