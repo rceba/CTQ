@@ -69,21 +69,13 @@
                     </div>
                 </div>
                 <div id="informations_extra" class="row mt-3 mb-1">
-                    <div class="col-3 mw-100 mb-2" t-if="o.foreign_payment_method_id">
-                        <strong><span style="color: black !important;">Payment type:</span></strong><br/>
-                        <span t-field="o.foreign_payment_method_id"/>
-                    </div>
-                    <div class="col-3 mw-100 mb-2" t-else="">
-                        <strong><span style="color: black !important;">Payment Type:</span></strong><br/>
-                        <span t-field="o.l10n_mx_edi_payment_method_id"/>
-                    </div>
                     <div class="col-3 mw-100 mb-2">
                         <strong><span style="color: black !important;">Payment terms:</span></strong><br/>
                         <span t-field="o.invoice_payment_term_id.display_name"/>
                     </div>
                 </div>
                 <t t-set="display_discount" t-value="any(l.discount for l in o.invoice_line_ids)"/>
-                <div class="oe_structure"></div>
+                <div class="oe_structure"/>
                 <t t-set="order_line_count" t-value="1"/>
                 <t t-set="has_long_desc"
                    t-value="any(line.name and line.name.count('\n') > 30 for line in o.invoice_line_ids if line.name)"/>
@@ -190,9 +182,8 @@
                 </table>
                 <div>
                     <div class="row">
-                        <div class="col-7"></div>
-                        <div id="right-elements"
-                             t-attf-class="col-5">
+                        <div class="col-7"/>
+                        <div id="right-elements" t-attf-class="col-5">
                             <div id="total" class="clearfix row">
                                 <div class="ms-auto">
                                     <table class="table table-sm table-borderless avoid-page-break-inside">

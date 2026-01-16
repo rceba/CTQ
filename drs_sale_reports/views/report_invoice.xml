@@ -74,7 +74,7 @@
                     <strong><span>Payment Way:</span></strong><br/>
                     <span t-out="o.l10n_mx_edi_payment_method_id.display_name"/>
                 </div>
-                <div class="col-3 mw-100 mb-2">
+                <div class="col-3 mw-100 mb-2" t-if="o.l10n_mx_edi_usage">
                     <strong><span>Usage:</span></strong><br/>
                     <span t-out="dict(o.fields_get(allfields=['l10n_mx_edi_usage'])['l10n_mx_edi_usage']['selection'])[o.l10n_mx_edi_usage]"/>
                 </div>
@@ -213,6 +213,7 @@
                 <span t-field="o.ref">CUST-00001</span>
             </div>
         </xpath>
+        <xpath expr="//t[@t-call='account.document_tax_totals_company_currency_template']" position="replace"/>
     </template>
     <template id="report_invoice_document_l10n_mx_edi" inherit_id="l10n_mx_edi.report_invoice_document">
         <xpath expr="//div[@name='l10n_mx_edi_payment_method_details']" position="replace">
@@ -233,12 +234,6 @@
 
     <template id="report_invoice_document_l10n_mx_edi_extended" inherit_id="l10n_mx_edi_extended.report_invoice_document">
         <xpath expr="//t[@t-if='custom_numbers']" position="replace">
-        </xpath>
-    </template>
-
-    <template id="stock_account_report_invoice_document_extended" inherit_id="stock_account.stock_account_report_invoice_document">
-        <xpath expr="//t[@t-set='lot_values']" position="replace">
-            <t t-set="lot_values" t-value="False"/>
         </xpath>
     </template>
 </odoo>
