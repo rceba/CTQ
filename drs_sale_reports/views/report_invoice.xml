@@ -119,9 +119,6 @@
             <th name="th_description" class="text-center">
                 <strong>Description</strong>
             </th>
-            <th name="th_num_pedimento" class="text-center">
-                <strong>Customs Number</strong>
-            </th>
         </xpath>
         <xpath expr="//table//tbody//td[@name='account_invoice_line_name']" position="after">
             <td id="line_code_sat">
@@ -140,9 +137,6 @@
                         </t>
                     </ul>
                 </t>
-            </td>
-            <td id="td_num_pedimento">
-                <span t-esc="o.x_studio_customs_number"/>
             </td>
         </xpath>
         <xpath expr="//table//th[@name='th_quantity']" position="attributes">
