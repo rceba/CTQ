@@ -119,9 +119,6 @@
             <th name="th_description" class="text-center">
                 <strong>Description</strong>
             </th>
-            <th name="th_num_pedimento" class="text-center">
-                <strong>Customs Number</strong>
-            </th>
         </xpath>
         <xpath expr="//table//tbody//td[@name='account_invoice_line_name']" position="after">
             <td id="line_code_sat">
@@ -140,9 +137,6 @@
                         </t>
                     </ul>
                 </t>
-            </td>
-            <td id="td_num_pedimento">
-                <span t-esc="o.x_studio_customs_number"/>
             </td>
         </xpath>
         <xpath expr="//table//th[@name='th_quantity']" position="attributes">
@@ -214,6 +208,17 @@
             </div>
         </xpath>
         <xpath expr="//t[@t-call='account.document_tax_totals_company_currency_template']" position="replace"/>
+        <xpath expr="//table//th[@name='th_quantity']" position="before">
+            <th name="th_analytic" class="text-end"><span>ANAC</span></th>
+        </xpath>
+        <xpath expr="//table//tbody//td[@name='td_quantity']" position="before">
+            <td name="td_analytic" class="text-center">
+                <t t-foreach="line.distribution_analytic_account_ids" t-as="analytic">
+                    <span t-field="analytic.display_name"/>
+                    <br/>
+                </t>
+            </td>
+        </xpath>
     </template>
     <template id="report_invoice_document_l10n_mx_edi" inherit_id="l10n_mx_edi.report_invoice_document">
         <xpath expr="//div[@name='l10n_mx_edi_payment_method_details']" position="replace">
