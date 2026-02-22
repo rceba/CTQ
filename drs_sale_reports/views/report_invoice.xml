@@ -186,7 +186,7 @@
                 </div>
                 <div class="col-3">
                     <span><strong>Exchange rate:</strong><br/></span>
-                    <span t-field="o.currency_id.inverse_rate"/>
+                    <span t-field="o.currency_id.with_context(date=o.invoice_date).inverse_rate"/>
                 </div>
             </div>
         </xpath>
